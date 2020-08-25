@@ -6,26 +6,30 @@ namespace AutoSchedule
 {
     public enum SessionType
     {
-        Lecture,
-        Tutorial,
+        Lecture = 0,
+        Tutorial = 1,
     }
 
-    class Session
+    /// <summary>
+    /// A base class of actual class sessions.
+    /// </summary>
+    internal class Session
     {
         public readonly SessionType sessionType;
 
-        public readonly DateTime time;
+        public List<SessionTime> classTimes;
 
         public readonly string instructor;
 
         public readonly string code;
 
-        public Session(SessionType sessionType, string code, string instructor, DateTime time)
+        public Session(
+            SessionType sessionType, string code, string instructor, List<SessionTime> sessionTimes)
         {
             this.sessionType = sessionType;
             this.code = code;
             this.instructor = instructor;
-            this.time = time;
+            this.classTimes = sessionTimes;
         }
     }
 }

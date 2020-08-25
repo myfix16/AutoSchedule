@@ -8,11 +8,13 @@ namespace AutoSchedule
     {
         static void Main(string[] args)
         {
-            // ToDo: Retrieve class data from OCR outcome.
+            // TODO: Retrieve class data from OCR outcome.
             List<Class> allClasses = null;
 
-            // Generate all possilbe solutions.
-            var allEnrollments = ClassSelector.Enroll(allClasses);
+            // Generate all possible solutions.
+            var weightedAllClasses = allClasses.OrderByDescending(c => c.weight).ToList();
+
+            var allEnrollments = ClassSelector.Enroll(weightedAllClasses);
 
             // Something else.
         }
