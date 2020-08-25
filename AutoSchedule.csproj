@@ -5,4 +5,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="MyToolLibrary.Copy">
+      <HintPath>..\..\Scripts\ScriptCS\MyToolLibrary\MyToolLibrary.Copy\bin\Release\netcoreapp3.1\MyToolLibrary.Copy.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
 </Project>

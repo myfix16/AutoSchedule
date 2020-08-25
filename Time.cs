@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 
 namespace AutoSchedule
 {
+    [Serializable]
     public struct Time : IComparable<Time>, IEquatable<Time>
     {
         public readonly int hour;

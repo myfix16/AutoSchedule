@@ -7,12 +7,13 @@ namespace AutoSchedule
     /// <summary>
     /// Actual tutorial session.
     /// </summary>
+    [Serializable]
     internal class TutorialSession : Session
     {
-        public TutorialSession(string code, string instructor, List<SessionTime> classTimes)
-            : base(SessionType.Tutorial, code, instructor, classTimes)
+        public TutorialSession(string name, string code, string instructor, List<SessionTime> sessionTimes)
+            : base(SessionType.Tutorial, name, code, instructor, sessionTimes)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

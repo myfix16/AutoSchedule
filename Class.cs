@@ -7,9 +7,10 @@ namespace AutoSchedule
     /// <summary>
     /// Represents a macro class like CSC1001.
     /// </summary>
+    [Serializable]
     internal class Class
     {
-        public readonly string code;
+        public readonly string name;
 
         public readonly string teacher;
 
@@ -22,9 +23,9 @@ namespace AutoSchedule
         /// </summary>
         public int weight;
 
-        public Class(string code, string teacher, int weight = 1)
+        public Class(string name, string teacher, int weight = 1)
         {
-            this.code = code;
+            this.name = name;
             this.teacher = teacher;
             this.weight = weight;
         }
