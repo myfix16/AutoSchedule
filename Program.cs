@@ -14,7 +14,7 @@ namespace AutoSchedule
             {
                 new Class("FIN2020", "someone")
                 {
-                    lectures = new List<LectureSession>
+                    SubSessions = new List<LectureSession>
                     {
                         new LectureSession
                             ("L01","1841","staff",
@@ -27,7 +27,7 @@ namespace AutoSchedule
                 },
                 new Class("MAT2040", "another one")
                 {
-                    lectures = new List<LectureSession>
+                    SubSessions = new List<LectureSession>
                     {
                         new LectureSession
                             ("L01","1515","staff",
@@ -47,7 +47,7 @@ namespace AutoSchedule
                 },
                 new Class("ECO3121", "the third one")
                 {
-                    lectures = new List<LectureSession>
+                    SubSessions = new List<LectureSession>
                     {
                         new LectureSession
                             ("L01","1437","staff",
@@ -67,7 +67,7 @@ namespace AutoSchedule
                 },
                 new Class("GFH1000", "the fourth one")
                 {
-                    lectures = new List<LectureSession>
+                    SubSessions = new List<LectureSession>
                     {
                         new LectureSession
                             ("L01","1210","staff",
@@ -87,10 +87,13 @@ namespace AutoSchedule
             // Generate all possible solutions.
             var weightedAllClasses = allClasses.OrderByDescending(c => c.weight).ToList();
 
-            ClassSelector.FindSchedules(weightedAllClasses).ForEach(Console.WriteLine);
+            var tutorials =
+            ClassSelector.FindLectures(weightedAllClasses)
+                         .ForEachObject(Console.WriteLine)
+                         .Map(ClassSelector.FindTutorials)
+                         .ToList();
 
-
-            var tmp = ClassSelector.Enroll3(weightedAllClasses, new Schedule());
+            Console.WriteLine("Hello World!");
 
             // TODO: Something else.
         }

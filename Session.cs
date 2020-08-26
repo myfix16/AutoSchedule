@@ -14,7 +14,7 @@ namespace AutoSchedule
     /// A base class of actual class sessions.
     /// </summary>
     [Serializable]
-    internal class Session
+    public class Session
     {
         public readonly SessionType sessionType;
 

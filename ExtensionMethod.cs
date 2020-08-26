@@ -29,5 +29,17 @@ namespace AutoSchedule
             return (success) ? outcome : throw new ArgumentException("No such element.");
         }
 
+        public static IEnumerable<T> ForEachObject<T>(this IEnumerable<T> collection, Action<T> predicate)
+        {
+            foreach (var item in collection)
+            {
+                predicate(item);
+            }
+
+            return collection;
+        }
+
+        public static TResult Map<T, TResult>(this T element, Func<T, TResult> predicate) 
+            => predicate(element);
     }
 }

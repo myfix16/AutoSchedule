@@ -8,7 +8,7 @@ namespace AutoSchedule
     /// Actual tutorial session.
     /// </summary>
     [Serializable]
-    internal class TutorialSession : Session
+    public class TutorialSession : Session
     {
         public TutorialSession(string name, string code, string instructor, List<SessionTime> sessionTimes)
             : base(SessionType.Tutorial, name, code, instructor, sessionTimes)

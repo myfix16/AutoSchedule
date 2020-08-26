@@ -9,13 +9,15 @@ namespace AutoSchedule
     /// A schedule that contains all class selected.
     /// </summary>
     [Serializable]
-    internal class Schedule
+    internal class Schedule : IContainsSessions<Session,Schedule>
     {
-        public List<Session> sessions;
+        public List<Session> SubSessions { get; set; }
+
+        public SessionType CointainedSessionType { get; set; }
 
         public Schedule()
         {
-            sessions = new List<Session>();
+            SubSessions = new List<Session>();
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace AutoSchedule
         /// <returns></returns>
         public bool Validate(Session newSession)
         {
-            foreach (var session in sessions)
+            foreach (var session in SubSessions)
             {
                 if (session.HasConflictSession(newSession))
                     return false;
@@ -39,15 +41,16 @@ namespace AutoSchedule
         /// Add a new session into the schedule.
         /// </summary>
         /// <returns>Whether add is successful.</returns>
-        public void AddSession(Session newSession) => sessions.Add(newSession);
+        public void AddSession(Session newSession) => SubSessions.Add(newSession);
 
-        public Schedule WithAdded(Session newSession)
+        public Schedule WithAdded(Session element)
         {
             var newSchedule = DeepCopySerialization.DeepCopy(this);
-            newSchedule.AddSession(newSession);
+            newSchedule.AddSession(element);
             return newSchedule;
         }
 
+        #region not used for now
         /// <summary>
         /// Drop a session from the schedule.
         /// </summary>
@@ -55,22 +58,24 @@ namespace AutoSchedule
         /// <returns>true if drop is successful, false otherwise.</returns>
         public bool DropSession(string sessionCode)
         {
-            var sessionToDelete = sessions.Find(s => s.code == sessionCode);
+            var sessionToDelete = SubSessions.Find(s => s.code == sessionCode);
             if (sessionToDelete == null) return false;
             else
             {
-                sessions.Remove(sessionToDelete);
+                SubSessions.Remove(sessionToDelete);
                 return true;
             }
         }
 
-        public bool DropSession(Session session) => sessions.Remove(session);
+        public bool DropSession(Session session) => SubSessions.Remove(session);
 
         public override string ToString()
         {
             var outcome = string.Empty;
-            sessions.ForEach(s => outcome += (s.code + " "));
+            SubSessions.ForEach(s => outcome += (s.code + " "));
             return outcome;
         }
+        #endregion
+
     }
 }

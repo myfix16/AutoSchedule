@@ -8,15 +8,14 @@ namespace AutoSchedule
     /// Represents a macro class like CSC1001.
     /// </summary>
     [Serializable]
-    internal class Class
+    public class Class : IContainsSessions<LectureSession, Class>
     {
         public readonly string name;
 
         public readonly string teacher;
 
-        public List<LectureSession> lectures;
-
-        public List<TutorialSession> tutorials;
+        public List<LectureSession> SubSessions { get; set; }
+        //public List<LectureSession> lectures;
 
         /// <summary>
         /// The weight of one class. It decides the priority of one class in enrollment.
@@ -28,6 +27,16 @@ namespace AutoSchedule
             this.name = name;
             this.teacher = teacher;
             this.weight = weight;
+        }
+
+        public Class WithAdded(LectureSession element)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Validate(LectureSession newSession)
+        {
+            throw new NotImplementedException();
         }
     }
 }
