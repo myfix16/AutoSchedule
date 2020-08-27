@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AutoSchedule
 {
@@ -30,7 +29,7 @@ namespace AutoSchedule
 
         public readonly string name;
 
-        public Session(SessionType sessionType, string name, string code, string instructor, 
+        public Session(SessionType sessionType, string name, string code, string instructor,
                        List<SessionTime> sessionTimes)
         {
             this.sessionType = sessionType;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using MyToolLibrary.Copy;
 
 namespace AutoSchedule
@@ -9,15 +10,16 @@ namespace AutoSchedule
     /// A schedule that contains all class selected.
     /// </summary>
     [Serializable]
-    internal class Schedule : IContainsSessions<Session,Schedule>
+    internal class Schedule : IContainsSessions<Session, Schedule>
     {
         public List<Session> SubSessions { get; set; }
 
         public SessionType CointainedSessionType { get; set; }
 
-        public Schedule()
+#nullable enable
+        public Schedule(List<Session>? sessions)
         {
-            SubSessions = new List<Session>();
+            SubSessions = sessions ?? new List<Session>();
         }
 
         /// <summary>

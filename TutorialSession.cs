@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AutoSchedule
 {
@@ -13,7 +12,7 @@ namespace AutoSchedule
         public TutorialSession(string name, string code, string instructor, List<SessionTime> sessionTimes)
             : base(SessionType.Tutorial, name, code, instructor, sessionTimes)
         {
-            
+
         }
     }
 }

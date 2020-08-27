@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AutoSchedule
 {
@@ -8,14 +7,14 @@ namespace AutoSchedule
     /// Actual lecture session.
     /// </summary>
     [Serializable]
-    public class LectureSession : Session,IContainsSessions<TutorialSession,LectureSession>
+    public class LectureSession : Session, IContainsSessions<TutorialSession, LectureSession>
     {
         public List<TutorialSession> SubSessions { get; set; }
 
         public LectureSession(string name, string code, string instructor, List<SessionTime> sessionTimes)
             : base(SessionType.Lecture, name, code, instructor, sessionTimes)
         {
-            
+
         }
 
         public bool Validate(TutorialSession newSession)

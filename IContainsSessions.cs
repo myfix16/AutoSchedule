@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace AutoSchedule
 {
-    public interface IContainsSessions<TSession, out TResult>
+    public interface IContainsSessions<TSession, out TContainer>
         where TSession : Session
     {
         public List<TSession> SubSessions { get; set; }
 
-        public TResult WithAdded(TSession element);
+        //public TContainer WithAdded(TSession element);
 
-        public bool Validate(TSession newSession);
+        //public bool Validate(TSession newSession);
     }
 }

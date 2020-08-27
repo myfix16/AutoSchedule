@@ -1,44 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 
 namespace AutoSchedule
 {
     [Serializable]
     static class ClassSelector
     {
-        /// <summary>
-        /// Find all possible class schedules.
-        /// </summary>
-        /// <param name="allClasses"></param>
-        /// <param name="currentSchedule"></param>
-        /// <returns>A list of all schedules.</returns>
-        //public static List<Schedule> FindLectureSchedules(IEnumerable<Class> allClasses)
-        //{
-        //    var outcome = new List<Schedule>();
-
-        //    void Enroll(IEnumerable<Class> allClasses, Schedule currentSchedule)
-        //    {
-        //        if (allClasses.Count() == 0)
-        //        {
-        //            outcome.Add(currentSchedule);
-        //        }
-        //        else
-        //        {
-        //            foreach (var session in allClasses.First().lectures.Where(l => currentSchedule.Validate(l)))
-        //            {
-        //                Enroll(allClasses.Skip(1), currentSchedule.WithAdded(session));
-        //            }
-        //        }
-        //    }
-
-        //    Enroll(allClasses, new Schedule());
-
-        //    return outcome;
-        //}
-
-        private static List<Schedule> FindSchedules<TSession, TContainer>(IEnumerable<TContainer> sessionContainer)
+#nullable enable
+        private static List<Schedule> FindSchedules<TSession, TContainer>
+            (IEnumerable<TContainer> sessionContainer, bool selectingTut = false)
 
             where TContainer : IContainsSessions<TSession, TContainer>
             where TSession : Session
@@ -62,7 +34,7 @@ namespace AutoSchedule
                 }
             }
 
-            Enroll(sessionContainer, new Schedule());
+            Enroll(sessionContainer, new Schedule(selectingTut ? sessionContainer : null));
 
             return outcome;
         }
@@ -74,11 +46,14 @@ namespace AutoSchedule
         {
             foreach (var schedule in allSchedules)
             {
+                // Revert Session into LectureSession.
+                // ? There might be some cooler method.
                 var lectureCollections = new List<LectureSession>();
 
                 foreach (var item in schedule.SubSessions)
                 {
-                    lectureCollections.Add(item as LectureSession);
+                    //lectureCollections.Add(item as LectureSession);
+                    lectureCollections.Add((LectureSession)item);
                 }
 
                 yield return FindSchedules<TutorialSession, LectureSession>(lectureCollections);

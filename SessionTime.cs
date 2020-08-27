@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AutoSchedule
 {
@@ -39,7 +37,7 @@ namespace AutoSchedule
             EndTimeFromMon = endTime.totalMinutes + ((int)dayOfWeek - 1) * 24 * 60;
         }
 
-        public bool ConflictWith(SessionTime sessionTime2) 
+        public bool ConflictWith(SessionTime sessionTime2)
             => !(StartTimeFromMon > sessionTime2.EndTimeFromMon
                  || EndTimeFromMon < sessionTime2.StartTimeFromMon);
     }

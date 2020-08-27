@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoSchedule
 {
@@ -22,7 +22,18 @@ namespace AutoSchedule
                             {
                                 new SessionTime(DayOfWeek.Tuesday,new Time(8,30),new Time(9,50)),
                                 new SessionTime(DayOfWeek.Thursday,new Time(8,30),new Time(9,50)),
-                            }),
+                            })
+                        {
+                            SubSessions=new List<TutorialSession>
+                            {
+                                new TutorialSession
+                                    ("T01","1843","staff",
+                                    new List<SessionTime>
+                                    {
+                                        new SessionTime(DayOfWeek.Wednesday,new Time(18,00),new Time(18,50))
+                                    })
+                            }
+                        },
                     }
                 },
                 new Class("MAT2040", "another one")
@@ -35,14 +46,18 @@ namespace AutoSchedule
                             {
                                 new SessionTime(DayOfWeek.Monday,new Time(8,30),new Time(9,50)),
                                 new SessionTime(DayOfWeek.Wednesday,new Time(8,30),new Time(9,50)),
-                            }),
-                        new LectureSession
-                            ("L01Copy","1515Copy","staff",
-                            new List<SessionTime>
+                            })
+                        {
+                            SubSessions=new List<TutorialSession>
                             {
-                                new SessionTime(DayOfWeek.Monday,new Time(8,30),new Time(9,50)),
-                                new SessionTime(DayOfWeek.Wednesday,new Time(8,30),new Time(9,50)),
-                            }),
+                                new TutorialSession
+                                    ("T01","1519","staff",
+                                    new List<SessionTime>
+                                    {
+                                        new SessionTime(DayOfWeek.Monday,new Time(19,00),new Time(19,50))
+                                    })
+                            }
+                        },
                     }
                 },
                 new Class("ECO3121", "the third one")
@@ -55,14 +70,18 @@ namespace AutoSchedule
                             {
                                 new SessionTime(DayOfWeek.Tuesday,new Time(13,30),new Time(14,50)),
                                 new SessionTime(DayOfWeek.Thursday,new Time(13,30),new Time(14,50)),
-                            }),
-                        new LectureSession
-                            ("L01Copy","1437Copy","staff",
-                            new List<SessionTime>
+                            })
+                        {
+                            SubSessions =new List<TutorialSession>
                             {
-                                new SessionTime(DayOfWeek.Tuesday,new Time(13,30),new Time(14,50)),
-                                new SessionTime(DayOfWeek.Thursday,new Time(13,30),new Time(14,50)),
-                            }),
+                                new TutorialSession
+                                    ("T01","1439","staff",
+                                    new List<SessionTime>
+                                    {
+                                        new SessionTime(DayOfWeek.Tuesday,new Time(20,00),new Time(20,50))
+                                    })
+                            }
+                        },
                     }
                 },
                 new Class("GFH1000", "the fourth one")
@@ -74,7 +93,18 @@ namespace AutoSchedule
                             new List<SessionTime>
                             {
                                 new SessionTime(DayOfWeek.Friday,new Time(13,00),new Time(13,50)),
-                            }),
+                            })
+                        {
+                            SubSessions = new List<TutorialSession>
+                            {
+                                new TutorialSession
+                                    ("T14","1232","staff",
+                                    new List<SessionTime>
+                                    {
+                                        new SessionTime(DayOfWeek.Monday,new Time(10,30),new Time(12,20))
+                                    }),
+                            }
+                        },
                     }
                 },
             };
@@ -87,11 +117,23 @@ namespace AutoSchedule
             // Generate all possible solutions.
             var weightedAllClasses = allClasses.OrderByDescending(c => c.weight).ToList();
 
+            Console.WriteLine("Lectures:");
+
             var tutorials =
             ClassSelector.FindLectures(weightedAllClasses)
                          .ForEachObject(Console.WriteLine)
                          .Map(ClassSelector.FindTutorials)
                          .ToList();
+
+            Console.WriteLine();
+            Console.WriteLine("Tutorials:");
+
+            foreach (var solutionForOneLectureCombination in tutorials)
+            {
+                Console.WriteLine("****************");
+                solutionForOneLectureCombination.ForEach(Console.WriteLine);
+                Console.WriteLine("****************");
+            }
 
             Console.WriteLine("Hello World!");
 

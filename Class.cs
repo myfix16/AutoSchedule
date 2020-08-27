@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AutoSchedule
 {
@@ -15,7 +14,6 @@ namespace AutoSchedule
         public readonly string teacher;
 
         public List<LectureSession> SubSessions { get; set; }
-        //public List<LectureSession> lectures;
 
         /// <summary>
         /// The weight of one class. It decides the priority of one class in enrollment.

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="AutoSchedule.Class" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+  <Class Name="AutoSchedule.Class" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="5.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAEAAAgAAAAAEABAAA=</HashCode>
       <FileName>Class.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSchedule.Program" Collapsed="true">
     <Position X="5.75" Y="1.5" Width="1.5" />
@@ -15,13 +15,13 @@
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AutoSchedule.Schedule" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="1.5" Width="1.5" />
+  <Class Name="AutoSchedule.Schedule" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAEAAAAIEAIAAAABAAAAAAAAEAAAAA=</HashCode>
       <FileName>Schedule.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSchedule.Session">
     <Position X="1.5" Y="0.5" Width="2.5" />
@@ -48,7 +48,7 @@
   <Class Name="AutoSchedule.ExtensionMethod" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAACAAAIBAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>ExtensionMethod.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -65,9 +65,9 @@
       <HashCode>AAAAAABAAAAAAAQAgACAAgAAAAAAAAAAAAAiAAAABQA=</HashCode>
       <FileName>Time.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Struct>
-  <Interface Name="AutoSchedule.IContainsSessions&lt;TSession, TResult&gt;" Collapsed="true">
+  <Interface Name="AutoSchedule.IContainsSessions&lt;TSession, TContainer&gt;" Collapsed="true">
     <Position X="5.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
@@ -75,7 +75,7 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="AutoSchedule.SessionType" Collapsed="true">
-    <Position X="5.75" Y="5" Width="1.5" />
+    <Position X="7.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Session.cs</FileName>
