@@ -1,81 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="AutoSchedule.Class" BaseTypeListCollapsed="true">
-    <Position X="2.5" Y="5.25" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAEAAAgAAAAAEABAAA=</HashCode>
-      <FileName>Class.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="AutoSchedule.Program" Collapsed="true">
-    <Position X="5.75" Y="1.5" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AutoSchedule.Schedule" BaseTypeListCollapsed="true">
-    <Position X="5.75" Y="5.25" Width="3" />
+  <Class Name="AutoSchedule.Schedule" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAEAAAAIEAIAAAABAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAABAAAAIAAgAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Schedule.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="AutoSchedule.Session">
-    <Position X="1.5" Y="0.5" Width="2.5" />
+  <Class Name="AutoSchedule.Session" Collapsed="true">
+    <Position X="3.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAQAAAAAAAAAAAAAAAAAIAAEAAAAAAAAAABEAAA=</HashCode>
+      <HashCode>ACIAAAQAAAAAAAAEAAAAAAAAIAAEAAAAAAAAAABEAAA=</HashCode>
       <FileName>Session.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AutoSchedule.LectureSession">
-    <Position X="0.5" Y="3.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
-      <FileName>LectureSession.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="AutoSchedule.TutorialSession">
-    <Position X="3" Y="3.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>TutorialSession.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="AutoSchedule.ExtensionMethod" Collapsed="true">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+    <Position X="1.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAIBAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAIBAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>ExtensionMethod.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="AutoSchedule.SessionTime" Collapsed="true">
-    <Position X="5.75" Y="2.75" Width="1.5" />
+    <Position X="1.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAAAAAAAAIAAgAAAAAAAEAQAQAAA=</HashCode>
       <FileName>SessionTime.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AutoSchedule.Time" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="2.75" Width="1.5" />
+    <Position X="3.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAQAgACAAgAAAAAAAAAAAAAiAAAABQA=</HashCode>
       <FileName>Time.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
-  <Interface Name="AutoSchedule.IContainsSessions&lt;TSession, TContainer&gt;" Collapsed="true">
-    <Position X="5.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
-      <FileName>IContainsSessions.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="AutoSchedule.SessionType" Collapsed="true">
-    <Position X="7.5" Y="4" Width="1.5" />
+    <Position X="1.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Session.cs</FileName>

@@ -10,17 +10,11 @@ namespace AutoSchedule
     /// A schedule that contains all class selected.
     /// </summary>
     [Serializable]
-    internal class Schedule : IContainsSessions<Session, Schedule>
+    internal class Schedule
     {
-        public List<Session> SubSessions { get; set; }
+        public List<Session> Lectures { get; set; } = new List<Session>();
 
-        public SessionType CointainedSessionType { get; set; }
-
-#nullable enable
-        public Schedule(List<Session>? sessions)
-        {
-            SubSessions = sessions ?? new List<Session>();
-        }
+        public List<Session> Tutorials { get; set; } = new List<Session>();
 
         /// <summary>
         /// Validate whether one session can be successfully added. 
@@ -28,9 +22,26 @@ namespace AutoSchedule
         /// </summary>
         /// <param name="newClass"></param>
         /// <returns></returns>
+        public static bool Validate(Session newSession, IEnumerable<Session> existingSessions)
+        {
+            foreach (var session in existingSessions)
+            {
+                if (session.HasConflictSession(newSession))
+                    return false;
+            }
+
+            return true;
+        }
+
         public bool Validate(Session newSession)
         {
-            foreach (var session in SubSessions)
+            foreach (var session in newSession.sessionType switch
+                {
+                    SessionType.Lecture => Lectures,
+                    SessionType.Tutorial => Tutorials,
+                    _ => throw new NotImplementedException()
+                })
+
             {
                 if (session.HasConflictSession(newSession))
                     return false;
@@ -43,7 +54,20 @@ namespace AutoSchedule
         /// Add a new session into the schedule.
         /// </summary>
         /// <returns>Whether add is successful.</returns>
-        public void AddSession(Session newSession) => SubSessions.Add(newSession);
+        public static void AddSession(Session newSession, List<Session> existingSessions)
+            => existingSessions.Add(newSession);
+
+        public void AddSession(Session newSession)
+        {
+            var target = newSession.sessionType switch
+            {
+                SessionType.Lecture => Lectures,
+                SessionType.Tutorial => Tutorials,
+                _ => throw new NotImplementedException()
+            };
+
+            target.Add(newSession);
+        }
 
         public Schedule WithAdded(Session element)
         {
@@ -51,33 +75,5 @@ namespace AutoSchedule
             newSchedule.AddSession(element);
             return newSchedule;
         }
-
-        #region not used for now
-        /// <summary>
-        /// Drop a session from the schedule.
-        /// </summary>
-        /// <param name="sessionCode"></param>
-        /// <returns>true if drop is successful, false otherwise.</returns>
-        public bool DropSession(string sessionCode)
-        {
-            var sessionToDelete = SubSessions.Find(s => s.code == sessionCode);
-            if (sessionToDelete == null) return false;
-            else
-            {
-                SubSessions.Remove(sessionToDelete);
-                return true;
-            }
-        }
-
-        public bool DropSession(Session session) => SubSessions.Remove(session);
-
-        public override string ToString()
-        {
-            var outcome = string.Empty;
-            SubSessions.ForEach(s => outcome += (s.code + " "));
-            return outcome;
-        }
-        #endregion
-
     }
 }

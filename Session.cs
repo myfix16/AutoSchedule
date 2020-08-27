@@ -29,6 +29,8 @@ namespace AutoSchedule
 
         public readonly string name;
 
+        public List<string> CorrespondingSessionAvailable { get; set; }
+
         public Session(SessionType sessionType, string name, string code, string instructor,
                        List<SessionTime> sessionTimes)
         {
@@ -38,6 +40,8 @@ namespace AutoSchedule
             this.instructor = instructor;
             this.sessionTimes = sessionTimes;
         }
+
+        public override string ToString() => $"{name} {code} {instructor}";
 
         /// <summary>
         /// Judge whether a new session will have conflict with original sessions.
