@@ -31,7 +31,5 @@ namespace AutoSchedule.Core.Models
 
             return outcome;
         }
-
-        // TODO: Display the class schedule
     }
 }

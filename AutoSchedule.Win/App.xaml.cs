@@ -46,7 +46,12 @@ namespace AutoSchedule.Win
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.TabViewPage));
+            return new ActivationService(this, typeof(Views.MainPage), new Lazy<UIElement>(CreateShell));
+        }
+
+        private UIElement CreateShell()
+        {
+            return new Views.ShellPage();
         }
     }
 }

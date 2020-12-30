@@ -27,6 +27,12 @@
     <!-- Add your application specific runtime directives here. -->
 
 
+    <Type Name="Windows.Foundation.TypedEventHandler{Microsoft.UI.Xaml.Controls.NavigationView,Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs}" MarshalObject="Public" />
+
+    <Type Name="Microsoft.UI.Xaml.Controls.NavigationView">
+      <Event Name="ItemInvoked" Dynamic="Required"/>
+    </Type>
+
     <Type Name="Windows.Foundation.TypedEventHandler{Microsoft.UI.Xaml.Controls.TabView,Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs}" MarshalObject="Public" />
 
     <Type Name="Microsoft.UI.Xaml.Controls.TabView">

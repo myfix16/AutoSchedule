@@ -9,7 +9,7 @@ using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace AutoSchedule.Win.ViewModels
 {
-    public class TabViewViewModel : Observable
+    public class ScheduleViewModel : Observable
     {
         private RelayCommand _addTabCommand;
         private RelayCommand<WinUI.TabViewTabCloseRequestedEventArgs> _closeTabCommand;
@@ -41,7 +41,7 @@ namespace AutoSchedule.Win.ViewModels
             }
         };
 
-        public TabViewViewModel()
+        public ScheduleViewModel()
         {
         }
 

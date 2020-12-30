@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using AutoSchedule.Win.Activation;
 
 using Windows.ApplicationModel.Activation;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace AutoSchedule.Win.Services
 {
@@ -22,10 +20,6 @@ namespace AutoSchedule.Win.Services
         private Lazy<UIElement> _shell;
 
         private object _lastActivationArgs;
-
-        public static readonly KeyboardAccelerator AltLeftKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu);
-
-        public static readonly KeyboardAccelerator BackKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.GoBack);
 
         public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
         {
@@ -48,10 +42,6 @@ namespace AutoSchedule.Win.Services
                 {
                     // Create a Shell or Frame to act as the navigation context
                     Window.Current.Content = _shell?.Value ?? new Frame();
-                    NavigationService.NavigationFailed += (sender, e) =>
-                    {
-                        throw e.Exception;
-                    };
                 }
             }
 
@@ -68,24 +58,6 @@ namespace AutoSchedule.Win.Services
                 // Tasks after activation
                 await StartupAsync();
             }
-        }
-
-        private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
-        {
-            var keyboardAccelerator = new KeyboardAccelerator() { Key = key };
-            if (modifiers.HasValue)
-            {
-                keyboardAccelerator.Modifiers = modifiers.Value;
-            }
-
-            keyboardAccelerator.Invoked += OnKeyboardAcceleratorInvoked;
-            return keyboardAccelerator;
-        }
-
-        private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-        {
-            var result = NavigationService.GoBack();
-            args.Handled = result;
         }
 
         private async Task InitializeAsync()
