@@ -47,6 +47,13 @@ namespace AutoSchedule.Core.Models
             private set { endTimeFromMon = value; }
         }
 
+        public SessionTime()
+        {
+            DayOfWeek = DayOfWeek.Monday;
+            StartTime = new Time();
+            EndTime = new Time();
+        }
+
         [JsonConstructor]
         public SessionTime(DayOfWeek dayOfWeek, Time startTime, Time endTime)
         {

@@ -22,6 +22,9 @@
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.CloseTabCommand}" />
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
+        <winui:TabView.Resources>
+            <Thickness x:Key="TabViewHeaderPadding">0,5,0,0</Thickness>
+        </winui:TabView.Resources>
         <winui:TabView.TabItemTemplate>
             <DataTemplate x:DataType="models:TabViewItemData">
                 <winui:TabViewItem
@@ -38,5 +41,8 @@
                 </winui:TabViewItem>
             </DataTemplate>
         </winui:TabView.TabItemTemplate>
+        <Grid>
+            <Frame x:Name="TabShellFrame"/>
+        </Grid>
     </winui:TabView>
 </Page>

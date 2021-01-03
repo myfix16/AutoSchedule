@@ -14,9 +14,9 @@ namespace AutoSchedule.Win.ViewModels
         private RelayCommand _addTabCommand;
         private RelayCommand<WinUI.TabViewTabCloseRequestedEventArgs> _closeTabCommand;
 
-        public RelayCommand AddTabCommand => _addTabCommand ?? (_addTabCommand = new RelayCommand(AddTab));
+        public RelayCommand AddTabCommand => _addTabCommand ??= new RelayCommand(AddTab);
 
-        public RelayCommand<WinUI.TabViewTabCloseRequestedEventArgs> CloseTabCommand => _closeTabCommand ?? (_closeTabCommand = new RelayCommand<WinUI.TabViewTabCloseRequestedEventArgs>(CloseTab));
+        public RelayCommand<WinUI.TabViewTabCloseRequestedEventArgs> CloseTabCommand => _closeTabCommand ??= new RelayCommand<WinUI.TabViewTabCloseRequestedEventArgs>(CloseTab);
 
         public ObservableCollection<TabViewItemData> Tabs { get; } = new ObservableCollection<TabViewItemData>()
         {

@@ -1,0 +1,114 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AutoSchedule.Win"
+    xmlns:local2="using:AutoSchedule.Win.Controls">
+
+    <Style TargetType="local2:AcademicCalendar">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local2:AcademicCalendar">
+                    <Grid x:Name="MainGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Time"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="0"/>
+                        <TextBlock Text="Monday"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="1"/>
+                        <TextBlock Text="Tuesday"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="2"/>
+                        <TextBlock Text="Wednesday"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="3"/>
+                        <TextBlock Text="Thursday"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="4"/>
+                        <TextBlock Text="Friday"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Grid.Column="5"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local2:AcademicCalendarItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local2:AcademicCalendarItem">
+                    <Border x:Name="MainBorder"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="LightBlue"
+                            Background="LightBlue">
+                        <StackPanel x:Name="MainPanel" VerticalAlignment="Center">
+                            <TextBlock x:Name="ClassID"
+                                Text="{TemplateBinding ClassID}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ClassType"
+                                Text="{TemplateBinding ClassType}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ClassTime"
+                                Text="{TemplateBinding ClassTime}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <!--<StackPanel x:Name="MainPanel" VerticalAlignment="Center">
+                            <TextBlock x:Name="ClassID"
+                                Text="ClassID"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ClassType"
+                                Text="ClassType"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ClassTime"
+                                Text="ClassTime"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </StackPanel>-->
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

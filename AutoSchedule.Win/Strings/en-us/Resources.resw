@@ -169,4 +169,8 @@
     <value>Schedule</value>
     <comment>Navigation view item name for Schedule</comment>
   </data>
+  <data name="Shell_Test.Content" xml:space="preserve">
+    <value>Test</value>
+    <comment>Navigation view item name for Test</comment>
+  </data>
 </root>

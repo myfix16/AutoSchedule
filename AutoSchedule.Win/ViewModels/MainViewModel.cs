@@ -36,9 +36,19 @@ namespace AutoSchedule.Win.ViewModels
 
         private RelayCommand _addClassToListCommand;
         private RelayCommand _removeClassFromListCommand;
+        private RelayCommand _findScheduleCommand;
 
         public RelayCommand AddClassToListCommand => _addClassToListCommand ??= new RelayCommand(AddClassToList);
         public RelayCommand RemoveClassFromListCommand => _removeClassFromListCommand ??= new RelayCommand(RemoveClassFromList);
+        public RelayCommand FindScheduleCommand => _findScheduleCommand ??= new RelayCommand(FindSchedule);
+
+        public List<Schedule> PossibleSchedules { get; set; }
+
+        private void FindSchedule()
+        {
+            PossibleSchedules = ClassSelector.FindSchedules(
+                AvailableSessions.Where(c => SelectedClasses.Contains(c.First().Name)));
+        }
 
         private void RemoveClassFromList()
         {

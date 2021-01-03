@@ -5,7 +5,7 @@ using System.Linq;
 namespace AutoSchedule.Core.Models
 {
     [Serializable]
-    static class ClassSelector
+    public static class ClassSelector
     {
         public static List<Schedule> FindSchedules(IEnumerable<IEnumerable<Session>> sessionContainer)
         {

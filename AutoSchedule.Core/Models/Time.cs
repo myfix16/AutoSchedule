@@ -23,6 +23,13 @@ namespace AutoSchedule.Core.Models
             private set => totalMinutes = value;
         }
 
+        public Time()
+        {
+            Hour = 0;
+            Minute = 0;
+        }
+
+        [JsonConstructor]
         public Time(int hour, int minute)
         {
             if (hour < 0 || hour > 23)

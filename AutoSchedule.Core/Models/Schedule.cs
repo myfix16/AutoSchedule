@@ -8,8 +8,10 @@ namespace AutoSchedule.Core.Models
     /// A schedule that contains all class selected.
     /// </summary>
     [Serializable]
-    internal class Schedule
+    public class Schedule
     {
+        public string ID { get; set; }
+
         public List<Session> Lectures { get; set; } = new List<Session>();
 
         public List<Session> Tutorials { get; set; } = new List<Session>();

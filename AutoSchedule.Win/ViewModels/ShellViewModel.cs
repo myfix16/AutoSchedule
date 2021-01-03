@@ -41,9 +41,9 @@ namespace AutoSchedule.Win.ViewModels
             set { Set(ref _selected, value); }
         }
 
-        public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
+        public ICommand LoadedCommand => _loadedCommand ??= new RelayCommand(OnLoaded);
 
-        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
+        public ICommand ItemInvokedCommand => _itemInvokedCommand ??= new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked);
 
         public ShellViewModel()
         {
