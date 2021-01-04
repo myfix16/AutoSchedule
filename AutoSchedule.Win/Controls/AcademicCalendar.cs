@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using AutoSchedule.Core.Models;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -20,24 +22,14 @@ namespace AutoSchedule.Win.Controls
     {
         private Grid _mainGrid;
 
+        public static readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(AcademicCalendar),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnItemsSourcePropertyChanged)));
+
         public IEnumerable ItemsSource
         {
             get { return GetValue(ItemsSourceProperty) as IEnumerable; }
             set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(AcademicCalendar),
-                new PropertyMetadata(new PropertyChangedCallback(OnItemsSourcePropertyChanged)));
-
-        public AcademicCalendar()
-        {
-            this.DefaultStyleKey = typeof(AcademicCalendar);
-            Loaded += AcademicCalendar_Loaded;
-            if (ItemsSource != null)
-            {
-                NewValueINotifyCollectionChanged_CollectionChanged(null, null);
-            }
         }
 
         private static void OnItemsSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -59,11 +51,16 @@ namespace AutoSchedule.Win.Controls
             {
                 newValueINotifyCollectionChanged.CollectionChanged += new NotifyCollectionChangedEventHandler(NewValueINotifyCollectionChanged_CollectionChanged);
             }
+
+            // Invoke OnCollectionChanged
+            NewValueINotifyCollectionChanged_CollectionChanged(null, null);
         }
 
-        private void NewValueINotifyCollectionChanged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private async void NewValueINotifyCollectionChanged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            //Do your stuff here.
+            // ! To make sure the grid component is initialized first. May not be a good practice.
+            if (_mainGrid == null) await Task.Delay(500);
+
             foreach (var item in ItemsSource as IEnumerable<SingleSession>)
             {
                 var itemView = new AcademicCalendarItem
@@ -75,24 +72,24 @@ namespace AutoSchedule.Win.Controls
 
                 Grid.SetColumn(itemView, (int)itemView.ClassTime.DayOfWeek);
                 Grid.SetRow(itemView, itemView.ClassTime.StartTime.Hour - 7);
-                int classDuration = (itemView.ClassTime.EndTime.TotalMinutes - itemView.ClassTime.StartTime.TotalMinutes);
-                int rowSpan = classDuration % 30 == 0 ? classDuration / 30 : classDuration / 30 + 1;
+                int classDuration = itemView.ClassTime.EndTime.TotalMinutes - itemView.ClassTime.StartTime.TotalMinutes;
+                int rowSpan = classDuration % 60 == 0 ? classDuration / 60 : classDuration / 60 + 1;
                 Grid.SetRowSpan(itemView, rowSpan);
 
                 _mainGrid.Children.Add(itemView);
             }
-
-            throw new NotImplementedException();
         }
 
-        protected override void OnApplyTemplate()
+/*        protected override void OnApplyTemplate()
         {
-            this._mainGrid = this.GetTemplateChild("MainGrid") as Grid;
+            _mainGrid = GetTemplateChild("MainGrid") as Grid;
             base.OnApplyTemplate();
-        }
+        }*/
 
         private void AcademicCalendar_Loaded(object sender, RoutedEventArgs e)
         {
+            _mainGrid = GetTemplateChild("MainGrid") as Grid;
+
             // Draw grid borders
             for (int j = 0; j < 6; j++)
             {
@@ -128,6 +125,12 @@ namespace AutoSchedule.Win.Controls
 
                 _mainGrid.Children.Add(textBlock);
             }
+        }
+
+        public AcademicCalendar()
+        {
+            DefaultStyleKey = typeof(AcademicCalendar);
+            Loaded += AcademicCalendar_Loaded;
         }
     }
 }

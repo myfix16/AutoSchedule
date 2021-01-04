@@ -14,7 +14,14 @@ namespace AutoSchedule.Win.Controls
 {
     public sealed class AcademicCalendarItem : Control
     {
-        //public Border _mainBorder;
+        // TODO: Adapt theme change.
+
+        public readonly static DependencyProperty ClassIDProperty =
+            DependencyProperty.Register("ClassID", typeof(string), typeof(AcademicCalendarItem), new PropertyMetadata(string.Empty));
+        public readonly static DependencyProperty ClassTypeProperty =
+            DependencyProperty.Register("ClassType", typeof(string), typeof(AcademicCalendarItem), new PropertyMetadata(string.Empty));
+        public readonly static DependencyProperty ClassTimeProperty =
+            DependencyProperty.Register("ClassTime", typeof(SessionTime), typeof(AcademicCalendarItem), new PropertyMetadata(new SessionTime()));
 
         public string ClassID
         {
@@ -32,22 +39,9 @@ namespace AutoSchedule.Win.Controls
             set { SetValue(ClassTimeProperty, value); }
         }
 
-        public readonly static DependencyProperty ClassIDProperty =
-            DependencyProperty.Register("ClassID", typeof(string), typeof(AcademicCalendarItem), new PropertyMetadata(string.Empty));
-        public readonly static DependencyProperty ClassTypeProperty =
-            DependencyProperty.Register("ClassType", typeof(string), typeof(AcademicCalendarItem), new PropertyMetadata(string.Empty));
-        public readonly static DependencyProperty ClassTimeProperty =
-            DependencyProperty.Register("ClassTime", typeof(SessionTime), typeof(AcademicCalendarItem), new PropertyMetadata(new SessionTime()));
-
         public AcademicCalendarItem()
         {
-            this.DefaultStyleKey = typeof(AcademicCalendarItem);
+            DefaultStyleKey = typeof(AcademicCalendarItem);
         }
-
-        //protected override void OnApplyTemplate()
-        //{
-        //    this._mainBorder = this.GetTemplateChild("MainBorder") as Border;
-        //    base.OnApplyTemplate();
-        //}
     }
 }

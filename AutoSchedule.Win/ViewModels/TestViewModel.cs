@@ -15,7 +15,11 @@ namespace AutoSchedule.Win.ViewModels
             var sessions = new List<SingleSession>
             {
                 new SingleSession("Lecture","GEB2404","2111","staff",
-                    new SessionTime(DayOfWeek.Friday,new Time(10,30),new Time(11,50))),
+                    new SessionTime(DayOfWeek.Friday,new Time(10,30),new Time(11,20))),
+                new SingleSession("Lecture","CSC1001","1011","staff",
+                    new SessionTime(DayOfWeek.Monday,new Time(8,30),new Time(9,50))),
+                new SingleSession("Lecture","ENG2001","3021","staff",
+                    new SessionTime(DayOfWeek.Tuesday,new Time(15,30),new Time(16,50))),
             };
 
             SingleSessions = new ObservableCollection<SingleSession>(sessions);

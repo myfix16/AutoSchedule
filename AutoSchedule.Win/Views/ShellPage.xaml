@@ -26,12 +26,6 @@
         PaneDisplayMode="Top"
         Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <winui:NavigationView.MenuItems>
-            <!--
-            TODO WTS: Change the symbols for each item as appropriate for your app
-            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
-            Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
-            Edit String/en-US/Resources.resw: Add a menu item title for each page
-            -->
             <winui:NavigationViewItem x:Uid="Shell_Main" helpers:NavHelper.NavigateTo="views:MainPage" />
             <winui:NavigationViewItem x:Uid="Shell_Schedule" helpers:NavHelper.NavigateTo="views:SchedulePage" />
             <winui:NavigationViewItem x:Uid="Shell_Test" helpers:NavHelper.NavigateTo="views:TestPage" />
@@ -41,7 +35,7 @@
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
-        <Grid Margin="0,10,0,0">
+        <Grid Margin="0,10,0,10">
             <Frame x:Name="shellFrame" />
         </Grid>
     </winui:NavigationView>

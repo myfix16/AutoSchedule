@@ -15,7 +15,11 @@ namespace AutoSchedule.Win.ViewModels
         public ObservableCollection<string> AvailableClasses { get; set; }
         public ObservableCollection<string> SelectedClasses { get; set; }
 
-        //private ObservableCollection<string> _filteredClasses;
+        // TODO: Add Multiple Selection Support. 
+        public string SelectedAvailableClass { get; set; }
+        public string SelectedSelectedClass { get; set; }
+        public List<Schedule> PossibleSchedules { get; set; }
+
         // TODO: [Optional] Sort the class list.
         public ObservableCollection<string> FilteredClasses { get; set; }
 
@@ -23,16 +27,8 @@ namespace AutoSchedule.Win.ViewModels
         public string SearchBoxText
         {
             get => _searchBoxText;
-            set
-            {
-                _searchBoxText = value;
-                OnFilterChanged();
-            }
+            set { _searchBoxText = value; OnFilterChanged(); }
         }
-
-        // TODO: Add Multiple Selection Support. 
-        public string SelectedAvailableClass { get; set; }
-        public string SelectedSelectedClass { get; set; }
 
         private RelayCommand _addClassToListCommand;
         private RelayCommand _removeClassFromListCommand;
@@ -41,8 +37,6 @@ namespace AutoSchedule.Win.ViewModels
         public RelayCommand AddClassToListCommand => _addClassToListCommand ??= new RelayCommand(AddClassToList);
         public RelayCommand RemoveClassFromListCommand => _removeClassFromListCommand ??= new RelayCommand(RemoveClassFromList);
         public RelayCommand FindScheduleCommand => _findScheduleCommand ??= new RelayCommand(FindSchedule);
-
-        public List<Schedule> PossibleSchedules { get; set; }
 
         private void FindSchedule()
         {
@@ -87,10 +81,7 @@ namespace AutoSchedule.Win.ViewModels
             for (int i = FilteredClasses.Count - 1; i >= 0; i--)
             {
                 var item = FilteredClasses[i];
-                if (!filteredData.Contains(item))
-                {
-                    FilteredClasses.Remove(item);
-                }
+                if (!filteredData.Contains(item)) FilteredClasses.Remove(item);
             }
         }
 
@@ -98,10 +89,7 @@ namespace AutoSchedule.Win.ViewModels
         {
             foreach (var item in filteredData)
             {
-                if (!FilteredClasses.Contains(item))
-                {
-                    FilteredClasses.Add(item);
-                }
+                if (!FilteredClasses.Contains(item)) FilteredClasses.Add(item);
             }
         }
 
