@@ -1,0 +1,29 @@
+﻿<div>
+    <table class="calendar-table" border="1">
+        <thead>
+            <tr>
+                <td class="calendar-table-head">Time</td>
+                @foreach (var workDay in workDays)
+                {
+                    <td class="calendar-table-head">@workDay</td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < 13; i++)
+            {
+            <tr>
+                <td class="calendar-table-content">@($"{i+8}:30")</td>
+                @for (int j = 0; j < 5; j++)
+                {
+                    <td class="calendar-table-content">&nbsp;</td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    List<string> workDays = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+}

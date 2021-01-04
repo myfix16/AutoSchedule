@@ -92,20 +92,6 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"/>
                         </StackPanel>
-                        <!--<StackPanel x:Name="MainPanel" VerticalAlignment="Center">
-                            <TextBlock x:Name="ClassID"
-                                Text="ClassID"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-                            <TextBlock x:Name="ClassType"
-                                Text="ClassType"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-                            <TextBlock x:Name="ClassTime"
-                                Text="ClassTime"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"/>
-                        </StackPanel>-->
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
