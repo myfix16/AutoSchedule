@@ -16,6 +16,7 @@
     <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="18.4.0.33" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="18.4.0.33" />
     <PackageReference Include="Syncfusion.Blazor.Inputs" Version="18.4.0.33" />
+    <PackageReference Include="Syncfusion.Blazor.Lists" Version="18.4.0.33" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 

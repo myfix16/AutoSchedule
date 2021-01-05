@@ -1,4 +1,0 @@
-一些 NuGet 程序包无法添加到项目 AutoSchedule.Win.Core\AutoSchedule.Win.Core.csproj 中。离线时可能会出现这种情况。
-请检查下面列出的项目代码所需的程序包，并手动添加缺少的程序包:
-
-Install-Package -ID Newtonsoft.Json -Version 12.0.3

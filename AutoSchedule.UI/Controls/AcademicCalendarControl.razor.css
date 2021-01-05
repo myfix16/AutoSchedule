@@ -1,11 +1,10 @@
-﻿body {}
-
-.calendar-table {
+﻿.calendar-table {
     border-collapse: collapse;
     width: 100%;
     border-style: solid;
     margin-left: auto;
     margin-right: auto;
+    background-color: white;
 }
 
 .calendar-table-head {
