@@ -11,8 +11,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.1" PrivateAssets="all" />
-    <PackageReference Include="Radzen.Blazor" Version="2.18.9" />
+    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="18.4.0.33" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="18.4.0.33" />
+    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="18.4.0.33" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="18.4.0.33" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="18.4.0.33" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoSchedule.Core\AutoSchedule.Core.csproj" />
   </ItemGroup>
 
 </Project>

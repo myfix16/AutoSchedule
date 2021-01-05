@@ -19,6 +19,7 @@ namespace AutoSchedule.Core.Helpers
         /// </returns>
         public static T DeepCopySerialization<T>(T obj)
         {
+            // TODO: Replace unsafe BinaryFormatter with other safe options.
             using MemoryStream memoryStream = new MemoryStream();
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();

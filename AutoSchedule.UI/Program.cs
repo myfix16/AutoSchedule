@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
 
 namespace AutoSchedule.UI
 {
@@ -14,10 +15,14 @@ namespace AutoSchedule.UI
     {
         public static async Task Main(string[] args)
         {
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mzc3ODg3QDMxMzgyZTM0MmUzME5QQ1RISzNJYVorVm1oWjhSQjhvcjU0OFBHMm1QQlI2cVpKa1FqTzRXeGM9;Mzc3ODg4QDMxMzgyZTM0MmUzME9TOTRoUk9xN05JbHVPc1BndWtvWlNoVUUzbnNFMzg0K1pzK3NVT09YSE09");
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddSyncfusionBlazor();
 
             await builder.Build().RunAsync();
         }

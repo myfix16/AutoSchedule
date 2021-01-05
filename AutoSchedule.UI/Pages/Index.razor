@@ -2,9 +2,127 @@
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Welcome to Auto Schedule</h3>
 <p class="ms-fontSize-20 ms-fontWeight-regular">Auto Schedule allows you to arrange your academic schedule easily</p>
+<br/>
 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="available-courses-section">
+                <div>
+                    <div id="course-list-lable-section">
+                        <h4>Available Courses</h4>
+                    </div>
+                    <div id="course-filter-section">
+                        <div class='e-input-group'>
+                            <input class='e-input' Placeholder="Search" type='text'>
+                            <span class="e-input-group-icon e-input-search"></span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <SfListBox TValue="string[]" @ref="listbox1" DataSource="@GroupA"
+                            Scope="@scope1" SortOrder="SortOrder.Ascending" TItem="CountryCode" Height=@boxHeight>
+                        <ListBoxFieldSettings Text="Name"></ListBoxFieldSettings>
+                        <ListBoxToolbarSettings Items="@Items"></ListBoxToolbarSettings>
+                    </SfListBox>
+                </div>
+            </div>
+            <div id="selected-courses-section">
+                <h4>Selected Courses</h4>
+                <div>
+                    <SfListBox TValue="string[]" @ref="listbox2" Scope="scope2"
+                            DataSource="@GroupB" SortOrder="SortOrder.Ascending" TItem="CountryCode" Height=@boxHeight>
+                        <ListBoxFieldSettings Text="Name"></ListBoxFieldSettings>
+                    </SfListBox>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+    </div>
+</div>
 
 @code {
+    SfListBox<string[], CountryCode> listbox1;
+    SfListBox<string[], CountryCode> listbox2;
+    SfListBox<string[], CountryCode> scope1;
+    SfListBox<string[], CountryCode> scope2;
 
+    public string boxHeight = "350px";
+
+    public string[] Items = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            scope1 = listbox2;
+            scope2 = listbox1;
+            StateHasChanged(); // Re-render component to update the ListBox component Scope references in each connected ListBox.
+        }
+    }
+    public List<CountryCode> GroupA = new List<CountryCode>
+    {
+        new CountryCode{ Name = "Australia", Code = "AU" },
+        new CountryCode{ Name = "Bermuda", Code = "BM" },
+        new CountryCode{ Name = "Canada", Code = "CA" },
+        new CountryCode{ Name = "Cameroon", Code = "CM" },
+        new CountryCode{ Name = "Denmark", Code = "DK" },
+        new CountryCode{ Name = "France", Code = "FR" },
+        new CountryCode{ Name = "Finland", Code = "FI" }
+    };
+
+    public List<CountryCode> GroupB = new List<CountryCode>
+    {
+        new CountryCode{ Name = "India", Code = "IN" },
+        new CountryCode{ Name = "Italy", Code = "IT" },
+        new CountryCode{ Name = "Japan", Code = "JP" },
+        new CountryCode{ Name = "Mexico", Code = "MX" },
+        new CountryCode{ Name = "Norway", Code = "NO" },
+        new CountryCode{ Name = "Poland", Code = "PL" },
+        new CountryCode{ Name = "Switzerland", Code = "CH" }
+    };
+
+    public class CountryCode
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
 }
 
+<style>
+    #available-courses-section {
+        width: 48%;
+        float: left;
+    }
+
+    #selected-courses-section {
+        width: 48%;
+        float: right;
+    }
+
+    #course-list-lable-section{
+        width: 33.3333%;
+        float: left;
+    }
+
+    #course-filter-section{
+        width: 33.3333%;
+        float: none;
+    }
+
+    #make-schedule-section{
+        width: 33.3333%;
+        float: right;
+    }
+</style>
