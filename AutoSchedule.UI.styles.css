@@ -1,0 +1,183 @@
+/* /Controls/AcademicCalendarControl.razor.rz.scp.css */
+.calendar-table[b-xq83m42old] {
+    border-collapse: collapse;
+    width: 100%;
+    border-style: solid;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.calendar-table-head[b-xq83m42old] {
+    width: 9.0909%;
+    height: 3.7037%;
+    text-align: center;
+}
+
+.calendar-table-content[b-xq83m42old] {
+    height: 7.4074%;
+    text-align: center;
+}
+/* /Pages/Index.razor.rz.scp.css */
+#available-courses-section[b-h98f7mhyb2] {
+    width: 48%;
+    float: left;
+}
+
+#selected-courses-section[b-h98f7mhyb2] {
+    width: 48%;
+    float: right;
+}
+
+#course-list-label-section[b-h98f7mhyb2] {
+    width: 50%;
+    float: left;
+}
+
+#course-filter-section[b-h98f7mhyb2] {
+    width: 50%;
+    float: right;
+}
+
+.view-schedule[b-h98f7mhyb2]{
+    display: block;
+    height: auto;
+    width: auto;
+    margin: auto;
+    margin-left: 50px;
+    font-size: 24px;
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-wryi8m64uf] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-wryi8m64uf] {
+    flex: 1;
+}
+
+.sidebar[b-wryi8m64uf] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-wryi8m64uf] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-wryi8m64uf]  a, .top-row .btn-link[b-wryi8m64uf] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-wryi8m64uf] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-wryi8m64uf] {
+        display: none;
+    }
+
+    .top-row.auth[b-wryi8m64uf] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-wryi8m64uf], .top-row .btn-link[b-wryi8m64uf] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-wryi8m64uf] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-wryi8m64uf] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-wryi8m64uf] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .main > div[b-wryi8m64uf] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* /Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-nx77446zs3] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-nx77446zs3] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-nx77446zs3] {
+    font-size: 1.1rem;
+}
+
+.oi[b-nx77446zs3] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-nx77446zs3] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-nx77446zs3] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-nx77446zs3] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-nx77446zs3]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-nx77446zs3]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-nx77446zs3]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-nx77446zs3] {
+        display: none;
+    }
+
+    .collapse[b-nx77446zs3] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}
