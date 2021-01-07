@@ -1,5 +1,5 @@
-/* /Controls/AcademicCalendarControl.razor.rz.scp.css */
-.calendar-table[b-xq83m42old] {
+/* /Controls/AcademicCalendar.razor.rz.scp.css */
+.calendar-table[b-ocrskdbg5h] {
     border-collapse: collapse;
     width: 100%;
     border-style: solid;
@@ -8,13 +8,13 @@
     background-color: white;
 }
 
-.calendar-table-head[b-xq83m42old] {
+.calendar-table-head[b-ocrskdbg5h] {
     width: 9.0909%;
     height: 3.7037%;
     text-align: center;
 }
 
-.calendar-table-content[b-xq83m42old] {
+.calendar-table-content[b-ocrskdbg5h] {
     height: 7.4074%;
     text-align: center;
 }
