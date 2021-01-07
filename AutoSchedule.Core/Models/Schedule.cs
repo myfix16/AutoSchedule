@@ -17,7 +17,7 @@ namespace AutoSchedule.Core.Models
         public List<Session> Tutorials { get; set; } = new List<Session>();
 
         /// <summary>
-        /// Validate whether one session can be successfully added. 
+        /// Validate whether one session can be successfully added.
         /// That is, whether there is any time conflict of sessions.
         /// </summary>
         /// <param name="newClass"></param>

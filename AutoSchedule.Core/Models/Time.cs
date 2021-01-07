@@ -46,6 +46,8 @@ namespace AutoSchedule.Core.Models
 
         public bool Equals(Time other) => TotalMinutes == other.TotalMinutes;
 
+        public override string ToString() => $"{Hour}:{Minute}";
+
         #region Operators
 
         public static bool operator >(Time t1, Time t2) => t1.TotalMinutes > t2.TotalMinutes;

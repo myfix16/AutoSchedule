@@ -6,7 +6,7 @@ namespace AutoSchedule.Core.Helpers
     public static class Singleton<T>
         where T : new()
     {
-        private static ConcurrentDictionary<Type, T> _instances = new ConcurrentDictionary<Type, T>();
+        private static ConcurrentDictionary<Type, T> _instances = new();
 
         public static T Instance
         {

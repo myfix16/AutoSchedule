@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace AutoSchedule.Core.Models
 {
+    // TODO: Check whether there is an option to migrate to DateTime class.
+
     /// <summary>
     /// Represents the time of one session.
     /// </summary>
@@ -68,5 +70,8 @@ namespace AutoSchedule.Core.Models
         public bool ConflictWith(SessionTime sessionTime2)
             => !(StartTimeFromMon > sessionTime2.EndTimeFromMon
                  || EndTimeFromMon < sessionTime2.StartTimeFromMon);
+
+        public override string ToString()
+            => $"{DayOfWeek} {StartTime}-{EndTime}";
     }
 }

@@ -1,0 +1,26 @@
+﻿<div class='expanding-div'>
+    @SessionName <br/>
+    @SessionType <br/>
+    @SessionTime <br/>
+    @SessionLocation <br/>
+</div>
+
+@code {
+    [Parameter]
+    public string SessionName { get; set; }
+    [Parameter]
+    public string SessionType { get; set; }
+    [Parameter]
+    public string SessionTime { get; set; }
+    [Parameter]
+    public string SessionLocation { get; set; }
+}
+
+<style>
+    .expanding-div {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        background: azure;
+    }
+</style>

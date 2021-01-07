@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoSchedule.Core", "AutoSchedule.Core\AutoSchedule.Core.csproj", "{5B932ABF-8F2D-4161-AA36-885D478BFEF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoSchedule.UI", "AutoSchedule.UI\AutoSchedule.UI.csproj", "{C3E31C37-9BBD-49B2-A7F1-4AB69819A53B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoSchedule.UI", "AutoSchedule.UI\AutoSchedule.UI.csproj", "{C3E31C37-9BBD-49B2-A7F1-4AB69819A53B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

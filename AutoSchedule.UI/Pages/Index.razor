@@ -1,6 +1,8 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject AppDataService DataService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IJSRuntime JsRuntime;
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Welcome to Auto Schedule</h3>
 <p class="ms-fontSize-20 ms-fontWeight-regular">Auto Schedule allows you to arrange your academic schedule easily</p>
@@ -42,7 +44,6 @@
                     SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
                     Height=@boxHeight>
                     <ListBoxToolbarSettings Items=@toolBarItems/>
-                    <ListBoxEvents TValue="string[]" TItem="string" ValueChange="OnFilteredClassesChanged"/>
                 </SfListBox>
             </div>
             <div id="selected-courses-section">
@@ -54,7 +55,6 @@
                     Scope=@selectedScope
                     SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
                     Height=@boxHeight>
-                    <ListBoxEvents TValue="string[]" TItem="string" ValueChange="OnSelectedClassesChanged"/>
                 </SfListBox>
             </div>
         </div>
@@ -67,12 +67,14 @@
                 TValue="string[]"
                 TItem="Schedule"
                 DataSource=@AvailableSchedules
+                @ref="availableSchedulesListBox"
                 Height="200px">
                 <ListBoxFieldSettings Text="ID" Value="ID" />
+                <ListBoxSelectionSettings Mode="Syncfusion.Blazor.DropDowns.SelectionMode.Single"/>
             </SfListBox>
         </div>
         <div class="col-lg-6" style="margin: auto">
-            <SfButton CssClass="view-schedule">View Schedule</SfButton>
+            <SfButton CssClass="view-schedule" @onclick=OnClickViewSchedule>View Schedule</SfButton>
         </div>
     </div>
     <br />
@@ -80,13 +82,17 @@
 </div>
 
 @code {
-    // TODO: Build two-way data binding between listbox and properties
+    // TODO: Note: Before figuring out how to listen to the ItemsChanged Event of SfListBox, the program will
+    // update the cod-behind value when filter is performed or make schedule button is clicked. It is
+    // not a good idea and only acts as a temporary solution.
+
     public string boxHeight = "400px";
     // Things for the dual list box
     SfListBox<string[], string> availableCoursesListBox;
     SfListBox<string[], string> selectedCoursesListBox;
     SfListBox<string[], string> availableScope;
     SfListBox<string[], string> selectedScope;
+    SfListBox<string[], Schedule> availableSchedulesListBox;
 
     public string[] toolBarItems = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
 
@@ -124,8 +130,16 @@
         }
     }
 
-    public void OnFilterChanged()
+    private void UpdateModelValue()
     {
+        SelectedClasses = new ObservableCollection<string>(selectedCoursesListBox.GetDataList());
+        @* FilteredClasses = new ObservableCollection<string>(availableCoursesListBox.GetDataList()); *@
+    }
+
+    private void OnFilterChanged()
+    {
+        UpdateModelValue();
+
         var filtered = (SearchBoxText == null || SearchBoxText == string.Empty)
             ? FilterClasses(DataService.AvailableClasses, string.Empty) : FilterClasses(DataService.AvailableClasses, SearchBoxText);
         Remove_NonMatching(filtered);
@@ -164,13 +178,27 @@
         System.Console.WriteLine("Selected Classes Changed");
     }
 
-    public void OnClickMakeSchedule()
+    public async Task OnClickMakeSchedule()
     {
+        UpdateModelValue();
+
         var generatedSchedules = ClassSelector.FindSchedules(
             DataService.AvailableSessions.Where(s => SelectedClasses.Contains(s.First().Name)));
+
+        // Alert user if there is no available schedule.
+        if (generatedSchedules.Count == 0)
+            await JsRuntime.InvokeVoidAsync("alert", "Sorry, there is no available schedule for selected classes.");
+
         AvailableSchedules.Clear();
         foreach (var item in generatedSchedules) AvailableSchedules.Add(item);
+    }
 
-        System.Console.WriteLine("Make Schedule Button Clicked.");
+    public void OnClickViewSchedule()
+    {
+        if (availableSchedulesListBox.Value == null) return;
+
+        DataService.CurrentSchedule = AvailableSchedules
+            .Where(s => s.ID == availableSchedulesListBox.Value[0]).FirstOrDefault();
+        navigationManager.NavigateTo("/schedulepage");
     }
 }

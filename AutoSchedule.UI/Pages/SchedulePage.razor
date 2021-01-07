@@ -1,10 +1,11 @@
 ﻿@page "/schedulepage"
+@inject AppDataService DataService
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <AcademicCalendarControl/>
+            <AcademicCalendar @ref=academicCalendar @bind-ScheduleSource=ScheduleSource/>
         </div>
     </div>
     <br/>
@@ -24,12 +25,27 @@
 </div>
 
 @code {
-    public string courseSelectionHeight="500px";
+    private string courseSelectionHeight="500px";
 
-    public List<Order> Orders { get; set; }
+    private AcademicCalendar academicCalendar;
+
+    private Schedule _scheduleSource;
+    [Parameter]
+    public Schedule ScheduleSource
+    {
+        get => _scheduleSource;
+        set { _scheduleSource = value; OnScheduleSourceChanged(); }
+    }
+
+    private void OnScheduleSourceChanged()
+    {
+        // TODO: Display the schedule in the calendar.
+    }
 
     protected override void OnInitialized()
     {
+        ScheduleSource = DataService.CurrentSchedule;
+
         Orders = Enumerable.Range(1, 75).Select(x => new Order()
         {
             OrderID = 1000 + x,
@@ -38,6 +54,8 @@
             OrderDate = DateTime.Now.AddDays(-x),
         }).ToList();
     }
+
+    public List<Order> Orders { get; set; }
 
     public class Order {
         public int? OrderID { get; set; }

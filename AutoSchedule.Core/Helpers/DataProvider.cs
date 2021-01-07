@@ -8,7 +8,7 @@ namespace AutoSchedule.Core.Helpers
     public static class DataProvider
     {
         public static readonly JsonSerializerOptions defaultJsonSerializerOptions
-            = new JsonSerializerOptions
+            = new()
             {
                 WriteIndented = true,
             };
