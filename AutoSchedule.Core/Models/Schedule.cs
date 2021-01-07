@@ -8,7 +8,7 @@ namespace AutoSchedule.Core.Models
     /// A schedule that contains all class selected.
     /// </summary>
     [Serializable]
-    public class Schedule
+    public class Schedule : ICopyable<Schedule>
     {
         public string ID { get; set; }
 
@@ -71,9 +71,25 @@ namespace AutoSchedule.Core.Models
 
         public Schedule WithAdded(Session element)
         {
-            var newSchedule = Copy.DeepCopySerialization(this);
+            //var newSchedule = Copy.DeepCopySerialization(this);
+            var newSchedule = ShallowCopy();
             newSchedule.AddSession(element);
             return newSchedule;
+        }
+
+        public Schedule ShallowCopy()
+        {
+            return new Schedule
+            {
+                ID = this.ID,
+                Lectures = new List<Session>(this.Lectures),
+                Tutorials = new List<Session>(this.Tutorials),
+            };
+        }
+
+        public Schedule DeepCopy()
+        {
+            throw new NotImplementedException();
         }
     }
 }

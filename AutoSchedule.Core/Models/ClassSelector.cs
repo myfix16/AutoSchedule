@@ -5,10 +5,11 @@ using System.Linq;
 namespace AutoSchedule.Core.Models
 {
     [Serializable]
-    public static class ClassSelector
+    public class ClassSelector
     {
         public static List<Schedule> FindSchedules(IEnumerable<IEnumerable<Session>> sessionContainer)
         {
+            int id = 1;
             var outcome = new List<Schedule>();
 
             // Inner function that finds all suitable schedules.
@@ -17,6 +18,7 @@ namespace AutoSchedule.Core.Models
                 if (!sessionContainer.Any())
                 {
                     outcome.Add(currentScheme);
+                    id++;
                 }
                 else
                 {
@@ -27,7 +29,7 @@ namespace AutoSchedule.Core.Models
                 }
             }
 
-            Enroll(sessionContainer, new Schedule());
+            Enroll(sessionContainer, new Schedule { ID=id.ToString() });
 
             return outcome;
         }

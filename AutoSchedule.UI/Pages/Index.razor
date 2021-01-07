@@ -15,7 +15,7 @@
                 </div>
                 <div id="course-filter-section">
                     <div class='e-input-group' style="margin: 0px 0px 8px">
-                        <input class='e-input' Placeholder="Search" type='text'>
+                        <input class='e-input' Placeholder="Search" type='text' @bind=SearchBoxText @bind:event="oninput">
                         <span class="e-input-group-icon e-input-search"></span>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <h4>Selected Courses</h4>
                 </div>
                 <div id="course-filter-section">
-                    <SfButton>Make Schedule</SfButton>
+                    <SfButton @onclick=OnClickMakeSchedule>Make Schedule</SfButton>
                 </div>
             </div>
         </div>
@@ -33,16 +33,28 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="available-courses-section">
-                <SfListBox TValue="string[]" TItem="CountryCode" DataSource="@GroupA" @ref="listbox1" Scope="@scope1"
-                    SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending" Height=@boxHeight>
-                    <ListBoxFieldSettings Text="Name" />
-                    <ListBoxToolbarSettings Items="@toolBarItems"></ListBoxToolbarSettings>
+                <SfListBox
+                    TValue="string[]"
+                    TItem="string"
+                    DataSource=@FilteredClasses
+                    @ref=availableCoursesListBox
+                    Scope=@availableScope
+                    SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
+                    Height=@boxHeight>
+                    <ListBoxToolbarSettings Items=@toolBarItems/>
+                    <ListBoxEvents TValue="string[]" TItem="string" ValueChange="OnFilteredClassesChanged"/>
                 </SfListBox>
             </div>
             <div id="selected-courses-section">
-                <SfListBox TValue="string[]" TItem="CountryCode" @ref="listbox2" Scope="scope2" DataSource="@GroupB"
-                    SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending" Height=@boxHeight>
-                    <ListBoxFieldSettings Text="Name" />
+                <SfListBox
+                    TValue="string[]"
+                    TItem="string"
+                    DataSource=@SelectedClasses
+                    @ref="selectedCoursesListBox"
+                    Scope=@selectedScope
+                    SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
+                    Height=@boxHeight>
+                    <ListBoxEvents TValue="string[]" TItem="string" ValueChange="OnSelectedClassesChanged"/>
                 </SfListBox>
             </div>
         </div>
@@ -51,8 +63,12 @@
     <br />
     <div class="row">
         <div class="col-lg-6">
-            <SfListBox TValue="string[]" DataSource="@Vehicles" TItem="VehicleData" Height="200px">
-                <ListBoxFieldSettings Text="Text" Value="Id" />
+            <SfListBox
+                TValue="string[]"
+                TItem="Schedule"
+                DataSource=@AvailableSchedules
+                Height="200px">
+                <ListBoxFieldSettings Text="ID" Value="ID" />
             </SfListBox>
         </div>
         <div class="col-lg-6" style="margin: auto">
@@ -64,76 +80,97 @@
 </div>
 
 @code {
-    protected override async Task OnInitializedAsync()
-    {
-        DataService.AvailableSessions = await Http.GetFromJsonAsync<List<List<Session>>>("data/classList.json");
-        DataService.AvailableClasses = DataService.AvailableSessions.Select(l => l.First().Name).Distinct();
-    }
-
+    // TODO: Build two-way data binding between listbox and properties
     public string boxHeight = "400px";
-
     // Things for the dual list box
-    SfListBox<string[], CountryCode> listbox1;
-    SfListBox<string[], CountryCode> listbox2;
-    SfListBox<string[], CountryCode> scope1;
-    SfListBox<string[], CountryCode> scope2;
+    SfListBox<string[], string> availableCoursesListBox;
+    SfListBox<string[], string> selectedCoursesListBox;
+    SfListBox<string[], string> availableScope;
+    SfListBox<string[], string> selectedScope;
 
     public string[] toolBarItems = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
+
+    private string _searchBoxText;
+    public string SearchBoxText
+    {
+        get => _searchBoxText;
+        set { _searchBoxText = value; OnFilterChanged(); }
+    }
+
+    public ObservableCollection<string> FilteredClasses { get; set; } = new();
+    public ObservableCollection<string> SelectedClasses { get; set; } = new();
+    public ObservableCollection<Schedule> AvailableSchedules { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        DataService.AvailableSessions = await Http.GetFromJsonAsync<List<List<Session>>>("data/classList.json");
+        DataService.AvailableClasses = DataService.AvailableSessions
+            .Select(l => l.First().Name).Distinct().OrderBy(s => s);
+        foreach (var item in DataService.AvailableClasses) FilteredClasses.Add(item);
+
+        StateHasChanged();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            scope1 = listbox2;
-            scope2 = listbox1;
-            StateHasChanged(); // Re-render component to update the ListBox component Scope references in each connected ListBox.
+            availableScope = selectedCoursesListBox;
+            selectedScope = availableCoursesListBox;
+            // Re-render component to update the ListBox component Scope references in each connected ListBox.
+            StateHasChanged();
         }
     }
-    public List<CountryCode> GroupA = new List<CountryCode>
-    {
-        new CountryCode{ Name = "Australia", Code = "AU" },
-        new CountryCode{ Name = "Bermuda", Code = "BM" },
-        new CountryCode{ Name = "Canada", Code = "CA" },
-        new CountryCode{ Name = "Cameroon", Code = "CM" },
-        new CountryCode{ Name = "Denmark", Code = "DK" },
-        new CountryCode{ Name = "France", Code = "FR" },
-        new CountryCode{ Name = "Finland", Code = "FI" }
-    };
 
-    public List<CountryCode> GroupB = new List<CountryCode>
+    public void OnFilterChanged()
     {
-        new CountryCode{ Name = "India", Code = "IN" },
-        new CountryCode{ Name = "Italy", Code = "IT" },
-        new CountryCode{ Name = "Japan", Code = "JP" },
-        new CountryCode{ Name = "Mexico", Code = "MX" },
-        new CountryCode{ Name = "Norway", Code = "NO" },
-        new CountryCode{ Name = "Poland", Code = "PL" },
-        new CountryCode{ Name = "Switzerland", Code = "CH" }
-    };
-
-    public class CountryCode
-    {
-        public string Name { get; set; }
-        public string Code { get; set; }
+        var filtered = (SearchBoxText == null || SearchBoxText == string.Empty)
+            ? FilterClasses(DataService.AvailableClasses, string.Empty) : FilterClasses(DataService.AvailableClasses, SearchBoxText);
+        Remove_NonMatching(filtered);
+        AddBack_Contacts(filtered);
     }
 
-    // Things for schedules view
-    public List<VehicleData> Vehicles = new List<VehicleData>
-    {
-        new VehicleData { Text = "Hennessey Venom", Id = "Vehicle-01" },
-        new VehicleData { Text = "Bugatti Chiron", Id = "Vehicle-02" },
-        new VehicleData { Text = "Bugatti Veyron Super Sport", Id = "Vehicle-03" },
-        new VehicleData { Text = "SSC Ultimate Aero", Id = "Vehicle-04" },
-        new VehicleData { Text = "Koenigsegg CCR", Id = "Vehicle-05" },
-        new VehicleData { Text = "McLaren F1", Id = "Vehicle-06" },
-        new VehicleData { Text = "Aston Martin One- 77", Id = "Vehicle-07" },
-        new VehicleData { Text = "Jaguar XJ220", Id = "Vehicle-08" }
-    };
+    private IEnumerable<string> FilterClasses(IEnumerable<string> allClasses, string filterRef)
+        // First, filter allClasses to get matched classes. Then, delete classes that are contained in SelectedClasses.
+        => allClasses.Where(c => c.Contains(filterRef, StringComparison.InvariantCultureIgnoreCase))
+                     .Where(c => !SelectedClasses.Contains(c));
 
-    public class VehicleData
+    private void Remove_NonMatching(IEnumerable<string> filteredData)
     {
-        public string Text { get; set; }
-        public string Id { get; set; }
+        for (int i = FilteredClasses.Count - 1; i >= 0; i--)
+        {
+            var item = FilteredClasses[i];
+            if (!filteredData.Contains(item)) FilteredClasses.Remove(item);
+        }
+    }
+
+    private void AddBack_Contacts(IEnumerable<string> filteredData)
+    {
+        foreach (var item in filteredData)
+        {
+            if (!FilteredClasses.Contains(item)) FilteredClasses.Add(item);
+        }
+    }
+
+    public void OnFilteredClassesChanged(ListBoxChangeEventArgs<string[], string> e)
+    {
+        System.Console.WriteLine("Filtered Classes Changed");
+    }
+
+    public void OnSelectedClassesChanged(ListBoxChangeEventArgs<string[], string> e)
+    {
+        System.Console.WriteLine("Selected Classes Changed");
+    }
+
+    public void OnClickMakeSchedule()
+    {
+        var generatedSchedules = ClassSelector.FindSchedules(
+            DataService.AvailableSessions.Where(s => SelectedClasses.Contains(s.First().Name)));
+        AvailableSchedules.Clear();
+        foreach (var item in generatedSchedules) AvailableSchedules.Add(item);
+
+        System.Console.WriteLine("Make Schedule Button Clicked.");
     }
 }
