@@ -716,7 +716,7 @@
             "Minute": 30
           },
           "EndTime": {
-            "Hour": 15,
+            "Hour": 14,
             "Minute": 50
           }
         },
@@ -727,7 +727,7 @@
             "Minute": 30
           },
           "EndTime": {
-            "Hour": 15,
+            "Hour": 14,
             "Minute": 50
           }
         }
@@ -764,38 +764,6 @@
       ],
       "Instructor": "staff",
       "Code": "1608",
-      "Name": "CSC3050"
-    }
-  ],
-  [
-    {
-      "SessionType": "Lecture",
-      "SessionTimes": [
-        {
-          "DayOfWeek": 2,
-          "StartTime": {
-            "Hour": 10,
-            "Minute": 30
-          },
-          "EndTime": {
-            "Hour": 11,
-            "Minute": 50
-          }
-        },
-        {
-          "DayOfWeek": 4,
-          "StartTime": {
-            "Hour": 10,
-            "Minute": 30
-          },
-          "EndTime": {
-            "Hour": 11,
-            "Minute": 50
-          }
-        }
-      ],
-      "Instructor": "staff",
-      "Code": "1607",
       "Name": "CSC3050"
     }
   ],

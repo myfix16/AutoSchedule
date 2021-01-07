@@ -1,7 +1,9 @@
 ﻿@page "/schedulepage"
+@inject HttpClient Http
 @inject AppDataService DataService
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
+<br/>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -34,17 +36,20 @@
     public Schedule ScheduleSource
     {
         get => _scheduleSource;
-        set { _scheduleSource = value; OnScheduleSourceChanged(); }
+        set { _scheduleSource = value; }
     }
 
-    private void OnScheduleSourceChanged()
+    protected override async Task OnInitializedAsync()
     {
-        // TODO: Display the schedule in the calendar.
+        await base.OnInitializedAsync();
+        // TODO: Fix: There should be an await here. But it will make the app jammed when refresh on SchedulePage.
+        DataService.InitializeAsync(Http, "data/classList.json");
     }
 
     protected override void OnInitialized()
     {
-        ScheduleSource = DataService.CurrentSchedule;
+        base.OnInitialized();
+        ScheduleSource = DataService.CurrentSchedule.ShallowCopy();
 
         Orders = Enumerable.Range(1, 75).Select(x => new Order()
         {

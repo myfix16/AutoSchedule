@@ -9,7 +9,7 @@ namespace AutoSchedule.Core.Models
     {
         public static List<Schedule> FindSchedules(IEnumerable<IEnumerable<Session>> sessionContainer)
         {
-            int id = 1;
+            int id = 0;
             var outcome = new List<Schedule>();
 
             // Inner function that finds all suitable schedules.

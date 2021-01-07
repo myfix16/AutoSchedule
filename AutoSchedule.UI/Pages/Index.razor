@@ -38,7 +38,7 @@
                 <SfListBox
                     TValue="string[]"
                     TItem="string"
-                    DataSource=@FilteredClasses
+                    DataSource=@DataService.FilteredClasses
                     @ref=availableCoursesListBox
                     Scope=@availableScope
                     SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
@@ -50,7 +50,7 @@
                 <SfListBox
                     TValue="string[]"
                     TItem="string"
-                    DataSource=@SelectedClasses
+                    DataSource=@DataService.SelectedClasses
                     @ref="selectedCoursesListBox"
                     Scope=@selectedScope
                     SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
@@ -103,18 +103,10 @@
         set { _searchBoxText = value; OnFilterChanged(); }
     }
 
-    public ObservableCollection<string> FilteredClasses { get; set; } = new();
-    public ObservableCollection<string> SelectedClasses { get; set; } = new();
-    public ObservableCollection<Schedule> AvailableSchedules { get; set; } = new();
-
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        DataService.AvailableSessions = await Http.GetFromJsonAsync<List<List<Session>>>("data/classList.json");
-        DataService.AvailableClasses = DataService.AvailableSessions
-            .Select(l => l.First().Name).Distinct().OrderBy(s => s);
-        foreach (var item in DataService.AvailableClasses) FilteredClasses.Add(item);
-
+        await DataService.InitializeAsync(Http, "data/classList.json");
         StateHasChanged();
     }
 
@@ -132,8 +124,8 @@
 
     private void UpdateModelValue()
     {
-        SelectedClasses = new ObservableCollection<string>(selectedCoursesListBox.GetDataList());
-        @* FilteredClasses = new ObservableCollection<string>(availableCoursesListBox.GetDataList()); *@
+        DataService.SelectedClasses = new ObservableCollection<string>(selectedCoursesListBox.GetDataList());
+        DataService.FilteredClasses = new ObservableCollection<string>(availableCoursesListBox.GetDataList());
     }
 
     private void OnFilterChanged()
@@ -149,14 +141,14 @@
     private IEnumerable<string> FilterClasses(IEnumerable<string> allClasses, string filterRef)
         // First, filter allClasses to get matched classes. Then, delete classes that are contained in SelectedClasses.
         => allClasses.Where(c => c.Contains(filterRef, StringComparison.InvariantCultureIgnoreCase))
-                     .Where(c => !SelectedClasses.Contains(c));
+                     .Where(c => !DataService.SelectedClasses.Contains(c));
 
     private void Remove_NonMatching(IEnumerable<string> filteredData)
     {
-        for (int i = FilteredClasses.Count - 1; i >= 0; i--)
+        for (int i = DataService.FilteredClasses.Count - 1; i >= 0; i--)
         {
-            var item = FilteredClasses[i];
-            if (!filteredData.Contains(item)) FilteredClasses.Remove(item);
+            var item = DataService.FilteredClasses[i];
+            if (!filteredData.Contains(item)) DataService.FilteredClasses.Remove(item);
         }
     }
 
@@ -164,11 +156,11 @@
     {
         foreach (var item in filteredData)
         {
-            if (!FilteredClasses.Contains(item)) FilteredClasses.Add(item);
+            if (!DataService.FilteredClasses.Contains(item)) DataService.FilteredClasses.Add(item);
         }
     }
 
-    public void OnFilteredClassesChanged(ListBoxChangeEventArgs<string[], string> e)
+    @* public void OnFilteredClassesChanged(ListBoxChangeEventArgs<string[], string> e)
     {
         System.Console.WriteLine("Filtered Classes Changed");
     }
@@ -176,21 +168,21 @@
     public void OnSelectedClassesChanged(ListBoxChangeEventArgs<string[], string> e)
     {
         System.Console.WriteLine("Selected Classes Changed");
-    }
+    } *@
 
     public async Task OnClickMakeSchedule()
     {
         UpdateModelValue();
 
         // Alert user if no class is selected.
-        if (SelectedClasses.Count == 0)
+        if (DataService.SelectedClasses.Count == 0)
         {
             await JsRuntime.InvokeVoidAsync("alert", "Cannot generate schedule: No class is selected.");
             return;
         }
 
         var generatedSchedules = ClassSelector.FindSchedules(
-            DataService.AvailableSessions.Where(s => SelectedClasses.Contains(s.First().Name)));
+            DataService.AvailableSessions.Where(s => DataService.SelectedClasses.Contains(s.First().Name)));
 
         // Alert user if there is no available schedule.
         if (generatedSchedules.Count == 0)
@@ -206,6 +198,6 @@
 
         DataService.CurrentSchedule = DataService.AvailableSchedules
             .Where(s => s.ID == availableSchedulesListBox.Value[0]).FirstOrDefault();
-        navigationManager.NavigateTo("/schedulepage");
+        navigationManager.NavigateTo("schedulepage");
     }
 }
