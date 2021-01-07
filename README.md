@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Framework-Blazor%20WebAssembly-red" alt="Framework" />
   </a>
   <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/Version-1.0.0%20Dev-blue" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.0.0%20Preview-blue" alt="Version" />
   </a>
 </p>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace AutoSchedule.UI.Services
         public IEnumerable<string> AvailableClasses { get; set; }
         public string Version { get; set; } = "1.0.0 Dev";
         public Schedule CurrentSchedule { get; set; }
+        public ObservableCollection<Schedule> AvailableSchedules { get; set; } = new();
     }
 }

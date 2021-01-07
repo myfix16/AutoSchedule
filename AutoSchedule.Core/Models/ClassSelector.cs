@@ -18,7 +18,7 @@ namespace AutoSchedule.Core.Models
                 if (!sessionContainer.Any())
                 {
                     outcome.Add(currentScheme);
-                    id++;
+                    currentScheme.ID = (++id).ToString();
                 }
                 else
                 {

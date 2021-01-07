@@ -19,7 +19,7 @@ namespace AutoSchedule.Core.Models
         [JsonIgnore]
         public int TotalMinutes
         {
-            get { totalMinutes ??= Hour * 60 + Minute; return totalMinutes.Value; }
+            get { totalMinutes ??= (Hour * 60) + Minute; return totalMinutes.Value; }
             private set => totalMinutes = value;
         }
 
@@ -46,7 +46,7 @@ namespace AutoSchedule.Core.Models
 
         public bool Equals(Time other) => TotalMinutes == other.TotalMinutes;
 
-        public override string ToString() => $"{Hour}:{Minute}";
+        public override string ToString() => $"{Hour}:{(Minute == 0 ? "00" : Minute)}";
 
         #region Operators
 

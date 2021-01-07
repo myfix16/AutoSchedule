@@ -10,10 +10,14 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < 13; i++)
+            @for (int i = 0; i < 25; i++)
             {
             <tr>
-                <td class="calendar-table-content">@($"{i+8}:30")</td>
+                <td class="calendar-table-content">@($"{((i + 1) / 2) + 8}:{(i % 2 == 0 ? "30" : "00")}")</td>
+                @* @if (i % 2 == 0)
+                {
+                    <td class="calendar-table-content" rowspan="2">@($"{(i / 2) + 8}:{30}")</td>
+                } *@
                 @for (int j = 0; j < 5; j++)
                 {
                     // TODO: This method is so stupid. There might be an elegant way to do that.
@@ -51,14 +55,14 @@
 
     private List<DisplayedSession> displayedSessions = new();
 
-    private DisplayedSession [,] classPlaceIdentifier = new DisplayedSession [13,5];
+    private DisplayedSession [,] classPlaceIdentifier = new DisplayedSession [25,5];
 
     [Parameter]
     public EventCallback<Schedule> ScheduleSourceChanged { get; set; }
 
     private async Task OnScheduleSourceChanged()
     {
-        classPlaceIdentifier = new DisplayedSession [13,5];
+        classPlaceIdentifier = new DisplayedSession [25,5];
 
         UpdateDisplayedSessions();
         DisplaySessions();
@@ -73,9 +77,9 @@
         {
             // !Given there is no class in Sunday
             int columnIndex = ((int)session.SessionTime.DayOfWeek) - 1;
-            int rowIndex = session.SessionTime.StartTime.Hour - 8;
+            int rowIndex = (session.SessionTime.StartTime.TotalMinutes / 30) - 17;
             int classDuration = session.SessionTime.EndTime.TotalMinutes - session.SessionTime.StartTime.TotalMinutes;
-            session.RowSpan = classDuration % 60 == 0 ? classDuration / 60 : classDuration / 60 + 1;
+            session.RowSpan = classDuration % 30 == 0 ? classDuration / 30 : classDuration / 30 + 1;
             classPlaceIdentifier[rowIndex, columnIndex] = session;
 
             // Add placeholder
@@ -125,6 +129,7 @@
     .calendar-table {
         border-collapse: collapse;
         width: 100%;
+        height: 100%;
         border-style: solid;
         margin-left: auto;
         margin-right: auto;
