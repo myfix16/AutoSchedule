@@ -23,10 +23,10 @@ This program is designed to **automatically generate class schedules**, given ne
 | --------- | --------- | --------- | --------- |
 | last 2 versions| last 2 versions| last 2 versions| last 2 versions
 ## Get Access
-It is deployed on [GitHub Pages](https://myfix16.github.io/AutoSchedule/). However, notice that it is the dev version and the content in GitHub Pages may have **BIG** changes.
+It is deployed on [Azure Application Service](https://autoschedule.azurewebsites.net/). However, 📢notice that it is the preview version and the content may have **BIG** changes.
 ## Note for Contributing
 Please create a new branch **dev_$FeatureName**. The master branch is only for release.
-## Notice
-This project is still in active development🚀.
+## Dependencies and References
+[Syncfusion Blazor Components](https://www.syncfusion.com/blazor-components)
 ## Credits
 ✨Presented by [myfix16](https://github.com/myfix16) and [134ARG](https://github.com/134ARG)

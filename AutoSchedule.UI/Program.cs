@@ -28,7 +28,7 @@ namespace AutoSchedule.UI
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSyncfusionBlazor();
-            builder.Services.AddSingleton<AppDataService>();
+            builder.Services.AddScoped<AppDataService>();
             // builder.Services.AddSingleton<ClassSelector>();
 
             await builder.Build().RunAsync();

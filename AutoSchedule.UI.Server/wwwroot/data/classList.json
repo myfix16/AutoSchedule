@@ -1,0 +1,963 @@
+[
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        },
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1369",
+      "Name": "FIN3080"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 12,
+            "Minute": 20
+          }
+        },
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1370",
+      "Name": "FIN3080"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 15,
+            "Minute": 20
+          }
+        },
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1371",
+      "Name": "FIN3080"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 9,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1384",
+      "Name": "FIN4110"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1385",
+      "Name": "FIN4110"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1778",
+      "Name": "FIN4210"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 14,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 15,
+            "Minute": 20
+          }
+        },
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 14,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 15,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1445",
+      "Name": "MAT3007"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1426",
+      "Name": "MAT2002"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1427",
+      "Name": "MAT2002"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "2062",
+      "Name": "FTE4560"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1936",
+      "Name": "DMS3003"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1937",
+      "Name": "DMS3003"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "2111",
+      "Name": "GEB2404"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "2112",
+      "Name": "GEB2404T"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 12,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "2113",
+      "Name": "GEB2404T"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 15,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 17,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "2114",
+      "Name": "GEB2404T"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "2059",
+      "Name": "DDA4230"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1616",
+      "Name": "CSC3170"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1617",
+      "Name": "CSC3170"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 15,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 16,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 15,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 16,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1737",
+      "Name": "RMS4060"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1642",
+      "Name": "CSC4020"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1744",
+      "Name": "ERG3020"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 9,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 9,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1690",
+      "Name": "STA3010"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1691",
+      "Name": "STA3010"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1607",
+      "Name": "CSC3050"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1608",
+      "Name": "CSC3050"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 15,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 17,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1781",
+      "Name": "EIE2810"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 9,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1782",
+      "Name": "EIE2810"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 8,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 9,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1969",
+      "Name": "GEB2405"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 10,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 11,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1970",
+      "Name": "GEB2405"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 5,
+          "StartTime": {
+            "Hour": 14,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1971",
+      "Name": "GEB2405"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 9,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 9,
+            "Minute": 0
+          },
+          "EndTime": {
+            "Hour": 10,
+            "Minute": 20
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1821",
+      "Name": "ENG2002S"
+    },
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 1,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 3,
+          "StartTime": {
+            "Hour": 13,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 14,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "1691",
+      "Name": "ENG2002S"
+    }
+  ],
+  [
+    {
+      "SessionType": "Lecture",
+      "SessionTimes": [
+        {
+          "DayOfWeek": 2,
+          "StartTime": {
+            "Hour": 15,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 16,
+            "Minute": 50
+          }
+        },
+        {
+          "DayOfWeek": 4,
+          "StartTime": {
+            "Hour": 15,
+            "Minute": 30
+          },
+          "EndTime": {
+            "Hour": 16,
+            "Minute": 50
+          }
+        }
+      ],
+      "Instructor": "staff",
+      "Code": "????",
+      "Name": "ENG2002B"
+    }
+  ]
+]

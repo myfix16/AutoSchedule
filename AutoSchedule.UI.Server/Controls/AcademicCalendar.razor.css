@@ -1,0 +1,19 @@
+﻿.calendar-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-style: solid;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.calendar-table-head {
+    width: 9.0909%;
+    height: 3.7037%;
+    text-align: center;
+}
+
+.calendar-table-content {
+    height: 7.4074%;
+    text-align: center;
+}

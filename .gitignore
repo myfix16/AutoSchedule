@@ -12,6 +12,7 @@
 *.userosscache
 *.sln.docstates
 Archive/
+AutoSchedule.UI.Server/Properties/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

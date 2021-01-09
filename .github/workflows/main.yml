@@ -23,6 +23,13 @@ jobs:
       # changes the base-tag in index.html from '/' to 'AutoSchedule' to match GitHub Pages repository subdirectory
       - name: Change base-tag in index.html from / to AutoSchedule
         run: sed -i 's/<base href="\/" \/>/<base href="\/AutoSchedule\/" \/>/g' release/wwwroot/index.html
+      # Patch blazor.webassembly.js to show a loading progress bar.
+      - name: Patch blazor.webassembly.js
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "return r.loadResource\\(o,t\\(o\\),e\\[o\\],n\\)"
+          replace: "var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;"
+          include: "blazor.webassembly.js"
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
