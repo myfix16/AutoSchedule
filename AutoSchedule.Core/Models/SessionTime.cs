@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AutoSchedule.Core.Models
 {
@@ -23,7 +24,8 @@ namespace AutoSchedule.Core.Models
         /// <summary>
         /// Start time counting from 00:00 Mon.
         /// </summary>
-        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
         public int StartTimeFromMon
         {
             get
@@ -38,7 +40,8 @@ namespace AutoSchedule.Core.Models
         /// <summary>
         /// End time counting from 00:00 Mon.
         /// </summary>
-        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
         public int EndTimeFromMon
         {
             get
@@ -56,7 +59,8 @@ namespace AutoSchedule.Core.Models
             EndTime = new Time();
         }
 
-        [JsonConstructor]
+        [System.Text.Json.Serialization.JsonConstructor]
+        [Newtonsoft.Json.JsonConstructor]
         public SessionTime(DayOfWeek dayOfWeek, Time startTime, Time endTime)
         {
             if (endTime < startTime)

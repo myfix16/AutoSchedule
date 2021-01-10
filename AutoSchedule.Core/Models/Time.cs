@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AutoSchedule.Core.Models
 {
@@ -16,7 +17,8 @@ namespace AutoSchedule.Core.Models
         /// <summary>
         /// Represents the time span from 00:00 to this time counted in minutes.
         /// </summary>
-        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
         public int TotalMinutes
         {
             get { totalMinutes ??= (Hour * 60) + Minute; return totalMinutes.Value; }
@@ -29,7 +31,8 @@ namespace AutoSchedule.Core.Models
             Minute = 0;
         }
 
-        [JsonConstructor]
+        [System.Text.Json.Serialization.JsonConstructor]
+        [Newtonsoft.Json.JsonConstructor]
         public Time(int hour, int minute)
         {
             if (hour < 0 || hour > 23)
