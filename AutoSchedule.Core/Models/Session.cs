@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AutoSchedule.Core.Models
 {
@@ -19,9 +21,16 @@ namespace AutoSchedule.Core.Models
 
         public string Instructor { get; init; }
 
+        [JsonPropertyName("id")]
+        [JsonProperty(propertyName: "id")]
         public string Code { get; init; }
 
         public string Name { get; init; }
+
+        private Session()
+        {
+
+        }
 
         public Session(string sessionType, string name, string code, string instructor,
                        List<SessionTime> sessionTimes)

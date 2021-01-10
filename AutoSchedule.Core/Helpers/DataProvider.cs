@@ -1,7 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 namespace AutoSchedule.Core.Helpers
 {
@@ -12,6 +15,12 @@ namespace AutoSchedule.Core.Helpers
             {
                 WriteIndented = true,
             };
+
+        public static string GetDBConnectionString(string vaultKey, string vaultUri)
+        {
+            var client = new SecretClient(vaultUri: new Uri(vaultUri), credential: new DefaultAzureCredential());
+            return client.GetSecret(vaultKey).Value.Value;
+        }
 
         public static async Task WriteSessionsToJsonAsync<T>(
             T availableSessions, string fileName, JsonSerializerOptions options = null)
