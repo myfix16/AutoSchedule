@@ -12,6 +12,7 @@ namespace AutoSchedule.Core.Models
     {
         public string ID { get; set; }
 
+        // TODO: Refactor schedule. There is no need to provide corresponding tutorial service. User can just add tutorial name to the list to select them.
         public List<Session> Lectures { get; set; } = new List<Session>();
 
         public List<Session> Tutorials { get; set; } = new List<Session>();
@@ -29,7 +30,6 @@ namespace AutoSchedule.Core.Models
                 if (session.HasConflictSession(newSession))
                     return false;
             }
-
             return true;
         }
 
@@ -42,10 +42,8 @@ namespace AutoSchedule.Core.Models
                 _ => throw new NotImplementedException()
             })
 
-            {
-                if (session.HasConflictSession(newSession))
-                    return false;
-            }
+            if (session.HasConflictSession(newSession))
+                return false;
 
             return true;
         }
@@ -65,13 +63,11 @@ namespace AutoSchedule.Core.Models
                 "Tutorial" => Tutorials,
                 _ => throw new NotImplementedException()
             };
-
             target.Add(newSession);
         }
 
         public Schedule WithAdded(Session element)
         {
-            //var newSchedule = Copy.DeepCopySerialization(this);
             var newSchedule = ShallowCopy();
             newSchedule.AddSession(element);
             return newSchedule;

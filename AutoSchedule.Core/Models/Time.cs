@@ -31,6 +31,17 @@ namespace AutoSchedule.Core.Models
             Minute = 0;
         }
 
+        /// <summary>
+        /// Construct the time by a string.
+        /// </summary>
+        /// <param name="timeString">A string  representation of time, for example, 10:30.</param>
+        public Time(string timeString)
+        {
+            var splittedString = timeString.Replace(" ", string.Empty).Split(':');
+            Hour = int.Parse(splittedString[0]);
+            Minute = int.Parse(splittedString[1]);
+        }
+
         [System.Text.Json.Serialization.JsonConstructor]
         [Newtonsoft.Json.JsonConstructor]
         public Time(int hour, int minute)

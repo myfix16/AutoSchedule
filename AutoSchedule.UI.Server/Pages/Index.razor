@@ -106,7 +106,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await DataService.InitializeAsync(Http, "data/classList.json");
+        await DataService.InitializeAsync();
         StateHasChanged();
     }
 
