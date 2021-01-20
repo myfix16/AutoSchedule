@@ -24,15 +24,18 @@ The program is deployed on Azure📦. You can access it from **[Here](https://au
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |
 | --------- | --------- | --------- | --------- |
 | last 2 versions| last 2 versions| last 2 versions| last 2 versions
+## 📕 User Guidance
+1. From available courses list, select the courses that you want to take by using the tool bar on the middle of available courses list and selected courses list.
+2. After finishing selecting courses, click "Make Schedule" button to generate possible schedules.
+3. All possible schedules will be listed in a listbox below. You can then select one and click "View Schedule" to view your schedule.
 ## 🤝Contributing
 If you would like to contribute, feel free to create a [pull request](https://github.com/myfix16/AutoSchedule/pulls) or give your [feedback](https://github.com/myfix16/AutoSchedule/issues/new).
 ## 🔧Dependencies and References
 + [AutoSchedule.Data](https://github.com/myfix16/AutoSchedule.Data) for course data service
 + [Syncfusion Blazor Components](https://www.syncfusion.com/blazor-components) for UI components
 ## 💕Contributors
-The code part are completed by: [myfix16](https://github.com/myfix16) and [xxy88](https://github.com/xxy88).
 <span>
-  <img src="https://contrib.rocks/image?repo=myfix16/AutoSchedule.Data" />
+  <img src="https://contrib.rocks/image?repo=myfix16/AutoSchedule" />
 </span>
 
 Made with [contributors-img](https://contrib.rocks).

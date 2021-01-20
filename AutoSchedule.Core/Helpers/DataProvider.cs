@@ -9,6 +9,8 @@ using AutoSchedule.Core.Models;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using CsvHelper;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 
 namespace AutoSchedule.Core.Helpers
 {
@@ -37,6 +39,32 @@ namespace AutoSchedule.Core.Helpers
             return sessions;
         }
 
+        public static async Task<IEnumerable<Session>> GetSessionsFromDB()
+        {
+            // Get session data from Azure Cosmos DB.
+            var cosmosClient = new CosmosClientBuilder
+                (GetDBConnectionString("AzureCosmosDB-ConnectionString-ReadOnly", Environment.GetEnvironmentVariable("VaultUri")))
+               .WithSerializerOptions(new CosmosSerializationOptions { Indented = true })
+               .Build();
+            var container = cosmosClient.GetDatabase("SessionsData").GetContainer("SessionsContainer");
+
+            var sqlQueryText = "SELECT * FROM c";
+            var queryIterator = container.GetItemQueryIterator<Session>(new QueryDefinition(sqlQueryText));
+
+            // Fetch session data from data base.
+            List<Session> sessions = new();
+            {
+                //Asynchronous query execution
+                while (queryIterator.HasMoreResults)
+                {
+                    foreach (var item in await queryIterator.ReadNextAsync())
+                        sessions.Add(item);
+                }
+            }
+
+            return sessions;
+        }
+
         public static IEnumerable<Session> ReadSessions(string csvPath)
         {
             var sessions = new List<Session>();
@@ -48,13 +76,7 @@ namespace AutoSchedule.Core.Helpers
             {
                 var codeField = csv.GetField("Code");
                 var name = $"{csv.GetField("Name").Split('-')[0]} {codeField[0..3]}";
-                var sessionType = codeField[4..7] switch
-                {
-                    "LEC" => "Lecture",
-                    "TUT" => "Tutorial",
-                    "LAB" => "Lecture",
-                    _ => throw new NotImplementedException($"Cannot deal with session type {codeField[4..7]}"),
-                };
+                var sessionType = codeField[4..7];
                 var instructor = csv.GetField("Instructor");
                 var timesField = csv.GetField("Time").Split(';');
                 var sessionTimes = new List<SessionTime>();
@@ -62,15 +84,15 @@ namespace AutoSchedule.Core.Helpers
                 {
                     var splittedTime = timeString.Split(' ');
                     // Do something.
-                    for (int i = 0; i < splittedTime[0].Length; i+=2)
+                    for (int i = 0; i < splittedTime[0].Length; i += 2)
                     {
                         var dayOfWeek = splittedTime[0][i..(i + 2)] switch
                         {
                             "Mo" => DayOfWeek.Monday,
                             "Tu" => DayOfWeek.Tuesday,
                             "We" => DayOfWeek.Wednesday,
-                            "Th" => DayOfWeek.Friday,
-                            "Fr" => DayOfWeek.Saturday,
+                            "Th" => DayOfWeek.Thursday,
+                            "Fr" => DayOfWeek.Friday,
                             _ => throw new NotImplementedException()
                         };
                         sessionTimes.Add(new SessionTime(dayOfWeek, new Time(splittedTime[1]), new Time(splittedTime[3])));

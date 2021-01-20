@@ -1,6 +1,7 @@
 ﻿@page "/schedulepage"
 @inject HttpClient Http
 @inject AppDataService DataService
+@inject AppDataServiceSingleton DataServiceSingleton
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
 <br/>
@@ -27,6 +28,7 @@
 </div>
 
 @code {
+    // TODO: Figure out a way to select lecture and tutorial.
     private string courseSelectionHeight="500px";
 
     private AcademicCalendar academicCalendar;
@@ -43,7 +45,7 @@
     {
         await base.OnInitializedAsync();
         // TODO: Fix: There should be an await here. But it will make the app jammed when refresh on SchedulePage.
-        DataService.InitializeAsync();
+        DataService.InitializeAsync(DataServiceSingleton);
     }
 
     protected override void OnInitialized()
@@ -51,36 +53,36 @@
         base.OnInitialized();
         ScheduleSource = DataService.CurrentSchedule.ShallowCopy();
 
-        Orders = Enumerable.Range(1, 75).Select(x => new Order()
-        {
-            OrderID = 1000 + x,
-            CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
-            Freight = 2.1 * x,
-            OrderDate = DateTime.Now.AddDays(-x),
-        }).ToList();
+        //Orders = Enumerable.Range(1, 75).Select(x => new Order()
+        //{
+        //    OrderID = 1000 + x,
+        //    CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
+        //    Freight = 2.1 * x,
+        //    OrderDate = DateTime.Now.AddDays(-x),
+        //}).ToList();
     }
 
-    public List<Order> Orders { get; set; }
+    //public List<Order> Orders { get; set; }
 
-    public class Order {
-        public int? OrderID { get; set; }
-        public string CustomerID { get; set; }
-        public DateTime? OrderDate { get; set; }
-        public double? Freight { get; set; }
-    }
+    //public class Order {
+    //    public int? OrderID { get; set; }
+    //    public string CustomerID { get; set; }
+    //    public DateTime? OrderDate { get; set; }
+    //    public double? Freight { get; set; }
+    //}
 
-    private DataModel[] Data =
-     {
-            new DataModel { Text = "ArtWork", Id = "list-01" },
-            new DataModel { Text = "Abstract", Id = "list-02" },
-            new DataModel { Text = "Modern Painting", Id = "list-03" },
-            new DataModel { Text = "Ceramics", Id = "list-04" },
-            new DataModel { Text = "Animation Art", Id = "list-05" },
-            new DataModel { Text = "Oil Painting", Id = "list-06" }
-    };
-    class DataModel
-    {
-        public string Text { get; set; }
-        public string Id { get; set; }
-    }
+    //private DataModel[] Data =
+    //{
+    //        new DataModel { Text = "ArtWork", Id = "list-01" },
+    //        new DataModel { Text = "Abstract", Id = "list-02" },
+    //        new DataModel { Text = "Modern Painting", Id = "list-03" },
+    //        new DataModel { Text = "Ceramics", Id = "list-04" },
+    //        new DataModel { Text = "Animation Art", Id = "list-05" },
+    //        new DataModel { Text = "Oil Painting", Id = "list-06" }
+    //};
+    //class DataModel
+    //{
+    //    public string Text { get; set; }
+    //    public string Id { get; set; }
+    //}
 }

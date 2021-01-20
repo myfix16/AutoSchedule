@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoSchedule.UI.Server.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,10 +22,11 @@ namespace AutoSchedule.UI.Server
         public void ConfigureServices(IServiceCollection services)
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mzc3ODg3QDMxMzgyZTM0MmUzME5QQ1RISzNJYVorVm1oWjhSQjhvcjU0OFBHMm1QQlI2cVpKa1FqTzRXeGM9;Mzc3ODg4QDMxMzgyZTM0MmUzME9TOTRoUk9xN05JbHVPc1BndWtvWlNoVUUzbnNFMzg0K1pzK3NVT09YSE09");
-            
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSyncfusionBlazor();
+            services.AddSingleton<AppDataServiceSingleton>();
             services.AddScoped<AppDataService>();
         }
 

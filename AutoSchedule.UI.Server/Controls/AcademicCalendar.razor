@@ -14,10 +14,6 @@
             {
             <tr>
                 <td class="calendar-table-content">@($"{((i + 1) / 2) + 8}:{(i % 2 == 0 ? "30" : "00")}")</td>
-                @* @if (i % 2 == 0)
-                {
-                    <td class="calendar-table-content" rowspan="2">@($"{(i / 2) + 8}:{30}")</td>
-                } *@
                 @for (int j = 0; j < 5; j++)
                 {
                     // TODO: This method is so stupid. There might be an elegant way to do that.
@@ -50,7 +46,7 @@
     public Schedule ScheduleSource
     {
         get => _scheduleSource;
-        set { _scheduleSource = value; OnScheduleSourceChanged().GetAwaiter().GetResult(); }
+        set { _scheduleSource = value; OnScheduleSourceChanged(); }
     }
 
     private List<DisplayedSession> displayedSessions = new();
@@ -75,14 +71,14 @@
     {
         foreach (var session in displayedSessions)
         {
-            // !Given there is no class in Sunday
+            // Calculate information for displayed session.
             int columnIndex = ((int)session.SessionTime.DayOfWeek) - 1;
             int rowIndex = (session.SessionTime.StartTime.TotalMinutes / 30) - 17;
             int classDuration = session.SessionTime.EndTime.TotalMinutes - session.SessionTime.StartTime.TotalMinutes;
             session.RowSpan = classDuration % 30 == 0 ? classDuration / 30 : classDuration / 30 + 1;
             classPlaceIdentifier[rowIndex, columnIndex] = session;
 
-            // Add placeholder
+            // Add placeholder.
             for (int i = 1; i < session.RowSpan; i++)
             {
                 classPlaceIdentifier[rowIndex+i, columnIndex] = new DisplayedSession { IsPlaceHolder=true };
@@ -94,19 +90,11 @@
     {
         displayedSessions.Clear();
 
-        foreach (var lecture in ScheduleSource.Lectures)
+        foreach (var lecture in ScheduleSource.Sessions)
         {
             foreach (var sessionTime in lecture.SessionTimes)
             {
                 AddDisplayedSession(lecture, sessionTime);
-            }
-        }
-
-        foreach (var tutorial in ScheduleSource.Tutorials)
-        {
-            foreach (var sessionTime in tutorial.SessionTimes)
-            {
-                AddDisplayedSession(tutorial, sessionTime);
             }
         }
     }

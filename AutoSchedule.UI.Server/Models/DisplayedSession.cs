@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoSchedule.Core.Models;
+﻿using AutoSchedule.Core.Models;
 
 namespace AutoSchedule.UI.Server.Models
 {
@@ -16,5 +12,7 @@ namespace AutoSchedule.UI.Server.Models
 
         public int RowSpan { get; set; }
         public bool IsPlaceHolder { get; set; } = false;
+
+        public override string ToString() => $"{Name} {Code} {Instructor} {SessionTime}";
     }
 }
