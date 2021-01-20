@@ -1,8 +1,10 @@
 ﻿@page "/"
 @inject HttpClient Http
 @inject AppDataService DataService
+@inject AppDataServiceSingleton DataServiceSingleton
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
-@inject IJSRuntime JsRuntime;
+@inject IJSRuntime JsRuntime
+@using System.Text.RegularExpressions
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Welcome to Auto Schedule</h3>
 <p class="ms-fontSize-20 ms-fontWeight-regular">Auto Schedule allows you to arrange your academic schedule easily</p>
@@ -17,7 +19,8 @@
                 </div>
                 <div id="course-filter-section">
                     <div class='e-input-group' style="margin: 0px 0px 8px">
-                        <input class='e-input' Placeholder="Search" type='text' @bind=SearchBoxText @bind:event="oninput">
+                        <input class='e-input' Placeholder="Search" type='text' 
+                               @bind=SearchBoxText @bind:event="oninput">
                         <span class="e-input-group-icon e-input-search"></span>
                     </div>
                 </div>
@@ -96,17 +99,17 @@
 
     public string[] toolBarItems = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
 
-    private string _searchBoxText;
     public string SearchBoxText
     {
-        get => _searchBoxText;
-        set { _searchBoxText = value; OnFilterChanged(); }
+        get => DataService.searchBoxText;
+        set { DataService.searchBoxText = value; OnFilterChanged(); }
     }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await DataService.InitializeAsync(Http, "data/classList.json");
+        await DataServiceSingleton.InitializeAsync();
+        await DataService.InitializeAsync(DataServiceSingleton);
         StateHasChanged();
     }
 
@@ -128,12 +131,15 @@
         DataService.FilteredClasses = new ObservableCollection<string>(availableCoursesListBox.GetDataList());
     }
 
+    /// <summary>
+    /// Update FilteredSessions when text in search box changed.
+    /// </summary>
     private void OnFilterChanged()
     {
         UpdateModelValue();
 
         var filtered = (SearchBoxText == null || SearchBoxText == string.Empty)
-            ? FilterClasses(DataService.AvailableClasses, string.Empty) : FilterClasses(DataService.AvailableClasses, SearchBoxText);
+            ? FilterClasses(DataServiceSingleton.AvailableClasses, string.Empty) : FilterClasses(DataServiceSingleton.AvailableClasses, SearchBoxText);
         Remove_NonMatching(filtered);
         AddBack_Contacts(filtered);
     }
@@ -160,16 +166,6 @@
         }
     }
 
-    public void OnFilteredClassesChanged(ActionCompleteEventArgs<string> args)
-    {
-        System.Console.WriteLine("Filtered Classes Changed");
-    }
-
-    public void OnSelectedClassesChanged(ActionCompleteEventArgs<string> args)
-    {
-        System.Console.WriteLine("Selected Classes Changed");
-    }
-
     public async Task OnClickMakeSchedule()
     {
         UpdateModelValue();
@@ -181,12 +177,15 @@
             return;
         }
 
+        // select only lectures and generate the schedule.
         var generatedSchedules = ClassSelector.FindSchedules(
-            DataService.AvailableSessions.Where(s => DataService.SelectedClasses.Contains(s.First().Name)));
+            DataServiceSingleton.AvailableSessions
+                //.Where(s => new Regex(@"\w+ L\d{2}").IsMatch(s.First().Name))
+                .Where(s => DataService.SelectedClasses.Contains(s.First().GetClassifiedName())));
 
         // Alert user if there is no available schedule.
         if (generatedSchedules.Count == 0)
-            await JsRuntime.InvokeVoidAsync("alert", "Sorry, there is no available schedule for selected classes.");
+            await JsRuntime.InvokeVoidAsync("alert", "There is no available schedule for selected classes.");
 
         DataService.AvailableSchedules.Clear();
         foreach (var item in generatedSchedules) DataService.AvailableSchedules.Add(item);

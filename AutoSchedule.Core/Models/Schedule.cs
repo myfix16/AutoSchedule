@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoSchedule.Core.Helpers;
 
 namespace AutoSchedule.Core.Models
 {
@@ -11,37 +10,17 @@ namespace AutoSchedule.Core.Models
     public class Schedule : ICopyable<Schedule>
     {
         public string ID { get; set; }
-
-        public List<Session> Lectures { get; set; } = new List<Session>();
-
-        public List<Session> Tutorials { get; set; } = new List<Session>();
+        public List<Session> Sessions { get; set; } = new List<Session>();
 
         /// <summary>
         /// Validate whether one session can be successfully added.
         /// That is, whether there is any time conflict of sessions.
         /// </summary>
-        /// <param name="newClass"></param>
-        /// <returns></returns>
-        public static bool Validate(Session newSession, IEnumerable<Session> existingSessions)
-        {
-            foreach (var session in existingSessions)
-            {
-                if (session.HasConflictSession(newSession))
-                    return false;
-            }
-
-            return true;
-        }
-
+        /// <param name="newSession"></param>
+        /// <returns>true if newSession can be added, false otherwise.</returns>
         public bool Validate(Session newSession)
         {
-            foreach (var session in newSession.SessionType switch
-            {
-                "Lecture" => Lectures,
-                "Tutorial" => Tutorials,
-                _ => throw new NotImplementedException()
-            })
-
+            foreach (var session in Sessions)
             {
                 if (session.HasConflictSession(newSession))
                     return false;
@@ -57,21 +36,10 @@ namespace AutoSchedule.Core.Models
         public static void AddSession(Session newSession, List<Session> existingSessions)
             => existingSessions.Add(newSession);
 
-        public void AddSession(Session newSession)
-        {
-            var target = newSession.SessionType switch
-            {
-                "Lecture" => Lectures,
-                "Tutorial" => Tutorials,
-                _ => throw new NotImplementedException()
-            };
-
-            target.Add(newSession);
-        }
+        public void AddSession(Session newSession) => Sessions.Add(newSession);
 
         public Schedule WithAdded(Session element)
         {
-            //var newSchedule = Copy.DeepCopySerialization(this);
             var newSchedule = ShallowCopy();
             newSchedule.AddSession(element);
             return newSchedule;
@@ -82,8 +50,7 @@ namespace AutoSchedule.Core.Models
             return new Schedule
             {
                 ID = this.ID,
-                Lectures = new List<Session>(this.Lectures),
-                Tutorials = new List<Session>(this.Tutorials),
+                Sessions = new List<Session>(this.Sessions),
             };
         }
 

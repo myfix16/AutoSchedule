@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AutoSchedule.Core.Models
 {
-    [Serializable]
     public class ClassSelector
     {
         public static List<Schedule> FindSchedules(IEnumerable<IEnumerable<Session>> sessionContainer)
@@ -29,7 +27,7 @@ namespace AutoSchedule.Core.Models
                 }
             }
 
-            Enroll(sessionContainer, new Schedule { ID=id.ToString() });
+            Enroll(sessionContainer, new Schedule { ID = id.ToString() });
 
             return outcome;
         }

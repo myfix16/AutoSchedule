@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace AutoSchedule.Core.Models
 {
@@ -29,6 +26,17 @@ namespace AutoSchedule.Core.Models
         {
             Hour = 0;
             Minute = 0;
+        }
+
+        /// <summary>
+        /// Construct the time by a string.
+        /// </summary>
+        /// <param name="timeString">A string  representation of time, for example, 10:30.</param>
+        public Time(string timeString)
+        {
+            var splittedString = timeString.Replace(" ", string.Empty).Split(':');
+            Hour = int.Parse(splittedString[0]);
+            Minute = int.Parse(splittedString[1]);
         }
 
         [System.Text.Json.Serialization.JsonConstructor]

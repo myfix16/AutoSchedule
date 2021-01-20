@@ -45,11 +45,7 @@ namespace AutoSchedule.Core.Models
         public override string ToString()
         {
             var output = $"{Name} {Code} {Instructor}";
-            foreach (var item in SessionTimes)
-            {
-                output += $" {item.DayOfWeek}{item.StartTime.Hour}:{item.StartTime.Minute}-" +
-                    $"{item.DayOfWeek}{item.EndTime.Hour}:{item.EndTime.Minute}";
-            }
+            foreach (var item in SessionTimes) output += $" {item}";
             return output;
         }
 
@@ -70,5 +66,7 @@ namespace AutoSchedule.Core.Models
 
             return false;
         }
+
+        public string GetClassifiedName() => $"{Name.Split(' ')[0]} {SessionType}";
     }
 }
