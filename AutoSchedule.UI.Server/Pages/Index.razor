@@ -4,7 +4,6 @@
 @inject AppDataServiceSingleton DataServiceSingleton
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
-@using System.Text.RegularExpressions
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Welcome to Auto Schedule</h3>
 <p class="ms-fontSize-20 ms-fontWeight-regular">Auto Schedule allows you to arrange your academic schedule easily</p>
@@ -19,7 +18,7 @@
                 </div>
                 <div id="course-filter-section">
                     <div class='e-input-group' style="margin: 0px 0px 8px">
-                        <input class='e-input' Placeholder="Search" type='text' 
+                        <input class='e-input' Placeholder="Search" type='text'
                                @bind=SearchBoxText @bind:event="oninput">
                         <span class="e-input-group-icon e-input-search"></span>
                     </div>
@@ -38,26 +37,24 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="available-courses-section">
-                <SfListBox
-                    TValue="string[]"
-                    TItem="string"
-                    DataSource=@DataService.FilteredClasses
-                    @ref=availableCoursesListBox
-                    Scope=@availableScope
-                    SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
-                    Height=@boxHeight>
-                    <ListBoxToolbarSettings Items=@toolBarItems/>
+                <SfListBox TValue="string[]"
+                           TItem="string"
+                           DataSource=@DataService.FilteredClasses
+                           @ref=availableCoursesListBox
+                           Scope=@availableScope
+                           SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
+                           Height=@boxHeight>
+                    <ListBoxToolbarSettings Items=@toolBarItems />
                 </SfListBox>
             </div>
             <div id="selected-courses-section">
-                <SfListBox
-                    TValue="string[]"
-                    TItem="string"
-                    DataSource=@DataService.SelectedClasses
-                    @ref="selectedCoursesListBox"
-                    Scope=@selectedScope
-                    SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
-                    Height=@boxHeight>
+                <SfListBox TValue="string[]"
+                           TItem="string"
+                           DataSource=@DataService.SelectedClasses
+                           @ref="selectedCoursesListBox"
+                           Scope=@selectedScope
+                           SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
+                           Height=@boxHeight>
                 </SfListBox>
             </div>
         </div>
@@ -66,14 +63,13 @@
     <br />
     <div class="row">
         <div class="col-lg-6">
-            <SfListBox
-                TValue="string[]"
-                TItem="Schedule"
-                DataSource=@DataService.AvailableSchedules
-                @ref="availableSchedulesListBox"
-                Height="200px">
+            <SfListBox TValue="string[]"
+                       TItem="Schedule"
+                       DataSource=@DataService.AvailableSchedules
+                       @ref="availableSchedulesListBox"
+                       Height="200px">
                 <ListBoxFieldSettings Text="ID" Value="ID" />
-                <ListBoxSelectionSettings Mode="Syncfusion.Blazor.DropDowns.SelectionMode.Single"/>
+                <ListBoxSelectionSettings Mode="Syncfusion.Blazor.DropDowns.SelectionMode.Single" />
             </SfListBox>
         </div>
         <div class="col-lg-6" style="margin: auto">
@@ -125,6 +121,9 @@
         }
     }
 
+    /// <summary>
+    /// Sync the value of backed model with that of view(listbox).
+    /// </summary>
     private void UpdateModelValue()
     {
         DataService.SelectedClasses = new ObservableCollection<string>(selectedCoursesListBox.GetDataList());
@@ -140,29 +139,41 @@
 
         var filtered = (SearchBoxText == null || SearchBoxText == string.Empty)
             ? FilterClasses(DataServiceSingleton.AvailableClasses, string.Empty) : FilterClasses(DataServiceSingleton.AvailableClasses, SearchBoxText);
-        Remove_NonMatching(filtered);
-        AddBack_Contacts(filtered);
+        Remove_NonMatching(DataService.FilteredClasses, filtered);
+        AddBack_Contacts(DataService.FilteredClasses, filtered);
     }
 
+    /// <summary>
+    /// Filter given class list with provided keyword.
+    /// </summary>
+    /// <param name="allClasses">The list of classes to filter</param>
+    /// <param name="filterRef">Filter keyword</param>
+    /// <returns></returns>
     private IEnumerable<string> FilterClasses(IEnumerable<string> allClasses, string filterRef)
         // First, filter allClasses to get matched classes. Then, delete classes that are contained in SelectedClasses.
         => allClasses.Where(c => c.Contains(filterRef, StringComparison.InvariantCultureIgnoreCase))
                      .Where(c => !DataService.SelectedClasses.Contains(c));
 
-    private void Remove_NonMatching(IEnumerable<string> filteredData)
+    /// <summary>
+    /// Compare oldFilteredData with newFilteredData and remove non-matching data from the old one.
+    /// </summary>
+    private void Remove_NonMatching(ICollection<string> oldFilteredData, IEnumerable<string> newFilteredData)
     {
-        for (int i = DataService.FilteredClasses.Count - 1; i >= 0; i--)
+        for (int i = oldFilteredData.Count - 1; i >= 0; i--)
         {
-            var item = DataService.FilteredClasses[i];
-            if (!filteredData.Contains(item)) DataService.FilteredClasses.Remove(item);
+            var item = oldFilteredData.ElementAt(i);
+            if (!newFilteredData.Contains(item)) oldFilteredData.Remove(item);
         }
     }
 
-    private void AddBack_Contacts(IEnumerable<string> filteredData)
+    /// <summary>
+    /// Compare oldFilteredData with newFilteredData and add non-existing data to the old one.
+    /// </summary>
+    private void AddBack_Contacts(ICollection<string> oldFilteredData, IEnumerable<string> newFilteredData)
     {
-        foreach (var item in filteredData)
+        foreach (var item in newFilteredData)
         {
-            if (!DataService.FilteredClasses.Contains(item)) DataService.FilteredClasses.Add(item);
+            if (!oldFilteredData.Contains(item)) oldFilteredData.Add(item);
         }
     }
 

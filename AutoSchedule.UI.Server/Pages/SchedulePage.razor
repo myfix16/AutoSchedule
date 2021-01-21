@@ -28,7 +28,6 @@
 </div>
 
 @code {
-    // TODO: Figure out a way to select lecture and tutorial.
     private string courseSelectionHeight="500px";
 
     private AcademicCalendar academicCalendar;
@@ -44,8 +43,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        // TODO: Fix: There should be an await here. But it will make the app jammed when refresh on SchedulePage.
-        DataService.InitializeAsync(DataServiceSingleton);
+        await DataService.InitializeAsync(DataServiceSingleton);
     }
 
     protected override void OnInitialized()
