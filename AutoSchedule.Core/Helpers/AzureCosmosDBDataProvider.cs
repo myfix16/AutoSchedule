@@ -12,12 +12,12 @@ namespace AutoSchedule.Core.Helpers
     /// <summary>
     /// A helper class that renders data from data source. 
     /// </summary>
-    public class AzureCosmosDBDataProvider : IDataProvider
+    public class AzureCosmosDBDataProvider : IDataProvider<IEnumerable<Session>>
     {
-        [Obsolete("Async method is not applicable in this class.")]
+        [Obsolete("Do not use sync method in this class.")]
         public IEnumerable<Session> GetSessions()
         {
-            throw new NotImplementedException("Async method is not applicable in this class.");
+            return GetSessionsAsync().Result;
         }
 
         public async Task<IEnumerable<Session>> GetSessionsAsync()

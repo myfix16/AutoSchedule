@@ -8,30 +8,21 @@ using CsvHelper;
 
 namespace AutoSchedule.Core.Helpers
 {
-    public class CsvDataProvider : IDataProvider
+    public class CsvDataProvider : IDataProvider<IEnumerable<Session>>
     {
-        private string CsvDirectionPath { get; set; }
+        private readonly string csvDirectionPath;
 
-        public IEnumerable<IEnumerable<Session>> GetSessions()
+        public CsvDataProvider(string csvPath) => csvDirectionPath = csvPath;
+
+        public IEnumerable<Session> GetSessions()
         {
-            var directoryInfo = new DirectoryInfo(CsvDirectionPath);
-            var sessions = new List<List<Session>>();
-            foreach (var csvFile in directoryInfo.GetFiles("*.csv"))
-            {
-                sessions.Add(ReadSessions(csvFile.FullName) as List<Session>);
-            }
-            return sessions;
+            return ReadSessions(csvDirectionPath);
         }
 
-        [Obsolete("Async method is not applicable in this class.")]
-        public Task<IEnumerable<Session>> GetSessionsAsync()
+        [Obsolete("This is actually a fake async method using await new Task.")]
+        public async Task<IEnumerable<Session>> GetSessionsAsync()
         {
-            throw new NotImplementedException("Async method is not applicable in this class.");
-        }
-
-        IEnumerable<Session> IDataProvider.GetSessions()
-        {
-            throw new NotImplementedException();
+            return await new Task<IEnumerable<Session>>(() => ReadSessions(csvDirectionPath));
         }
 
         private IEnumerable<Session> ReadSessions(string csvPath)
@@ -62,7 +53,7 @@ namespace AutoSchedule.Core.Helpers
                             "We" => DayOfWeek.Wednesday,
                             "Th" => DayOfWeek.Thursday,
                             "Fr" => DayOfWeek.Friday,
-                            _ => throw new NotImplementedException()
+                            _ => throw new NotImplementedException("No such weekday.")
                         };
                         sessionTimes.Add(new SessionTime(dayOfWeek, new Time(splittedTime[1]), new Time(splittedTime[3])));
                     }

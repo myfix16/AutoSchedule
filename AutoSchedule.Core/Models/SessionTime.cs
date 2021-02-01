@@ -19,6 +19,7 @@ namespace AutoSchedule.Core.Models
         // Using delta time from Monday has problem here since Sunday is the first day in enum.
         // However, it doesn't affect the result because there is no class in the weekend.
         private int? startTimeFromMon;
+
         /// <summary>
         /// Start time counting from 00:00 Mon.
         /// </summary>
@@ -70,10 +71,8 @@ namespace AutoSchedule.Core.Models
         }
 
         public bool ConflictWith(SessionTime sessionTime2)
-            => !(StartTimeFromMon > sessionTime2.EndTimeFromMon
-                 || EndTimeFromMon < sessionTime2.StartTimeFromMon);
+            => !(StartTimeFromMon > sessionTime2.EndTimeFromMon || EndTimeFromMon < sessionTime2.StartTimeFromMon);
 
-        public override string ToString()
-            => $"{DayOfWeek} {StartTime}-{EndTime}";
+        public override string ToString() => $"{DayOfWeek} {StartTime}-{EndTime}";
     }
 }

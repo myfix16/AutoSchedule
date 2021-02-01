@@ -1,0 +1,57 @@
+﻿@page "/schedulepage"
+@inject AppDataService DataService
+@inject AppDataServiceSingleton DataServiceSingleton
+
+<h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <AcademicCalendar @ref=academicCalendar @bind-ScheduleSource=ScheduleSource />
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-9">
+            <SfGrid DataSource="@DataServiceSingleton.AvailableSessions.SelectMany(c => c)"
+                    Height=@courseSelectionHeight>
+            </SfGrid>
+        </div>
+        <div class="col-lg-3">
+            <SfListView DataSource="@DataService.CurrentSchedule.Sessions" 
+                        Height=@courseSelectionHeight>
+                <ListViewFieldSettings TValue="Session" Id="Code" Text="Name"></ListViewFieldSettings>
+            </SfListView>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+
+@code {
+    // TODO: Enable UI virtualization for gridview.
+    private string courseSelectionHeight = "500px";
+
+    private AcademicCalendar academicCalendar;
+
+    private Schedule _scheduleSource;
+    [Parameter]
+    public Schedule ScheduleSource
+    {
+        get => _scheduleSource;
+        set { _scheduleSource = value; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await DataService.InitializeAsync(DataServiceSingleton);
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ScheduleSource = DataService.CurrentSchedule.ShallowCopy();
+    }
+}

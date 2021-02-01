@@ -9,8 +9,9 @@ namespace AutoSchedule.Core.Models
     [Serializable]
     public class Schedule : ICopyable<Schedule>
     {
-        public string ID { get; set; }
-        public List<Session> Sessions { get; set; } = new List<Session>();
+        public string ID;
+
+        public List<Session> Sessions = new List<Session>();
 
         /// <summary>
         /// Validate whether one session can be successfully added.
@@ -33,9 +34,6 @@ namespace AutoSchedule.Core.Models
         /// Add a new session into the schedule.
         /// </summary>
         /// <returns>true if add is successful, false otherwise</returns>
-        public static void AddSession(Session newSession, List<Session> existingSessions)
-            => existingSessions.Add(newSession);
-
         public void AddSession(Session newSession) => Sessions.Add(newSession);
 
         public Schedule WithAdded(Session element)
@@ -56,7 +54,7 @@ namespace AutoSchedule.Core.Models
 
         public Schedule DeepCopy()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Deep copy is not available.");
         }
     }
 }

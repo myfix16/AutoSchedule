@@ -7,10 +7,10 @@ namespace AutoSchedule.Core.Helpers
     /// <summary>
     /// Define a set of methods that can retrieve session info from various data source.
     /// </summary>
-    public interface IDataProvider
+    public interface IDataProvider<T>
     {
-        public Task<IEnumerable<Session>> GetSessionsAsync();
+        public Task<T> GetSessionsAsync();
 
-        public IEnumerable<Session> GetSessions();
+        public T GetSessions();
     }
 }
