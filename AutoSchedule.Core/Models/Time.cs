@@ -31,7 +31,7 @@ namespace AutoSchedule.Core.Models
         /// <summary>
         /// Construct the time by a string.
         /// </summary>
-        /// <param name="timeString">A string  representation of time, for example, 10:30.</param>
+        /// <param name="timeString">A string representation of time, for example, 10:30.</param>
         public Time(string timeString)
         {
             var splittedString = timeString.Replace(" ", string.Empty).Split(':');
@@ -56,6 +56,8 @@ namespace AutoSchedule.Core.Models
         public int CompareTo(Time other) => TotalMinutes - other.TotalMinutes;
 
         public bool Equals(Time other) => TotalMinutes == other.TotalMinutes;
+
+        public override int GetHashCode() => TotalMinutes.GetHashCode();
 
         public override string ToString() => $"{Hour}:{(Minute == 0 ? "00" : Minute)}";
 

@@ -1,0 +1,213 @@
+﻿@page "/"
+@inject HttpClient Http
+@inject AppDataService DataService
+@inject AppDataServiceSingleton DataServiceSingleton
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
+
+<h3 class="ms-fontSize-42 ms-fontWeight-regular">Welcome to Auto Schedule</h3>
+<p class="ms-fontSize-20 ms-fontWeight-regular">Auto Schedule allows you to arrange your academic schedule easily</p>
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="available-courses-section">
+                <div id="course-list-label-section">
+                    <h4>Available Courses</h4>
+                </div>
+                <div id="course-filter-section">
+                    <div class='e-input-group' style="margin: 0px 0px 8px">
+                        <input class='e-input' Placeholder="Search" type='text'
+                               @bind=SearchBoxText @bind:event="oninput">
+                        <span class="e-input-group-icon e-input-search"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="selected-courses-section">
+                <div id="course-list-label-section">
+                    <h4>Selected Courses</h4>
+                </div>
+                <div id="course-filter-section">
+                    <SfButton @onclick=OnClickMakeSchedule>Make Schedule</SfButton>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="available-courses-section">
+                <SfListBox TValue="string[]"
+                           TItem="string"
+                           DataSource=@DataService.FilteredClasses
+                           @ref=availableCoursesListBox
+                           Scope=@availableScope
+                           SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
+                           Height=@boxHeight>
+                    <ListBoxToolbarSettings Items=@toolBarItems />
+                </SfListBox>
+            </div>
+            <div id="selected-courses-section">
+                <SfListBox TValue="string[]"
+                           TItem="string"
+                           DataSource=@DataService.SelectedClasses
+                           @ref="selectedCoursesListBox"
+                           Scope=@selectedScope
+                           SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
+                           Height=@boxHeight>
+                </SfListBox>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-lg-6">
+            <SfListBox TValue="string[]"
+                       TItem="Schedule"
+                       DataSource=@DataService.AvailableSchedules
+                       @ref="availableSchedulesListBox"
+                       Height="200px">
+                <ListBoxFieldSettings Text="ID" Value="ID" />
+                <ListBoxSelectionSettings Mode="Syncfusion.Blazor.DropDowns.SelectionMode.Single" />
+            </SfListBox>
+        </div>
+        <div class="col-lg-6" style="margin: auto">
+            <SfButton CssClass="view-schedule" @onclick=OnClickViewSchedule>View Schedule</SfButton>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+
+@code {
+    // TODO: Note: Before figuring out how to listen to the ItemsChanged Event of SfListBox, the program will
+    // update the cod-behind value when filter is performed or make schedule button is clicked. It is
+    // not a good idea and only acts as a temporary solution.
+
+    public string boxHeight = "400px";
+    // Things for the dual list box
+    SfListBox<string[], string> availableCoursesListBox;
+    SfListBox<string[], string> selectedCoursesListBox;
+    SfListBox<string[], string> availableScope;
+    SfListBox<string[], string> selectedScope;
+    SfListBox<string[], Schedule> availableSchedulesListBox;
+
+    public string[] toolBarItems = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
+
+    public string SearchBoxText
+    {
+        get => DataService.searchBoxText;
+        set { DataService.searchBoxText = value; OnFilterChanged(); }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await DataServiceSingleton.InitializeAsync();
+        await DataService.InitializeAsync(DataServiceSingleton);
+        StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            availableScope = selectedCoursesListBox;
+            selectedScope = availableCoursesListBox;
+            // Re-render component to update the ListBox component Scope references in each connected ListBox.
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// Sync the value of backed model with that of view(listbox).
+    /// </summary>
+    private void UpdateModelValue()
+    {
+        DataService.SelectedClasses = new ObservableCollection<string>(selectedCoursesListBox.GetDataList());
+        DataService.FilteredClasses = new ObservableCollection<string>(availableCoursesListBox.GetDataList());
+    }
+
+    /// <summary>
+    /// Update FilteredSessions when text in search box changed.
+    /// </summary>
+    private void OnFilterChanged()
+    {
+        UpdateModelValue();
+
+        var filtered = (SearchBoxText == null || SearchBoxText == string.Empty)
+            ? FilterClasses(DataServiceSingleton.AvailableClasses, string.Empty) : FilterClasses(DataServiceSingleton.AvailableClasses, SearchBoxText);
+        Remove_NonMatching(DataService.FilteredClasses, filtered);
+        AddBack_Contacts(DataService.FilteredClasses, filtered);
+    }
+
+    /// <summary>
+    /// Filter given class list with provided keyword.
+    /// </summary>
+    /// <param name="allClasses">The list of classes to filter</param>
+    /// <param name="filterRef">Filter keyword</param>
+    /// <returns></returns>
+    private IEnumerable<string> FilterClasses(IEnumerable<string> allClasses, string filterRef)
+        // First, filter allClasses to get matched classes. Then, delete classes that are contained in SelectedClasses.
+        => allClasses.Where(c => c.Contains(filterRef, StringComparison.InvariantCultureIgnoreCase))
+                     .Where(c => !DataService.SelectedClasses.Contains(c));
+
+    /// <summary>
+    /// Compare oldFilteredData with newFilteredData and remove non-matching data from the old one.
+    /// </summary>
+    private void Remove_NonMatching(ICollection<string> oldFilteredData, IEnumerable<string> newFilteredData)
+    {
+        for (int i = oldFilteredData.Count - 1; i >= 0; i--)
+        {
+            var item = oldFilteredData.ElementAt(i);
+            if (!newFilteredData.Contains(item)) oldFilteredData.Remove(item);
+        }
+    }
+
+    /// <summary>
+    /// Compare oldFilteredData with newFilteredData and add non-existing data to the old one.
+    /// </summary>
+    private void AddBack_Contacts(ICollection<string> oldFilteredData, IEnumerable<string> newFilteredData)
+    {
+        foreach (var item in newFilteredData)
+        {
+            if (!oldFilteredData.Contains(item)) oldFilteredData.Add(item);
+        }
+    }
+
+    public async Task OnClickMakeSchedule()
+    {
+        UpdateModelValue();
+
+        // Alert user if no class is selected.
+        if (DataService.SelectedClasses.Count == 0)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Cannot generate schedule: No class is selected.");
+            return;
+        }
+
+        // select only lectures and generate the schedule.
+        var generatedSchedules = ClassSelector.FindSchedules(
+            DataServiceSingleton.AvailableSessions
+                //.Where(s => new Regex(@"\w+ L\d{2}").IsMatch(s.First().Name))
+                .Where(s => DataService.SelectedClasses.Contains(s.First().GetClassifiedName())));
+
+        // Alert user if there is no available schedule.
+        if (generatedSchedules.Count == 0)
+            await JsRuntime.InvokeVoidAsync("alert", "There is no available schedule for selected classes.");
+
+        DataService.AvailableSchedules.Clear();
+        foreach (var item in generatedSchedules) DataService.AvailableSchedules.Add(item);
+    }
+
+    public void OnClickViewSchedule()
+    {
+        if (availableSchedulesListBox.Value == null) return;
+
+        DataService.CurrentSchedule = DataService.AvailableSchedules
+            .Where(s => s.ID == availableSchedulesListBox.Value[0]).FirstOrDefault();
+        navigationManager.NavigateTo("schedulepage");
+    }
+}
