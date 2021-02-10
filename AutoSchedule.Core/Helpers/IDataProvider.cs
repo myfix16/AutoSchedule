@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoSchedule.Core.Models;
+﻿using System.Threading.Tasks;
 
 namespace AutoSchedule.Core.Helpers
 {

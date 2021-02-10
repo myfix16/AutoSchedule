@@ -9,10 +9,13 @@
     <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-yellow" alt="Platform" />
   </a>
   <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/Framework-Blazor%20Server-red" alt="Framework" />
+    <img src="https://img.shields.io/badge/Framework-Blazor%20WebAssembly-red" alt="Framework" />
   </a>
   <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.0-blue" alt="Version" />
+  </a>
+  <a style="text-decoration:none">
+    <img src="https://dev.azure.com/myfix16/AutoSchedule/_apis/build/status/AutoSchedule%20-%201%20-%20CI?branchName=master" alt="Build Status" />
   </a>
 </p>
 
@@ -21,7 +24,7 @@ This program is designed to **automatically generate class schedules** for CUHK(
 ## 🔗Get Access
 The program is deployed on Azure📦. You can access it from **[Here](https://autoschedule.azurewebsites.net/)**.
 ## 🌈Browsers support
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |
 | --------- | --------- | --------- | --------- |
 | last 2 versions| last 2 versions| last 2 versions| last 2 versions
 ## 📕 User Guidance

@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace AutoSchedule.API
@@ -36,8 +29,8 @@ namespace AutoSchedule.API
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsAllowSpecificOrigins, policy =>
-                    policy.WithOrigins("http://http://autoschedule.azurewebsites.net/",
-                                       "https://http://autoschedule.azurewebsites.net/",
+                    policy.WithOrigins("http://autoschedule.azurewebsites.net",
+                                       "https://autoschedule.azurewebsites.net",
                                        "http://localhost:44329",
                                        "https://localhost:44329")
                     .AllowAnyHeader()

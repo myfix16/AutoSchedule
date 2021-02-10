@@ -14,14 +14,16 @@
     <br />
     <div class="row">
         <div class="col-lg-9">
-            <SfGrid DataSource="@DataServiceSingleton.AvailableSessions.SelectMany(c => c)"
+            <SfGrid DataSource="@DataServiceSingleton.AvailableSessionsFlat"
                     Height=@courseSelectionHeight>
             </SfGrid>
         </div>
         <div class="col-lg-3">
-            <SfListView DataSource="@DataService.CurrentSchedule.Sessions" 
-                        Height=@courseSelectionHeight>
-                <ListViewFieldSettings TValue="Session" Id="Code" Text="Name"></ListViewFieldSettings>
+            <SfListView DataSource="@DataService.CurrentSchedule.Sessions"
+                        Height=@courseSelectionHeight
+                        ShowHeader="true"
+                        HeaderTitle="Selected Sessions">
+                <ListViewFieldSettings TValue="Session" Id="Code" Text="Name"/>
             </SfListView>
         </div>
     </div>
@@ -46,7 +48,9 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await DataService.InitializeAsync(DataServiceSingleton);
+        // The data service must be prepared before the AcademicCalendar control is rendered.
+        // TODO: Find a solution for this issue.
+        DataService.InitializeAsync(DataServiceSingleton);
     }
 
     protected override void OnInitialized()

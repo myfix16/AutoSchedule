@@ -56,7 +56,7 @@
     [Parameter]
     public EventCallback<Schedule> ScheduleSourceChanged { get; set; }
 
-    private async Task OnScheduleSourceChanged()
+    private void OnScheduleSourceChanged()
     {
         classPlaceIdentifier = new DisplayedSession [25,5];
 
@@ -64,7 +64,7 @@
         DisplaySessions();
         StateHasChanged();
 
-        await ScheduleSourceChanged.InvokeAsync(this.ScheduleSource);
+        ScheduleSourceChanged.InvokeAsync(this.ScheduleSource);
     }
 
     /// <summary>
