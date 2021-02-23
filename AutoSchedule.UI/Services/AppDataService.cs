@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using AutoSchedule.Core.Models;
 
@@ -31,6 +32,10 @@ namespace AutoSchedule.UI.Services
                 await appDataServiceSingleton.InitializeAsync();
                 foreach (var item in appDataServiceSingleton.AvailableClasses) FilteredClasses.Add(item);
                 initialized = true;
+
+#if DEBUG
+                Console.WriteLine("DataService initialized.");
+#endif
             }
         }
     }

@@ -15,6 +15,7 @@
     <div class="row">
         <div class="col-lg-9">
             <SfGrid DataSource="@DataServiceSingleton.AvailableSessionsFlat"
+                    EnableVirtualization="true"
                     Height=@courseSelectionHeight>
             </SfGrid>
         </div>
@@ -50,7 +51,8 @@
         await base.OnInitializedAsync();
         // The data service must be prepared before the AcademicCalendar control is rendered.
         // TODO: Find a solution for this issue.
-        DataService.InitializeAsync(DataServiceSingleton);
+        await DataServiceSingleton.InitializeAsync();
+        await DataService.InitializeAsync(DataServiceSingleton);
     }
 
     protected override void OnInitialized()

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoSchedule.Core.Helpers;
@@ -11,7 +13,7 @@ namespace AutoSchedule.UI.Services
         /// <summary>
         /// All available sessions such as ACT2111 L01.
         /// </summary>
-        public IEnumerable<Session> AvailableSessionsFlat;
+        public ObservableCollection<Session> AvailableSessionsFlat = new();
 
         /// <summary>
         /// All available sessions, grouped by class name.
@@ -39,15 +41,19 @@ namespace AutoSchedule.UI.Services
         /// </summary>
         public async Task InitializeAsync()
         {
-            //if (AvailableSessions == null || !AvailableSessions.Any())
             if (!initialized)
             {
-                // TODO: Add notification of fetching data.
-                AvailableSessionsFlat = await DataProvider.GetSessionsAsync();
+                foreach (var item in await DataProvider.GetSessionsAsync())
+                    AvailableSessionsFlat.Add(item);
+
                 AvailableSessions = AvailableSessionsFlat.GroupBy(s => s.GetClassifiedName());
                 AvailableClasses = AvailableSessions
                     .Select(l => l.First().GetClassifiedName()).Distinct().OrderBy(s => s);
                 initialized = true;
+
+#if DEBUG
+                Console.WriteLine("DataService singleton initialized.");
+#endif
             }
         }
     }
