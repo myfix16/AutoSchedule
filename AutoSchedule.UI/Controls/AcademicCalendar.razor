@@ -12,59 +12,58 @@
         <tbody>
             @for (int i = 0; i < 25; i++)
             {
-            <tr>
-                <td class="calendar-table-content">@($"{((i + 1) / 2) + 8}:{(i % 2 == 0 ? "30" : "00")}")</td>
-                @for (int j = 0; j < 5; j++)
-                {
-                    // TODO: This method is so stupid. There might be an elegant way to do that.
-                    @if (classPlaceIdentifier[i,j] is DisplayedSession displayedSession)
+                <tr>
+                    <td class="calendar-table-content">@($"{((i + 1) / 2) + 8}:{(i % 2 == 0 ? "30" : "00")}")</td>
+                    @for (int j = 0; j < 5; j++)
                     {
-                        @if (displayedSession.IsPlaceHolder) continue;
+                        // TODO: This method is so stupid. There might be an elegant way to do that.
+                        @if (classPlaceIdentifier[i, j] is DisplayedSession displayedSession)
+                        {
+                            @if (displayedSession.IsPlaceHolder) continue;
 
-                        <td class="calendar-table-content" rowspan=@displayedSession.RowSpan>
-                            <AcademicCalendarItem
-                                SessionName=@(displayedSession.Name)
-                                SessionType=@($"{displayedSession.SessionType} {displayedSession.Code}")
-                                SessionTime=@($"{displayedSession.SessionTime.StartTime}-{displayedSession.SessionTime.EndTime}")
-                                SessionLocation=@(string.Empty)>
-                            </AcademicCalendarItem>
-                        </td>
+                            <td class="calendar-table-content" rowspan=@displayedSession.RowSpan>
+                                <AcademicCalendarItem SessionName=@(displayedSession.Name)
+                                                      SessionType=@($"{displayedSession.SessionType} {displayedSession.Code}")
+                                                      SessionTime=@($"{displayedSession.SessionTime.StartTime}-{displayedSession.SessionTime.EndTime}")
+                                                      SessionLocation=@(string.Empty)>
+                                </AcademicCalendarItem>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="calendar-table-content"></td>
+}
                     }
-                    else { <td class="calendar-table-content"></td> }
-                }
-            </tr>
+                </tr>
             }
         </tbody>
     </table>
 </div>
 
 @code {
+    // TODO: Update the view when schedule/sessions in schedule changes.
+
     List<string> workDays = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
 
     private Schedule _scheduleSource = new();
+
     [Parameter]
     public Schedule ScheduleSource
     {
         get => _scheduleSource;
-        set { _scheduleSource = value; OnScheduleSourceChanged(); }
+        set { _scheduleSource = value; OnSessionsChanged(); }
     }
 
     private List<DisplayedSession> displayedSessions = new();
 
-    private DisplayedSession [,] classPlaceIdentifier = new DisplayedSession [25,5];
+    private DisplayedSession[,] classPlaceIdentifier = new DisplayedSession[25, 5];
 
-    [Parameter]
-    public EventCallback<Schedule> ScheduleSourceChanged { get; set; }
-
-    private void OnScheduleSourceChanged()
+    private void OnSessionsChanged()
     {
-        classPlaceIdentifier = new DisplayedSession [25,5];
+        classPlaceIdentifier = new DisplayedSession[25, 5];
 
         UpdateDisplayedSessions();
         DisplaySessions();
-        StateHasChanged();
-
-        ScheduleSourceChanged.InvokeAsync(this.ScheduleSource);
     }
 
     /// <summary>
@@ -84,7 +83,7 @@
             // Add placeholder.
             for (int i = 1; i < session.RowSpan; i++)
             {
-                classPlaceIdentifier[rowIndex+i, columnIndex] = new DisplayedSession { IsPlaceHolder=true };
+                classPlaceIdentifier[rowIndex + i, columnIndex] = new DisplayedSession { IsPlaceHolder = true };
             }
         }
     }

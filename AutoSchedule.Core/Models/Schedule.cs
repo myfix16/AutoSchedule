@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AutoSchedule.Core.Models
 {
@@ -11,7 +12,7 @@ namespace AutoSchedule.Core.Models
     {
         public string ID;
 
-        public List<Session> Sessions = new List<Session>();
+        public ObservableCollection<Session> Sessions = new();
 
         /// <summary>
         /// Validate whether one session can be successfully added.
@@ -30,16 +31,10 @@ namespace AutoSchedule.Core.Models
             return true;
         }
 
-        /// <summary>
-        /// Add a new session into the schedule.
-        /// </summary>
-        /// <returns>true if add is successful, false otherwise</returns>
-        public void AddSession(Session newSession) => Sessions.Add(newSession);
-
         public Schedule WithAdded(Session element)
         {
             var newSchedule = ShallowCopy();
-            newSchedule.AddSession(element);
+            newSchedule.Sessions.Add(element);
             return newSchedule;
         }
 
@@ -48,10 +43,11 @@ namespace AutoSchedule.Core.Models
             return new Schedule
             {
                 ID = this.ID,
-                Sessions = new List<Session>(this.Sessions),
+                Sessions = new ObservableCollection<Session>(this.Sessions),
             };
         }
 
+        [Obsolete("Deep copy is not available.")]
         public Schedule DeepCopy()
         {
             throw new NotImplementedException("Deep copy is not available.");

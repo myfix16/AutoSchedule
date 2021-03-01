@@ -19,6 +19,19 @@ namespace AutoSchedule.Core.Models
         /// <remarks>E.g. Mon 8:30-10:20 and Wed 8:30-10:20.</remarks>
         public List<SessionTime> SessionTimes { get; init; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
+        public string SessionTimesString
+        {
+            get 
+            { 
+                string output = ""; 
+                foreach (var item in SessionTimes) 
+                    output += $" {item};";
+                return output.Trim();
+            }
+        }
+
         public string Instructor { get; init; }
 
         [JsonPropertyName("id")]

@@ -36,6 +36,7 @@ If you would like to contribute, feel free to create a [pull request](https://gi
 ## 🔧Dependencies and References
 + [AutoSchedule.Data](https://github.com/myfix16/AutoSchedule.Data) for course data service
 + [Syncfusion Blazor Components](https://www.syncfusion.com/blazor-components) for UI components
++ [Blazor Fluent UI](https://github.com/BlazorFluentUI/BlazorFluentUI) for UI style
 ## 💕Contributors
 <span>
   <img src="https://contrib.rocks/image?repo=myfix16/AutoSchedule" />
