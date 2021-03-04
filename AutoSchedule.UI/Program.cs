@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
 using AutoSchedule.Core.Helpers;
 using AutoSchedule.Core.Models;
 using AutoSchedule.UI.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Syncfusion.Blazor;
+using BlazorFluentUI;
 
 namespace AutoSchedule.UI
 {
@@ -28,6 +24,8 @@ namespace AutoSchedule.UI
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSyncfusionBlazor();
+            builder.Services.AddBlazorFluentUI();
+            builder.Services.AddSingleton<IDataProvider<IEnumerable<Session>>, WebAPIDataProvider>();
             builder.Services.AddSingleton<AppDataServiceSingleton>();
             builder.Services.AddScoped<AppDataService>();
 

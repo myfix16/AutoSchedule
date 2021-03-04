@@ -16,6 +16,7 @@ a, .btn-link {
 
 .content {
     padding-top: 1.1rem;
+    /*background-color: #faf9f8;*/
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -47,4 +48,11 @@ a, .btn-link {
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+#loading-indicator {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-40%);
 }

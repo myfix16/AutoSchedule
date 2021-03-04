@@ -25,7 +25,7 @@ namespace AutoSchedule.Core.Helpers
             return await new Task<IEnumerable<Session>>(() => ReadSessions(csvDirectionPath));
         }
 
-        private IEnumerable<Session> ReadSessions(string csvPath)
+        private static IEnumerable<Session> ReadSessions(string csvPath)
         {
             var sessions = new List<Session>();
             using var reader = new StreamReader(csvPath);

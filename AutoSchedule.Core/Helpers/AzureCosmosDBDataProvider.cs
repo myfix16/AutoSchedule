@@ -44,7 +44,7 @@ namespace AutoSchedule.Core.Helpers
             return sessions;
         }
 
-        private string GetDBConnectionString(string vaultKey, string vaultUri)
+        private static string GetDBConnectionString(string vaultKey, string vaultUri)
         {
             var client = new SecretClient(vaultUri: new Uri(vaultUri), credential: new DefaultAzureCredential());
             return client.GetSecret(vaultKey).Value.Value;

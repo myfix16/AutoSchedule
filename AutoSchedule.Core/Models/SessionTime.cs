@@ -2,8 +2,6 @@
 
 namespace AutoSchedule.Core.Models
 {
-    // TODO: Check whether there is an option to migrate to DateTime class.
-
     /// <summary>
     /// Represents the time of one session.
     /// </summary>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -17,14 +17,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.1" PrivateAssets="all" />
-    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="18.4.0.33" />
-    <PackageReference Include="Syncfusion.Blazor.Core" Version="18.4.0.33" />
-    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="18.4.0.33" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="18.4.0.33" />
-    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="18.4.0.33" />
-    <PackageReference Include="Syncfusion.Blazor.Lists" Version="18.4.0.33" />
+    <PackageReference Include="BlazorFluentUI.BFUBaseComponent" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUButton" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUComponentStyle" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUIcon" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFULayer" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFULink" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUNav" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUNavBar" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUPopup" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUResponsiveLayout" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUSpinner" Version="4.0.2" />
+    <PackageReference Include="BlazorFluentUI.BFUTheme" Version="4.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.3" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="18.4.0.42" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="18.4.0.42" />
+    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="18.4.0.42" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="18.4.0.42" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="18.4.0.42" />
+    <PackageReference Include="Syncfusion.Blazor.Lists" Version="18.4.0.42" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 

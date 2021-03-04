@@ -16,4 +16,5 @@
 .calendar-table-content {
     height: 7.4074%;
     text-align: center;
+    min-height: 1px;
 }

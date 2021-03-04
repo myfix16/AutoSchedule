@@ -18,13 +18,7 @@
 
 <body>
     <div id="app">
-        <div class="container-fluid" id="startup-area">
-            <!-- <div class="row">
-                <div class="col-12">
-                    <br/>
-                    <br/>
-                </div>
-            </div> -->
+        <div class="container-fluid" id="loading-indicator">
             <div class="row" id="startup_content">
                 <div class="col-4"></div>
                 <div class="col-4">
@@ -46,8 +40,9 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+
+    <script src="_content/BlazorFluentUI.BFUBaseComponent/blazorFluentUi.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
     <!-- Loading progress indicator -->
     <script type="text/javascript">
         var i = 0;
@@ -65,14 +60,4 @@
         }
     </script>
 </body>
-
-<style>
-    #startup-area{
-        position: absolute;
-        left:50%;
-        top:50%;
-        transform:translate(-50%,-40%);
-    }
-</style>
-
 </html>

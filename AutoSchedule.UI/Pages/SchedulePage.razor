@@ -4,54 +4,89 @@
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
 <br />
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <AcademicCalendar @ref=academicCalendar @bind-ScheduleSource=ScheduleSource />
+@{
+    if (!DataService.initialized)
+    {
+        <LoadingSpinner />
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <AcademicCalendar ScheduleSource=@DataService.CurrentSchedule />
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-lg-9">
+                    <SfGrid DataSource="@DataServiceSingleton.AvailableSessionsFlat"
+                            EnableVirtualization="true"
+                            AllowSelection="false"
+                            Toolbar=@tools
+                            Height=@courseSelectionHeight>
+                        <GridSearchSettings Operator=Operator.Contains IgnoreCase="true" Fields="@searchFields" />
+                        <GridPageSettings PageSize="30" />
+                        <GridColumns>
+                            <GridColumn Width="15%">
+                                <Template>
+                                    @{
+                                        var session = context as Session;
+                                        bool disabled = DataService.CurrentSchedule.Sessions.Contains(session);
+                                        System.Action action = () => DataService.CurrentSchedule.Sessions.Add(session);
+                                    }
+                                    <BFUDefaultButton Text="Add" Disabled=@disabled OnClick=@action />
+                                </Template>
+                            </GridColumn>
+                            <GridColumn Field=@nameof(Session.Name) HeaderText="Name" TextAlign="TextAlign.Left" Width="20%" />
+                            <GridColumn Field=@nameof(Session.Code) HeaderText="Code" TextAlign="TextAlign.Left" Width="10%" />
+                            <GridColumn Field=@nameof(Session.Instructor) HeaderText="Instructor" TextAlign="TextAlign.Left" Width="20%" />
+                            <GridColumn Field=@nameof(Session.SessionTimesString) HeaderText="Time" TextAlign="TextAlign.Left" Width="45%" />
+                        </GridColumns>
+                    </SfGrid>
+                </div>
+                <div class="col-lg-3">
+                    <SfListView DataSource="@DataService.CurrentSchedule.Sessions"
+                                Height=@courseSelectionHeight
+                                ShowHeader="true"
+                                HeaderTitle="Selected sessions">
+                        <ListViewFieldSettings TValue="Session" Id="Code" Text="Name" />
+                        <ListViewTemplates TValue="Session">
+                            <Template>
+                                @{
+                                    System.Action action = () =>
+                                    {
+                                        DataService.CurrentSchedule.Sessions.Remove(context);
+                                        DataService.CurrentSchedule.ID += " Modified";
+                                    };
+                                }
+                                <span style="float:left; align-content:center;">
+                                    <BFUDefaultButton Text="Delete" OnClick=@action Style="margin:auto;" />
+                                </span>
+                                <span style="float:right;">@context.Name</span>
+                            </Template>
+                        </ListViewTemplates>
+                    </SfListView>
+                </div>
+            </div>
+            <br />
+            <br />
         </div>
-    </div>
-    <br />
-    <br />
-    <div class="row">
-        <div class="col-lg-9">
-            <SfGrid DataSource="@DataServiceSingleton.AvailableSessions.SelectMany(c => c)"
-                    Height=@courseSelectionHeight>
-            </SfGrid>
-        </div>
-        <div class="col-lg-3">
-            <SfListView DataSource="@DataService.CurrentSchedule.Sessions" 
-                        Height=@courseSelectionHeight>
-                <ListViewFieldSettings TValue="Session" Id="Code" Text="Name"></ListViewFieldSettings>
-            </SfListView>
-        </div>
-    </div>
-    <br />
-    <br />
-</div>
+    }
+}
 
 @code {
-    // TODO: Enable UI virtualization for gridview.
     private string courseSelectionHeight = "500px";
 
-    private AcademicCalendar academicCalendar;
+    private string[] tools = new string[] { "Search" };
 
-    private Schedule _scheduleSource;
-    [Parameter]
-    public Schedule ScheduleSource
-    {
-        get => _scheduleSource;
-        set { _scheduleSource = value; }
-    }
+    private string[] searchFields = new string[] { "Name", "Code" };
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        await DataServiceSingleton.InitializeAsync();
         await DataService.InitializeAsync(DataServiceSingleton);
-    }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        ScheduleSource = DataService.CurrentSchedule.ShallowCopy();
     }
 }

@@ -1,15 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
+    @*<div class="sidebar">
         <NavMenu />
-    </div>
+    </div>*@
 
-    <div class="main">
-        <div class="top-row px-4">
+
+    <div class="container">
+        @*<div class="top-row px-4">
             <NavLink class="nav-link" href="about">
                 About
             </NavLink>
+        </div>*@
+        <div class="top-row px-4">
+            <BFUStack Style="width:100%;">
+                <BFUNavBar Header="Auto Schedule" Direction="LayoutDirection.Horizontal" Items=@navItems>
+                    <FooterTemplate>
+                        <NavLink class="nav-link" href="about">
+                            About
+                        </NavLink>
+                    </FooterTemplate>
+                </BFUNavBar>
+            </BFUStack>
         </div>
 
         <div class="content px-4">
@@ -17,3 +29,17 @@
         </div>
     </div>
 </div>
+
+@code {
+    private List<BFUNavBarItem> navItems;
+
+    protected override Task OnInitializedAsync()
+    {
+        navItems = new List<BFUNavBarItem> {
+            new BFUNavBarItem { Text= "Home", Url="", NavMatchType= NavMatchType.AnchorOnly, Id="home", IconName="Home", Key="1"},
+            new BFUNavBarItem { Text= "Schedule", Url="schedulepage", NavMatchType= NavMatchType.AnchorOnly, Id="schedulePage", IconName="Calendar", Key="3" },
+        };
+
+        return base.OnInitializedAsync();
+    }
+}
