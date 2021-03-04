@@ -22,17 +22,18 @@
                             @if (displayedSession.IsPlaceHolder) continue;
 
                             <td class="calendar-table-content" rowspan=@displayedSession.RowSpan>
-                                <AcademicCalendarItem SessionName=@(displayedSession.Name)
-                                                      SessionType=@($"{displayedSession.SessionType} {displayedSession.Code}")
-                                                      SessionTime=@($"{displayedSession.SessionTime.StartTime}-{displayedSession.SessionTime.EndTime}")
-                                                      SessionLocation=@(string.Empty)>
+                                <AcademicCalendarItem 
+                                    SessionName=@(displayedSession.Name)
+                                    SessionType=@($"{displayedSession.SessionType} {displayedSession.Code}")
+                                    SessionTime=@($"{displayedSession.SessionTime.StartTime}-{displayedSession.SessionTime.EndTime}")
+                                    SessionLocation=@(string.Empty)>
                                 </AcademicCalendarItem>
                             </td>
                         }
                         else
                         {
                             <td class="calendar-table-content"></td>
-}
+                        }
                     }
                 </tr>
             }
@@ -41,8 +42,6 @@
 </div>
 
 @code {
-    // TODO: Update the view when schedule/sessions in schedule changes.
-
     List<string> workDays = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
 
     private Schedule _scheduleSource = new();
