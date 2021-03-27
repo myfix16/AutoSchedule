@@ -1,4 +1,4 @@
-<BFUTheme>
+<BlazorFluentUI.Theme>
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
         <Found Context="routeData">
             <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -9,8 +9,5 @@
             </LayoutView>
         </NotFound>
     </Router>
-</BFUTheme>
-
-@*<BFULayerHost Style="display:flex; flex-direction: row;width:100vw">
-    <Router AppAssembly="typeof(Program).Assembly" />
-</BFULayerHost>*@
+    <LayerHost/>
+</BlazorFluentUI.Theme>

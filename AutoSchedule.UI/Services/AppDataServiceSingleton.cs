@@ -29,6 +29,8 @@ namespace AutoSchedule.UI.Services
 
         public string Version = "1.1.0";
 
+        public string Term = "2020-2021 Spring term";
+
         private bool initialized = false;
 
         public AppDataServiceSingleton(IDataProvider<IEnumerable<Session>> dataProvider)
