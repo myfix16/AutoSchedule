@@ -36,7 +36,7 @@
                                         bool disabled = DataService.CurrentSchedule.Sessions.Contains(session);
                                         System.Action action = () => DataService.CurrentSchedule.Sessions.Add(session);
                                     }
-                                    <BFUDefaultButton Text="Add" Disabled=@disabled OnClick=@action />
+                                    <DefaultButton Text="Add" Disabled=@disabled OnClick=@action />
                                 </Template>
                             </GridColumn>
                             <GridColumn Field=@nameof(Session.Name) HeaderText="Name" TextAlign="TextAlign.Left" Width="20%" />
@@ -57,12 +57,13 @@
                                 @{
                                     System.Action action = () =>
                                     {
+                                        // TODO: Think a proper way to modify a schedule.
                                         DataService.CurrentSchedule.Sessions.Remove(context);
                                         DataService.CurrentSchedule.ID += " Modified";
                                     };
                                 }
                                 <span style="float:left; align-content:center;">
-                                    <BFUDefaultButton Text="Delete" OnClick=@action Style="margin:auto;" />
+                                    <DefaultButton Text="Delete" OnClick=@action Style="margin:auto;" />
                                 </span>
                                 <span style="float:right;">@context.Name</span>
                             </Template>
