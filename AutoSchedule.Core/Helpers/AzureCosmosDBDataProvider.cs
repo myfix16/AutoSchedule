@@ -23,11 +23,15 @@ namespace AutoSchedule.Core.Helpers
         public async Task<IEnumerable<Session>> GetSessionsAsync()
         {
             // Get session data from Azure Cosmos DB.
+            //var cosmosClient = new CosmosClientBuilder
+            //    (GetDBConnectionString("AzureCosmosDB-ConnectionString-ReadOnly", Environment.GetEnvironmentVariable("VaultUri")))
+            //   .WithSerializerOptions(new CosmosSerializationOptions { Indented = true })
+            //   .Build();
             var cosmosClient = new CosmosClientBuilder
-                (GetDBConnectionString("AzureCosmosDB-ConnectionString-ReadOnly", Environment.GetEnvironmentVariable("VaultUri")))
+                ("AccountEndpoint=https://cosmosdb-for-autoschedule.documents.azure.com:443/;AccountKey=j5rHnPcv8ZpWLhFbOFBVxz6G5QgZaIAm5lX6yNDZhifJKtVepwEUEMFHd5DblXukEodgrbXHbJQB2CgLONC2bA==;")
                .WithSerializerOptions(new CosmosSerializationOptions { Indented = true })
                .Build();
-            var container = cosmosClient.GetDatabase("SessionsData").GetContainer("SessionsContainer");
+            var container = cosmosClient.GetDatabase("SessionsData").GetContainer("2021-2022-Term1");
 
             var sqlQueryText = "SELECT * FROM c";
             var queryIterator = container.GetItemQueryIterator<Session>(new QueryDefinition(sqlQueryText));
@@ -44,7 +48,7 @@ namespace AutoSchedule.Core.Helpers
             return sessions;
         }
 
-        private static string GetDBConnectionString(string vaultKey, string vaultUri)
+        public static string GetDBConnectionString(string vaultKey, string vaultUri)
         {
             var client = new SecretClient(vaultUri: new Uri(vaultUri), credential: new DefaultAzureCredential());
             return client.GetSecret(vaultKey).Value.Value;

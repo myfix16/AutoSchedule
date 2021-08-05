@@ -16,7 +16,12 @@ namespace AutoSchedule.Core.Helpers
 
         public IEnumerable<Session> GetSessions()
         {
-            return ReadSessions(csvDirectionPath);
+            List<Session> sessions = new();
+            foreach (var path in Directory.GetFiles(csvDirectionPath, "*.csv"))
+            {
+                sessions.AddRange(ReadSessions(path));
+            }
+            return sessions;
         }
 
         [Obsolete("This is actually a fake async method using await new Task.")]
@@ -39,6 +44,7 @@ namespace AutoSchedule.Core.Helpers
                 var sessionType = codeField[4..7];
                 var instructor = csv.GetField("Instructor");
                 var timesField = csv.GetField("Time").Split(';');
+                if (timesField[0] == "TBA") continue;
                 var sessionTimes = new List<SessionTime>();
                 foreach (var timeString in timesField)
                 {

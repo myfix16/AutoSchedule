@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoSchedule.Core.Helpers;
 using AutoSchedule.Core.Models;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 
 namespace AutoSchedule.UI.Services
 {
@@ -29,7 +31,7 @@ namespace AutoSchedule.UI.Services
 
         public string Version = "1.1.0";
 
-        public string Term = "2020-2021 Spring term";
+        public string Term = "2021-2022 Term 1";
 
         private bool initialized = false;
 

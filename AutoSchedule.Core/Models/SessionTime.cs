@@ -55,7 +55,7 @@ namespace AutoSchedule.Core.Models
             StartTime = new Time();
             EndTime = new Time();
         }
-
+        
         [System.Text.Json.Serialization.JsonConstructor]
         [Newtonsoft.Json.JsonConstructor]
         public SessionTime(DayOfWeek dayOfWeek, Time startTime, Time endTime)

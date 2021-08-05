@@ -27,7 +27,6 @@ namespace AutoSchedule.Core.Models
                 if (session.HasConflictSession(newSession))
                     return false;
             }
-
             return true;
         }
 
@@ -38,14 +37,11 @@ namespace AutoSchedule.Core.Models
             return newSchedule;
         }
 
-        public Schedule ShallowCopy()
+        public Schedule ShallowCopy() => new Schedule
         {
-            return new Schedule
-            {
-                ID = this.ID,
-                Sessions = new ObservableCollection<Session>(this.Sessions),
-            };
-        }
+            ID = this.ID,
+            Sessions = new ObservableCollection<Session>(this.Sessions),
+        };
 
         [Obsolete("Deep copy is not available.")]
         public Schedule DeepCopy()
