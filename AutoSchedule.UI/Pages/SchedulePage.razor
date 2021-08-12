@@ -47,8 +47,8 @@
                                         bool disabled = DataService.CurrentSchedule.Sessions.Contains(session);
                                         System.Action action = () =>
                                         {
-                                                            // add a new session only if it doesn't conflict with existing schedule
-                                                            if (DataService.CurrentSchedule.Validate(session))
+                                            // add a new session only if it doesn't conflict with existing schedule
+                                            if (DataService.CurrentSchedule.Validate(session))
                                             {
                                                 DataService.CurrentSchedule.Sessions.Add(session);
                                                 if (!DataService.CurrentSchedule.ID.Contains("Modified"))
