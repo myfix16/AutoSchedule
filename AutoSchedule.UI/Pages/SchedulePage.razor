@@ -5,10 +5,7 @@
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
 <br />
 @{
-    if (!DataService.initialized)
-    {
-        <LoadingSpinner />
-    }
+    if (!DataService.initialized)  { <LoadingSpinner /> }
     else
     {
         <div class="container">
@@ -18,7 +15,21 @@
                 </div>
             </div>
             <br />
-            <br />
+            @if (!classConflictWarningVisible) { <br /> }
+            @if (classConflictWarningVisible)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <MessageBar MessageBarType=MessageBarType.Warning
+                                    IsMultiline=false
+                                    OnDismiss=@OnDismiss
+                                    DismissButtonAriaLabel="Close">
+                            The newly added session has conflict with existing schedule.
+                        </MessageBar>
+                    </div>
+                </div>
+                <br />
+            }
             <div class="row">
                 <div class="col-lg-9">
                     <SfGrid DataSource="@DataServiceSingleton.AvailableSessionsFlat"
@@ -36,9 +47,14 @@
                                         bool disabled = DataService.CurrentSchedule.Sessions.Contains(session);
                                         System.Action action = () =>
                                         {
-                                            DataService.CurrentSchedule.Sessions.Add(session);
-                                            if (!DataService.CurrentSchedule.ID.Contains("Modified"))
-                                                DataService.CurrentSchedule.ID += " Modified";
+                                                            // add a new session only if it doesn't conflict with existing schedule
+                                                            if (DataService.CurrentSchedule.Validate(session))
+                                            {
+                                                DataService.CurrentSchedule.Sessions.Add(session);
+                                                if (!DataService.CurrentSchedule.ID.Contains("Modified"))
+                                                    DataService.CurrentSchedule.ID += " Modified";
+                                            }
+                                            else classConflictWarningVisible = true;
                                         };
                                     }
                                     <DefaultButton Text="Add" Disabled=@disabled OnClick=@action />
@@ -62,7 +78,6 @@
                                 @{
                                     System.Action action = () =>
                                     {
-                                        // TODO: Think a proper way to modify a schedule.
                                         DataService.CurrentSchedule.Sessions.Remove(context);
                                         if (!DataService.CurrentSchedule.ID.Contains("Modified"))
                                             DataService.CurrentSchedule.ID += " Modified";
@@ -89,6 +104,10 @@
     private string[] tools = new string[] { "Search" };
 
     private string[] searchFields = new string[] { "Name", "Code" };
+
+    private bool classConflictWarningVisible = false;
+
+    private void OnDismiss() => classConflictWarningVisible = false;
 
     protected override async Task OnInitializedAsync()
     {
