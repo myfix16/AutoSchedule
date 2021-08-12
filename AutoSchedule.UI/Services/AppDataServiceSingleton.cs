@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoSchedule.Core.Helpers;
 using AutoSchedule.Core.Models;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Azure.Cosmos.Fluent;
 
 namespace AutoSchedule.UI.Services
 {

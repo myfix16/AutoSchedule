@@ -3,30 +3,22 @@
 namespace AutoSchedule.Core.Models
 {
     [Serializable]
-    public sealed record Time : IComparable<Time>, IEquatable<Time>
+    public struct Time : IComparable<Time>, IEquatable<Time>
     {
-        public int Hour { get; init; }
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
+        public int Hour;
 
-        public int Minute { get; init; }
-
-        private int? totalMinutes;
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
+        public int Minute;
 
         /// <summary>
         /// Represents the time span from 00:00 to this time counted in minutes.
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
-        public int TotalMinutes
-        {
-            get { totalMinutes ??= (Hour * 60) + Minute; return totalMinutes.Value; }
-            private set => totalMinutes = value;
-        }
-
-        public Time()
-        {
-            Hour = 0;
-            Minute = 0;
-        }
+        public int TotalMinutes;
 
         /// <summary>
         /// Construct the time by a string.
@@ -37,6 +29,7 @@ namespace AutoSchedule.Core.Models
             var splittedString = timeString.Replace(" ", string.Empty).Split(':');
             Hour = int.Parse(splittedString[0]);
             Minute = int.Parse(splittedString[1]);
+            TotalMinutes = (Hour * 60) + Minute;
         }
 
         [System.Text.Json.Serialization.JsonConstructor]
@@ -51,6 +44,7 @@ namespace AutoSchedule.Core.Models
 
             Hour = hour;
             Minute = minute;
+            TotalMinutes = (Hour * 60) + Minute;
         }
 
         public int CompareTo(Time other) => TotalMinutes - other.TotalMinutes;
@@ -71,7 +65,10 @@ namespace AutoSchedule.Core.Models
 
         public static bool operator >=(Time t1, Time t2) => t1.TotalMinutes >= t2.TotalMinutes;
 
-        #endregion
+        public static bool operator ==(Time t1, Time t2) => t1.TotalMinutes == t2.TotalMinutes;
 
+        public static bool operator !=(Time t1, Time t2) => t1.TotalMinutes != t2.TotalMinutes;
+
+        #endregion
     }
 }

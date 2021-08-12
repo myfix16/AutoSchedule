@@ -32,9 +32,14 @@
                             <GridColumn Width="15%">
                                 <Template>
                                     @{
-                                        var session = context as Session;
+                                        var session = (Session)context;
                                         bool disabled = DataService.CurrentSchedule.Sessions.Contains(session);
-                                        System.Action action = () => DataService.CurrentSchedule.Sessions.Add(session);
+                                        System.Action action = () =>
+                                        {
+                                            DataService.CurrentSchedule.Sessions.Add(session);
+                                            if (!DataService.CurrentSchedule.ID.Contains("Modified"))
+                                                DataService.CurrentSchedule.ID += " Modified";
+                                        };
                                     }
                                     <DefaultButton Text="Add" Disabled=@disabled OnClick=@action />
                                 </Template>
@@ -59,7 +64,8 @@
                                     {
                                         // TODO: Think a proper way to modify a schedule.
                                         DataService.CurrentSchedule.Sessions.Remove(context);
-                                        DataService.CurrentSchedule.ID += " Modified";
+                                        if (!DataService.CurrentSchedule.ID.Contains("Modified"))
+                                            DataService.CurrentSchedule.ID += " Modified";
                                     };
                                 }
                                 <span style="float:left; align-content:center;">
