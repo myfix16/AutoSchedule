@@ -29,14 +29,14 @@
     <PackageReference Include="BlazorFluentUI.BFUResponsiveLayout" Version="4.0.2" />
     <PackageReference Include="BlazorFluentUI.BFUSpinner" Version="4.0.2" />
     <PackageReference Include="BlazorFluentUI.BFUTheme" Version="4.0.2" />-->
-    <PackageReference Include="BlazorFluentUI.CoreComponents" Version="5.0.1" />
-    <PackageReference Include="BlazorFluentUI.ListComponents" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.4" PrivateAssets="all" />
-    <PackageReference Include="Syncfusion.Blazor.Core" Version="18.4.0.42" />
-    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="18.4.0.42" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="18.4.0.42" />
-    <PackageReference Include="Syncfusion.Blazor.Lists" Version="18.4.0.42" />
+    <PackageReference Include="BlazorFluentUI.CoreComponents" Version="5.5.3" />
+    <PackageReference Include="BlazorFluentUI.ListComponents" Version="5.5.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.9" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="18.4.0.46" />
+    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="18.4.0.46" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="18.4.0.46" />
+    <PackageReference Include="Syncfusion.Blazor.Lists" Version="18.4.0.46" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 

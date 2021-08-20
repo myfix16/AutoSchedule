@@ -28,7 +28,7 @@ else
                                    @bind=SearchBoxText @bind:event="oninput">
                         </div>*@
                         <div style="margin: 0px 0px 8px">
-                            <TextField Placeholder="Filter available courses" @bind-Value=SearchBoxText />
+                            <TextField Placeholder="Filter available courses" @bind-Value=SearchBoxText IconName="Search"/>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ else
                         <DefaultButton Text="Make schedules" OnClick="OnClickMakeSchedule" />
                         @* The dialog should keep the ChildContent filed to avoid null ref exception. *@
                         <Dialog Title="Warning"
-                                SubText=@noClassSelectedPrompt
+                                SubText=@NoClassSelectedPrompt
                                 IsOpen=@noClassSelected
                                 IsBlocking=false
                                 DialogType=@DialogType.LargeHeader
@@ -51,7 +51,7 @@ else
                             </FooterTemplate>
                         </Dialog>
                         <Dialog Title="Warning"
-                                SubText=@noScheduleAvailablePrompt
+                                SubText=@NoScheduleAvailablePrompt
                                 IsOpen=@noAvailableSchedule
                                 IsBlocking=false
                                 DialogType=@DialogType.LargeHeader
@@ -75,7 +75,7 @@ else
                                @ref=availableCoursesListBox
                                Scope=@availableScope
                                SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
-                               Height=@listBoxHeight>
+                               Height=@ListBoxHeight>
                         <ListBoxToolbarSettings Items=@toolBarItems />
                     </SfListBox>
                 </div>
@@ -87,7 +87,7 @@ else
                                @ref="selectedCoursesListBox"
                                Scope=@selectedScope
                                SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
-                               Height=@listBoxHeight>
+                               Height=@ListBoxHeight>
                     </SfListBox>
                 </div>
             </div>
@@ -105,7 +105,7 @@ else
                            DataSource=@DataService.AvailableSchedules
                            @ref="availableSchedulesListBox"
                            Height="200px">
-                    <ListBoxFieldSettings Text="ID" Value="ID" />
+                    <ListBoxFieldSettings Text="Id" Value="Id" />
                     <ListBoxSelectionSettings Mode="Syncfusion.Blazor.DropDowns.SelectionMode.Single" />
                 </SfListBox>
             </div>
@@ -128,8 +128,8 @@ else
     // update the cod-behind value when filter is performed or make schedule button is clicked. It is
     // not a good idea and only acts as a temporary solution.
     // ?OnActionComplete event failed. OnItemRender event works properly but will be fired endlessly.
-    
-    public string listBoxHeight = "450px";
+
+        private const string ListBoxHeight = "450px";
     // Things for the dual list box
     SfListBox<string[], string> availableCoursesListBox;
     SfListBox<string[], string> selectedCoursesListBox;
@@ -137,17 +137,17 @@ else
     SfListBox<string[], string> selectedScope;
     SfListBox<string[], Schedule> availableSchedulesListBox;
 
-    public string[] toolBarItems = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
+    private readonly string[] toolBarItems = { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
 
     private bool listBoxLinked = false;
 
     private bool noAvailableSchedule = false;
-    private string noScheduleAvailablePrompt = "There is no available schedule for selected classes.";
+    private const string NoScheduleAvailablePrompt = "There is no available schedule for selected classes.";
 
     private bool noClassSelected = false;
-    private string noClassSelectedPrompt = "Cannot generate schedule: No class is selected.";
+    private const string NoClassSelectedPrompt = "Cannot generate schedules: No class is selected.";
 
-    public string SearchBoxText
+    private string SearchBoxText
     {
         get => DataService.searchBoxText;
         set { DataService.searchBoxText = value; OnFilterChanged(); }
@@ -235,14 +235,13 @@ else
         foreach (var item in newData.Except(oldData).ToList()) oldData.Add(item);
     }
 
-    public void OnClickMakeSchedule()
+    private void OnClickMakeSchedule()
     {
         UpdateModelValue();
 
         // Alert user if no class is selected.
         if (DataService.SelectedClasses.Count == 0)
         {
-            //await JsRuntime.InvokeVoidAsync("alert", "Cannot generate schedule: No class is selected.");
             noClassSelected = true;
             return;
         }
@@ -253,22 +252,18 @@ else
                 .Where(s => DataService.SelectedClasses.Contains(s.First().GetClassifiedName())));
 
         // Alert user if there is no available schedule.
-        if (generatedSchedules.Count == 0)
-        {
-            //await JsRuntime.InvokeVoidAsync("alert", "There is no available schedule for selected classes.");
-            noAvailableSchedule = true;
-        }
+        if (generatedSchedules.Count == 0) noAvailableSchedule = true;
 
         DataService.AvailableSchedules.Clear();
         foreach (var item in generatedSchedules) DataService.AvailableSchedules.Add(item);
     }
 
-    public void OnClickViewSchedule()
+    private void OnClickViewSchedule()
     {
         if (availableSchedulesListBox.Value == null) return;
 
         DataService.CurrentSchedule = DataService.AvailableSchedules
-            .Where(s => s.ID == availableSchedulesListBox.Value[0]).FirstOrDefault();
+            .Where(s => s.Id == availableSchedulesListBox.Value[0]).FirstOrDefault();
         navigationManager.NavigateTo("schedulepage");
     }
 }
