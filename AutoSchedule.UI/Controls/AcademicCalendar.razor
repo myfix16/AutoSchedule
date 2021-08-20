@@ -17,7 +17,8 @@
                     @for (int j = 0; j < 5; j++)
                     {
                         // TODO: This method is so stupid. There might be an elegant way to do that.
-                        @if (classPlaceIdentifier[i, j] is DisplayedSession displayedSession)
+                        // is {}: to-object pattern, means non-null value
+                        @if (classPlaceIdentifier[i, j] is { } displayedSession)
                         {
                             @if (displayedSession.IsPlaceHolder) continue;
 
