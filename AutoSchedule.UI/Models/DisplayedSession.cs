@@ -4,14 +4,14 @@ namespace AutoSchedule.UI.Models
 {
     public class DisplayedSession
     {
-        public string SessionType { get; set; }
-        public SessionTime SessionTime { get; set; }
-        public string Instructor { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        public string SessionType;
+        public SessionTime SessionTime;
+        public string Instructor;
+        public string Code;
+        public string Name;
 
-        public int RowSpan { get; set; }
-        public bool IsPlaceHolder { get; set; } = false;
+        public int RowSpan;
+        public bool IsPlaceHolder = false;
 
         public override string ToString() => $"{Name} {Code} {Instructor} {SessionTime}";
     }

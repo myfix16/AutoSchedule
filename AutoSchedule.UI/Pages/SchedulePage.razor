@@ -5,10 +5,7 @@
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Schedules</h3>
 <br />
 @{
-    if (!DataService.initialized)
-    {
-        <LoadingSpinner />
-    }
+    if (!DataService.initialized)  { <LoadingSpinner /> }
     else
     {
         <div class="container">
@@ -18,25 +15,55 @@
                 </div>
             </div>
             <br />
-            <br />
+            @if (!classConflictWarningVisible) { <br /> }
+            @if (classConflictWarningVisible)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <MessageBar MessageBarType=MessageBarType.Warning
+                                    IsMultiline=false
+                                    OnDismiss=@OnDismiss
+                                    DismissButtonAriaLabel="Close">
+                            The newly added session has conflict with existing schedule.
+                        </MessageBar>
+                    </div>
+                </div>
+                <br />
+            }
             <div class="row">
                 <div class="col-lg-9">
                     <SfGrid DataSource="@DataServiceSingleton.AvailableSessionsFlat"
                             EnableVirtualization="true"
                             AllowSelection="false"
                             Toolbar=@tools
-                            Height=@courseSelectionHeight>
+                            Height=@CourseSelectionHeight>
                         <GridSearchSettings Operator=Operator.Contains IgnoreCase="true" Fields="@searchFields" />
                         <GridPageSettings PageSize="30" />
                         <GridColumns>
                             <GridColumn Width="15%">
                                 <Template>
                                     @{
-                                        var session = context as Session;
+                                        var session = (Session)context;
                                         bool disabled = DataService.CurrentSchedule.Sessions.Contains(session);
-                                        System.Action action = () => DataService.CurrentSchedule.Sessions.Add(session);
+
+                                        void CheckAndAdd()
+                                        {
+                                            // add a new session only if it doesn't conflict with existing schedule
+                                            if (DataService.CurrentSchedule.Validate(session))
+                                            {
+                                                DataService.CurrentSchedule.Sessions.Add(session);
+                                                if (!DataService.CurrentSchedule.Id.Contains("Modified"))
+                                                {
+                                                    DataService.CurrentSchedule.Id += " Modified";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                classConflictWarningVisible = true;
+                                            }
+                                        }
                                     }
-                                    <BFUDefaultButton Text="Add" Disabled=@disabled OnClick=@action />
+                                    <DefaultButton Text="Add" Disabled=@disabled OnClick=@CheckAndAdd />
                                 </Template>
                             </GridColumn>
                             <GridColumn Field=@nameof(Session.Name) HeaderText="Name" TextAlign="TextAlign.Left" Width="20%" />
@@ -48,21 +75,22 @@
                 </div>
                 <div class="col-lg-3">
                     <SfListView DataSource="@DataService.CurrentSchedule.Sessions"
-                                Height=@courseSelectionHeight
+                                Height=@CourseSelectionHeight
                                 ShowHeader="true"
                                 HeaderTitle="Selected sessions">
                         <ListViewFieldSettings TValue="Session" Id="Code" Text="Name" />
                         <ListViewTemplates TValue="Session">
                             <Template>
                                 @{
-                                    System.Action action = () =>
+                                    void CheckAndDel()
                                     {
                                         DataService.CurrentSchedule.Sessions.Remove(context);
-                                        DataService.CurrentSchedule.ID += " Modified";
+                                        if (!DataService.CurrentSchedule.Id.Contains("Modified"))
+                                            DataService.CurrentSchedule.Id += " Modified";
                                     };
                                 }
                                 <span style="float:left; align-content:center;">
-                                    <BFUDefaultButton Text="Delete" OnClick=@action Style="margin:auto;" />
+                                    <DefaultButton Text="Delete" OnClick=@CheckAndDel Style="margin:auto;" />
                                 </span>
                                 <span style="float:right;">@context.Name</span>
                             </Template>
@@ -77,11 +105,15 @@
 }
 
 @code {
-    private string courseSelectionHeight = "500px";
+    private const string CourseSelectionHeight = "500px";
 
-    private string[] tools = new string[] { "Search" };
+    private readonly string[] tools = { "Search" };
 
-    private string[] searchFields = new string[] { "Name", "Code" };
+    private readonly string[] searchFields = { "Name", "Code" };
+
+    private bool classConflictWarningVisible = false;
+
+    private void OnDismiss() => classConflictWarningVisible = false;
 
     protected override async Task OnInitializedAsync()
     {

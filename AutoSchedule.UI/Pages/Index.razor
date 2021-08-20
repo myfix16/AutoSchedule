@@ -6,7 +6,7 @@
 @inject IJSRuntime JsRuntime
 
 <h3 class="ms-fontSize-42 ms-fontWeight-regular">Welcome to Auto Schedule</h3>
-<p class="ms-fontSize-20 ms-fontWeight-regular">    Arrange your academic schedule easily</p>
+<p class="ms-fontSize-20 ms-fontWeight-regular">Arrange your academic schedule easily</p>
 <br />
 
 @if (!DataService.initialized)
@@ -23,9 +23,12 @@ else
                         <h4>Available courses</h4>
                     </div>
                     <div id="course-filter-section">
-                        <div class='e-input-group' style="margin: 0px 0px 8px">
-                            <input class='e-input' Placeholder="Search classes" type='text'
+                        @*<div class='e-input-group' style="margin: 0px 0px 8px">
+                            <input class='e-input' Placeholder="Filter classes" type='text'
                                    @bind=SearchBoxText @bind:event="oninput">
+                        </div>*@
+                        <div style="margin: 0px 0px 8px">
+                            <TextField Placeholder="Filter available courses" @bind-Value=SearchBoxText IconName="Search"/>
                         </div>
                     </div>
                 </div>
@@ -34,8 +37,30 @@ else
                         <h4>Selected courses</h4>
                     </div>
                     <div id="course-filter-section">
-                        @*<SfButton @onclick=OnClickMakeSchedule>Make Schedule</SfButton>*@
-                        <BFUDefaultButton Text="Make schedules" OnClick="OnClickMakeSchedule" />
+                        <DefaultButton Text="Make schedules" OnClick="OnClickMakeSchedule" />
+                        @* The dialog should keep the ChildContent filed to avoid null ref exception. *@
+                        <Dialog Title="Warning"
+                                SubText=@NoClassSelectedPrompt
+                                IsOpen=@noClassSelected
+                                IsBlocking=false
+                                DialogType=@DialogType.LargeHeader
+                                OnDismiss=@(args=> noClassSelected=false )>
+                            <ChildContent />
+                            <FooterTemplate>
+                                <PrimaryButton Text="OK" OnClick=@(args=> noClassSelected=false) />
+                            </FooterTemplate>
+                        </Dialog>
+                        <Dialog Title="Warning"
+                                SubText=@NoScheduleAvailablePrompt
+                                IsOpen=@noAvailableSchedule
+                                IsBlocking=false
+                                DialogType=@DialogType.LargeHeader
+                                OnDismiss=@(args=> noAvailableSchedule=false )>
+                            <ChildContent />
+                            <FooterTemplate>
+                                <PrimaryButton Text="OK" OnClick=@(args=> noAvailableSchedule=false) />
+                            </FooterTemplate>
+                        </Dialog>
                     </div>
                 </div>
             </div>
@@ -50,7 +75,7 @@ else
                                @ref=availableCoursesListBox
                                Scope=@availableScope
                                SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
-                               Height=@listBoxHeight>
+                               Height=@ListBoxHeight>
                         <ListBoxToolbarSettings Items=@toolBarItems />
                     </SfListBox>
                 </div>
@@ -62,7 +87,7 @@ else
                                @ref="selectedCoursesListBox"
                                Scope=@selectedScope
                                SortOrder="Syncfusion.Blazor.DropDowns.SortOrder.Ascending"
-                               Height=@listBoxHeight>
+                               Height=@ListBoxHeight>
                     </SfListBox>
                 </div>
             </div>
@@ -80,17 +105,16 @@ else
                            DataSource=@DataService.AvailableSchedules
                            @ref="availableSchedulesListBox"
                            Height="200px">
-                    <ListBoxFieldSettings Text="ID" Value="ID" />
+                    <ListBoxFieldSettings Text="Id" Value="Id" />
                     <ListBoxSelectionSettings Mode="Syncfusion.Blazor.DropDowns.SelectionMode.Single" />
                 </SfListBox>
             </div>
             <div class="col-lg-6" style="margin: auto auto auto auto">
-                @*<SfButton CssClass="view-schedule" @onclick=OnClickViewSchedule>View Schedule</SfButton>*@
                 <div class="row">
                     @* Placeholder for message bar *@
                 </div>
                 <div class="row">
-                    <BFUDefaultButton Text="View schedule" OnClick="OnClickViewSchedule" />
+                    <DefaultButton Text="View schedule" OnClick="OnClickViewSchedule" />
                 </div>
             </div>
         </div>
@@ -105,7 +129,7 @@ else
     // not a good idea and only acts as a temporary solution.
     // ?OnActionComplete event failed. OnItemRender event works properly but will be fired endlessly.
 
-    public string listBoxHeight = "450px";
+        private const string ListBoxHeight = "450px";
     // Things for the dual list box
     SfListBox<string[], string> availableCoursesListBox;
     SfListBox<string[], string> selectedCoursesListBox;
@@ -113,11 +137,17 @@ else
     SfListBox<string[], string> selectedScope;
     SfListBox<string[], Schedule> availableSchedulesListBox;
 
-    public string[] toolBarItems = new string[] { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
+    private readonly string[] toolBarItems = { "MoveTo", "MoveFrom", "MoveAllTo", "MoveAllFrom" };
 
     private bool listBoxLinked = false;
 
-    public string SearchBoxText
+    private bool noAvailableSchedule = false;
+    private const string NoScheduleAvailablePrompt = "There is no available schedule for selected classes.";
+
+    private bool noClassSelected = false;
+    private const string NoClassSelectedPrompt = "Cannot generate schedules: No class is selected.";
+
+    private string SearchBoxText
     {
         get => DataService.searchBoxText;
         set { DataService.searchBoxText = value; OnFilterChanged(); }
@@ -205,14 +235,14 @@ else
         foreach (var item in newData.Except(oldData).ToList()) oldData.Add(item);
     }
 
-    public async Task OnClickMakeSchedule()
+    private void OnClickMakeSchedule()
     {
         UpdateModelValue();
 
         // Alert user if no class is selected.
         if (DataService.SelectedClasses.Count == 0)
         {
-            await JsRuntime.InvokeVoidAsync("alert", "Cannot generate schedule: No class is selected.");
+            noClassSelected = true;
             return;
         }
 
@@ -222,19 +252,18 @@ else
                 .Where(s => DataService.SelectedClasses.Contains(s.First().GetClassifiedName())));
 
         // Alert user if there is no available schedule.
-        if (generatedSchedules.Count == 0)
-            await JsRuntime.InvokeVoidAsync("alert", "There is no available schedule for selected classes.");
+        if (generatedSchedules.Count == 0) noAvailableSchedule = true;
 
         DataService.AvailableSchedules.Clear();
         foreach (var item in generatedSchedules) DataService.AvailableSchedules.Add(item);
     }
 
-    public void OnClickViewSchedule()
+    private void OnClickViewSchedule()
     {
         if (availableSchedulesListBox.Value == null) return;
 
         DataService.CurrentSchedule = DataService.AvailableSchedules
-            .Where(s => s.ID == availableSchedulesListBox.Value[0]).FirstOrDefault();
+            .Where(s => s.Id == availableSchedulesListBox.Value[0]).FirstOrDefault();
         navigationManager.NavigateTo("schedulepage");
     }
 }

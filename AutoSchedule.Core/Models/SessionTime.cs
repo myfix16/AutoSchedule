@@ -6,56 +6,36 @@ namespace AutoSchedule.Core.Models
     /// Represents the time of one session.
     /// </summary>
     [Serializable]
-    public record SessionTime
+    public struct SessionTime
     {
-        public DayOfWeek DayOfWeek { get; init; }
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
+        public DayOfWeek DayOfWeek;
 
-        public Time StartTime { get; init; }
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
+        public Time StartTime;
 
-        public Time EndTime { get; init; }
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
+        public Time EndTime;
 
         // Using delta time from Monday has problem here since Sunday is the first day in enum.
         // However, it doesn't affect the result because there is no class in the weekend.
-        private int? startTimeFromMon;
-
         /// <summary>
         /// Start time counting from 00:00 Mon.
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
-        public int StartTimeFromMon
-        {
-            get
-            {
-                startTimeFromMon ??= StartTime.TotalMinutes + ((int)DayOfWeek - 1) * 24 * 60;
-                return startTimeFromMon.Value;
-            }
-            private set { startTimeFromMon = value; }
-        }
+        public int StartTimeFromMon;
 
-        private int? endTimeFromMon;
         /// <summary>
         /// End time counting from 00:00 Mon.
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
-        public int EndTimeFromMon
-        {
-            get
-            {
-                endTimeFromMon ??= EndTime.TotalMinutes + ((int)DayOfWeek - 1) * 24 * 60;
-                return endTimeFromMon.Value;
-            }
-            private set { endTimeFromMon = value; }
-        }
-
-        public SessionTime()
-        {
-            DayOfWeek = DayOfWeek.Monday;
-            StartTime = new Time();
-            EndTime = new Time();
-        }
-
+        public int EndTimeFromMon;
+        
         [System.Text.Json.Serialization.JsonConstructor]
         [Newtonsoft.Json.JsonConstructor]
         public SessionTime(DayOfWeek dayOfWeek, Time startTime, Time endTime)
@@ -66,6 +46,8 @@ namespace AutoSchedule.Core.Models
             DayOfWeek = dayOfWeek;
             StartTime = startTime;
             EndTime = endTime;
+            StartTimeFromMon = StartTime.TotalMinutes + ((int)DayOfWeek - 1) * 24 * 60;
+            EndTimeFromMon = EndTime.TotalMinutes + ((int)DayOfWeek - 1) * 24 * 60;
         }
 
         public bool ConflictWith(SessionTime sessionTime2)

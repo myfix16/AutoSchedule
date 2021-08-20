@@ -9,15 +9,19 @@ namespace AutoSchedule.Core.Models
     /// A base class of actual class sessions.
     /// </summary>
     [Serializable]
-    public record Session
-    {
-        public string SessionType { get; init; }
+    public class Session
+    {   
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
+        public string SessionType;
 
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
         /// <summary>
         /// Represents all time of the session. 
         /// </summary>
         /// <remarks>E.g. Mon 8:30-10:20 and Wed 8:30-10:20.</remarks>
-        public List<SessionTime> SessionTimes { get; init; }
+        public List<SessionTime> SessionTimes;
 
         [System.Text.Json.Serialization.JsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
@@ -32,17 +36,28 @@ namespace AutoSchedule.Core.Models
             }
         }
 
+        // ！ requires property instead of field to work properly in SFGrid
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
         public string Instructor { get; init; }
 
         [JsonPropertyName("id")]
         [JsonProperty(propertyName: "id")]
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
         public string Code { get; init; }
 
+        [System.Text.Json.Serialization.JsonInclude]
+        [Newtonsoft.Json.JsonRequired]
         public string Name { get; init; }
 
-        private Session()
+        public Session()
         {
-
+            SessionType = string.Empty;
+            Name = string.Empty;
+            Code = string.Empty;
+            Instructor = string.Empty;
+            SessionTimes = new List<SessionTime>();
         }
 
         public Session(string sessionType, string name, string code, string instructor,

@@ -13,7 +13,7 @@ namespace AutoSchedule.UI.Services
         /// <summary>
         /// All available sessions such as ACT2111 L01.
         /// </summary>
-        public ObservableCollection<Session> AvailableSessionsFlat = new();
+        public readonly ObservableCollection<Session> AvailableSessionsFlat = new();
 
         /// <summary>
         /// All available sessions, grouped by class name.
@@ -27,7 +27,9 @@ namespace AutoSchedule.UI.Services
 
         private readonly IDataProvider<IEnumerable<Session>> DataProvider;
 
-        public string Version = "1.1.0";
+        public const string Version = "1.1.0";
+
+        public const string Term = "2021-2022 Term 1";
 
         private bool initialized = false;
 

@@ -11,11 +11,15 @@
 #course-list-label-section {
     width: 50%;
     float: left;
+    display: flex;
+    flex-direction: row;
 }
 
 #course-filter-section {
     width: 50%;
     float: right;
+    display: flex; 
+    flex-direction: row;
 }
 
 .view-schedule{

@@ -27,7 +27,7 @@
                     <br />
                     <div class="progress">
                         <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar"
-                            style="width:0"></div>
+                             style="width:0"></div>
                     </div>
                 </div>
                 <div class="col-4"></div>
@@ -41,14 +41,14 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script src="_content/BlazorFluentUI.BFUBaseComponent/blazorFluentUi.min.js"></script>
+    <!--<script src="_content/BlazorFluentUI.BFUBaseComponent/blazorFluentUi.min.js"></script>-->
+    <script src="_content/BlazorFluentUI.CoreComponents/blazorFluentUi.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <!-- Loading progress indicator -->
     <script type="text/javascript">
         var i = 0;
         window.loadResourceCallback = (total, name, response) => {
-            if (name.endsWith('.dll'))
-            {
+            if (name.endsWith('.dll')) {
                 i++;
                 const value = parseInt((i * 100.0) / total);
                 const pct = value + '%';

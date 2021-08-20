@@ -10,7 +10,7 @@ namespace AutoSchedule.Core.Models
     [Serializable]
     public class Schedule : ICopyable<Schedule>
     {
-        public string ID;
+        public string Id = "1";
 
         public ObservableCollection<Session> Sessions = new();
 
@@ -27,7 +27,6 @@ namespace AutoSchedule.Core.Models
                 if (session.HasConflictSession(newSession))
                     return false;
             }
-
             return true;
         }
 
@@ -38,14 +37,11 @@ namespace AutoSchedule.Core.Models
             return newSchedule;
         }
 
-        public Schedule ShallowCopy()
+        public Schedule ShallowCopy() => new()
         {
-            return new Schedule
-            {
-                ID = this.ID,
-                Sessions = new ObservableCollection<Session>(this.Sessions),
-            };
-        }
+            Id = this.Id,
+            Sessions = new ObservableCollection<Session>(this.Sessions),
+        };
 
         [Obsolete("Deep copy is not available.")]
         public Schedule DeepCopy()
