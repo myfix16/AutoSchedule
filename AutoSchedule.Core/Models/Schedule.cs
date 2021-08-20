@@ -10,7 +10,7 @@ namespace AutoSchedule.Core.Models
     [Serializable]
     public class Schedule : ICopyable<Schedule>
     {
-        public string ID;
+        public string Id = "1";
 
         public ObservableCollection<Session> Sessions = new();
 
@@ -37,9 +37,9 @@ namespace AutoSchedule.Core.Models
             return newSchedule;
         }
 
-        public Schedule ShallowCopy() => new Schedule
+        public Schedule ShallowCopy() => new()
         {
-            ID = this.ID,
+            Id = this.Id,
             Sessions = new ObservableCollection<Session>(this.Sessions),
         };
 

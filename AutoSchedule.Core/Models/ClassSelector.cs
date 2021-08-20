@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AutoSchedule.Core.Models
 {
-    public class ClassSelector
+    public static class ClassSelector
     {
         public static List<Schedule> FindSchedules(IEnumerable<IEnumerable<Session>> sessionContainer)
         {
@@ -11,23 +11,25 @@ namespace AutoSchedule.Core.Models
             var outcome = new List<Schedule>();
 
             // Inner function that finds all suitable schedules.
-            void Enroll(IEnumerable<IEnumerable<Session>> sessionContainer, Schedule currentScheme)
+            void Enroll(IEnumerable<IEnumerable<Session>> sessions, Schedule currentScheme, int maxSchedules=15)
             {
-                if (!sessionContainer.Any())
+                if (id >= maxSchedules) return;
+
+                if (!sessions.Any())
                 {
                     outcome.Add(currentScheme);
-                    currentScheme.ID = (++id).ToString();
+                    currentScheme.Id = (++id).ToString();
                 }
                 else
                 {
-                    foreach (var session in sessionContainer.First().Where(l => currentScheme.Validate(l)))
+                    foreach (var session in sessions.First().Where(l => currentScheme.Validate(l)))
                     {
-                        Enroll(sessionContainer.Skip(1), currentScheme.WithAdded(session));
+                        Enroll(sessions.Skip(1), currentScheme.WithAdded(session));
                     }
                 }
             }
 
-            Enroll(sessionContainer, new Schedule { ID = id.ToString() });
+            Enroll(sessionContainer, new Schedule { Id = id.ToString() });
 
             return outcome;
         }

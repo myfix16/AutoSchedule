@@ -1,6 +1,6 @@
 ﻿namespace AutoSchedule.Core.Models
 {
-    interface ICopyable<T>
+    internal interface ICopyable<out T>
     {
         public T ShallowCopy();
 

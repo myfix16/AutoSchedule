@@ -18,7 +18,7 @@ namespace AutoSchedule.Core.Models
         /// </summary>
         [System.Text.Json.Serialization.JsonIgnore]
         [Newtonsoft.Json.JsonIgnore]
-        public int TotalMinutes;
+        public readonly int TotalMinutes;
 
         /// <summary>
         /// Construct the time by a string.
@@ -36,10 +36,10 @@ namespace AutoSchedule.Core.Models
         [Newtonsoft.Json.JsonConstructor]
         public Time(int hour, int minute)
         {
-            if (hour < 0 || hour > 23)
+            if (hour is < 0 or > 23)
                 throw new ArgumentOutOfRangeException(nameof(hour), "The number of hour must be within [0,23].");
 
-            if (minute < 0 || minute > 59)
+            if (minute is < 0 or > 59)
                 throw new ArgumentOutOfRangeException(nameof(minute), "The number of minute must be within [0,59].");
 
             Hour = hour;
