@@ -9,7 +9,9 @@ namespace AutoSchedule.API
 {
     public class Startup
     {
-        private readonly string CorsAllowSpecificOrigins = "AllowSpecificOrigins";
+        internal const string CorsAllowSpecificOrigins = "AllowSpecificOrigins";
+        internal const string CorsAllowAll = "AllowAllOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +28,7 @@ namespace AutoSchedule.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutoSchedule.API", Version = "v1" });
             });
+            // Add Cors policy
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsAllowSpecificOrigins, policy =>
@@ -36,6 +39,12 @@ namespace AutoSchedule.API
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials());
+
+                // options.AddPolicy(name: CorsAllowAll, policy =>
+                //     policy.AllowAnyOrigin()
+                //         .AllowAnyHeader()
+                //         .AllowAnyMethod()
+                //         .AllowCredentials());
             });
         }
 
@@ -53,7 +62,7 @@ namespace AutoSchedule.API
 
             app.UseRouting();
 
-            app.UseCors(CorsAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseAuthorization();
 

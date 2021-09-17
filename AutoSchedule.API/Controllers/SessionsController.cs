@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using AutoSchedule.Core.Helpers;
 using AutoSchedule.Core.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoSchedule.API.Controllers
 {
+    [EnableCors(Startup.CorsAllowSpecificOrigins)]
     [Route("api/[controller]")]
     [ApiController]
     public class SessionsController : ControllerBase
@@ -20,6 +22,7 @@ namespace AutoSchedule.API.Controllers
         }
 
         // GET: api/<SessionsController>
+        [DisableCors]
         [HttpGet]
         public async Task<IEnumerable<Session>> GetSessions()
         {
